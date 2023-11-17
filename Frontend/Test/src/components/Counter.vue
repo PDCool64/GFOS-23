@@ -21,12 +21,12 @@ function increment() {
     button{
         padding: 10px 20px;
         background-color: #999;
-        border: none;
+        border: 2px solid #000a;
         border-radius: 5px;
     }
 
     button:hover{
-        background-color: #666;
+        background-color: #6669;
         color: #fff;
         font-size: 1.2rem;
     }
