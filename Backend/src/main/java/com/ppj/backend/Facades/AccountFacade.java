@@ -17,43 +17,43 @@ import java.util.List;
 @Stateless
 @LocalBean
 public class AccountFacade {
-@PersistenceContext
-   private EntityManager em;
-   public Account createAccount(Account a)
-   {
-       try
-       {
-           em.persist(a);
-           Account accountMitId = this.getAccountById(a.getId());
-           return accountMitId;
-       }
-       catch(Exception e)
-       {
-           return null;
-       }
-   }
-   public Account getAccountById(int id)
-   {
-       try
-       {
-           return em.find(Account.class, id); 
-       }
-       catch(Exception e)
-       {
-           return null;
-       }
-   }
-   public List<Account> getAllAccounts()
-   {
-       try
-       {
-           return em.createNamedQuery("Account.findAll").getResultList();
-       }
-       catch(Exception e)
-       {
-           return null;
-       }
-   }
+	@PersistenceContext
+	private EntityManager em;
+	public Account createAccount(Account a)
+	{
+	   try
+	   {
+		   em.persist(a);
+		   Account accountMitId = this.getAccountById(a.getId());
+		   return accountMitId;
+	   }
+	   catch(Exception e)
+	   {
+		   return null;
+	   }
+	}
+	public Account getAccountById(int id)
+	{
+	   try
+	   {
+		   return em.find(Account.class, id); 
+	   }
+	   catch(Exception e)
+	   {
+		   return null;
+	   }
+	}
+	public List<Account> getAllAccounts()
+	{
+	   try
+	   {
+		   return em.createNamedQuery("Account.findAll").getResultList();
+	   }
+	   catch(Exception e)
+	   {
+		   return null;
+	   }
+	}
    public boolean updateAccount(Account a)
    {        
         try

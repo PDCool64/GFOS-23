@@ -30,6 +30,9 @@ public class AccountWebservice {
     private final Jsonb jsonb = JsonbBuilder.create();
     @EJB
     private AccountFacade accountFacade;
+
+	// Methoden
+
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -63,7 +66,10 @@ public class AccountWebservice {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response get(@PathParam("id") int id)
+    public Response get(
+			@PathParam("id")
+			int id
+	)
     {
         Account a = accountFacade.getAccountById(id);
         if(a == null)
