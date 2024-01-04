@@ -121,7 +121,7 @@ public class Unterricht implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.ppj.backend.Entities.Unterricht[ id=" + id + " ]";
+		return "com.ppj.backend.Entity.Unterricht[ id=" + id + " ]";
 	}
 	
 }

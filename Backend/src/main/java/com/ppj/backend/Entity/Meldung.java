@@ -132,7 +132,7 @@ public class Meldung implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.ppj.backend.Entities.Meldung[ id=" + id + " ]";
+		return "com.ppj.backend.Entity.Meldung[ id=" + id + " ]";
 	}
 	
 }

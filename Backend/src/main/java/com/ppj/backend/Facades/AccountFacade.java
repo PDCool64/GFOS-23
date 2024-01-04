@@ -47,7 +47,7 @@ public class AccountFacade {
 	{
 	   try
 	   {
-		   return em.createNamedQuery("Account.findAll").getResultList();
+		   return em.createNamedQuery("Account.findAll", Account.class).getResultList();
 	   }
 	   catch(Exception e)
 	   {

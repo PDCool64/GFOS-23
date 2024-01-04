@@ -6,8 +6,8 @@ package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Facades.AccountFacade;
-import javax.jws.WebService;
 import jakarta.ejb.EJB;
+import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
@@ -24,15 +24,16 @@ import jakarta.ws.rs.core.Response;
  *
  * @author phili
  */
-@WebService(serviceName = "AccountWebservice")
 @Stateless()
+@LocalBean
+@Path("/account")
 public class AccountWebservice {
+
     private final Jsonb jsonb = JsonbBuilder.create();
+	
     @EJB
     private AccountFacade accountFacade;
-
-	// Methoden
-
+	
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -63,6 +64,7 @@ public class AccountWebservice {
                 .build();
         }
     }
+	
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)

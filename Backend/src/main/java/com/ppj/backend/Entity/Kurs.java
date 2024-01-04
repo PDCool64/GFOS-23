@@ -44,9 +44,9 @@ public class Kurs implements Serializable {
 	private Integer id;
 	@ManyToMany(mappedBy = "kursList")
 	private List<Account> accountList;
-	@JoinColumn(name = "LEITER", referencedColumnName = "ID")
+	@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	private Account leiter;
+	private Account account;
 
 	public Kurs() {
 	}
@@ -87,12 +87,12 @@ public class Kurs implements Serializable {
 		this.accountList = accountList;
 	}
 
-	public Account getLeiter() {
-		return leiter;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setLeiter(Account leiter) {
-		this.leiter = leiter;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class Kurs implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.ppj.backend.Entities.Kurs[ id=" + id + " ]";
+		return "com.ppj.backend.Entity.Kurs[ id=" + id + " ]";
 	}
 	
 }

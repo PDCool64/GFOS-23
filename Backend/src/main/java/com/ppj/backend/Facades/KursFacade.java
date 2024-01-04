@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB40/StatelessEjbClass.java to edit this template
- */
 package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Kurs;
@@ -11,42 +7,63 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
-/**
- *
- * @author phili
- */
 @Stateless
 @LocalBean
 public class KursFacade {
-	@PersistenceContext	
-	private EntityManager em;	
-	
-	public Kurs create(Kurs k){
-	   try{
-		   em.persist(k);
-		   Kurs kursMitId = this.getKursById(k.getId());
-		   return kursMitId;
-	   }
-	   catch(Exception e){
-		   return null;
-	   }
-	}
+    @PersistenceContext
+    private EntityManager em;
 
-	public Kurs getKursById(Integer id) {
-		try {
-			return em.find(Kurs.class, id);
-		} catch(Exception e) {
-			return null;
-		}
-	}
+    public Kurs createKurs(Kurs k) {
+        try {
+            em.persist(k);
+            Kurs kursMitId = this.getKursById(k.getId());
+            return kursMitId;
+        } catch(Exception e) {
+            return null;
+        }
+    }
 
-	public List<Kurs> getAllKurse() {
-		try {
-		   return em.createNamedQuery("Kurs.findAll").getResultList();
-		}
-		catch(Exception e) {
-			return null;
-		}
-	}
+    public Kurs getKursById(int id) {
+        try {
+            return em.find(Kurs.class, id);
+        } catch(Exception e) {
+            return null;
+        }
+    }
 
+public List<Kurs> getAllKurse() {
+	try {
+		return em.createNamedQuery("Kurs.findAll", Kurs.class).getResultList();
+	} catch(Exception e) {
+		return null;
+	}
+}
+
+    public boolean updateKurs(Kurs k) {
+    try {
+        Kurs kursInDatenbank = this.getKursById(k.getId());
+
+        // Update all the values
+        kursInDatenbank.setBezeichnung(k.getBezeichnung());
+        kursInDatenbank.setCheckincode(k.getCheckincode());
+        kursInDatenbank.setAccount(k.getAccount());
+        // Add more setters if there are more fields to update
+
+        // Merge the updated kursInDatenbank with the EntityManager
+        em.merge(kursInDatenbank);
+
+        return true;
+    } catch(Exception e) {
+        return false;
+    }
+}
+
+    public boolean deleteKurs(Kurs k) {
+        try {
+            em.remove(k);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
 }

@@ -82,7 +82,7 @@ public class Account implements Serializable {
 	private List<Unterricht> unterrichtList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Meldung> meldungList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "leiter")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Kurs> kursList1;
 
 	public Account() {
@@ -234,7 +234,7 @@ public class Account implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.ppj.backend.Entities.Account[ id=" + id + " ]";
+		return "com.ppj.backend.Entity.Account[ id=" + id + " ]";
 	}
 	
 }
