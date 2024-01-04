@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  *
- * @author phili
+ * @author philipp.doering
  */
 @Entity
 @Table(name = "ACCOUNT")

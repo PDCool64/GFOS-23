@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  *
- * @author phili
+ * @author philipp.doering
  */
 @Entity
 @Table(name = "UNTERRICHT")

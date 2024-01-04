@@ -61,7 +61,11 @@ public class AccountFacade {
             Account accountInDatenbank = this.getAccountById(a.getId());
             accountInDatenbank.setEmail(a.getEmail());
             accountInDatenbank.setGeburtsdatum(a.getGeburtsdatum());
-            // ... usw. für Attribute ohne Listen!
+            accountInDatenbank.setIsadmin(a.getIsadmin());
+            accountInDatenbank.setName(a.getName());
+            accountInDatenbank.setPassworthash(a.getPassworthash());
+            accountInDatenbank.setVorname(a.getVorname());
+            em.merge(accountInDatenbank);
             return true;
         }
         catch(Exception e)
