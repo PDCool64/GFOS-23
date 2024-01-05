@@ -6,6 +6,8 @@ package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Facades.AccountFacade;
+import com.ppj.backend.Facades.PermissionFacade;
+
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -13,6 +15,7 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -33,13 +36,20 @@ public class AccountWebservice {
 	
     @EJB
     private AccountFacade accountFacade;
+
+    @EJB
+    private PermissionFacade permissionFacade;
 	
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(String json)
-    {
+    public Response create(
+        @HeaderParam("Authorization")
+        String token,
+        String json
+    ){
+        if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
         try
         {
             Account a = jsonb.fromJson(json, Account.class);
@@ -69,10 +79,13 @@ public class AccountWebservice {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(
-			@PathParam("id")
-			int id
+        @HeaderParam("Authorization")
+        String token,
+        @PathParam("id")
+        int id
 	)
     {
+        if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
         Account a = accountFacade.getAccountById(id);
         if(a == null)
         {

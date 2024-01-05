@@ -53,7 +53,6 @@ public class KursWebservice {
 		String token,
 		String json
 	){
-		if(token == null) return Response.ok("Kein Token angegeben").build();
 		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			Kurs k = jsonb.fromJson(json, Kurs.class);
@@ -83,7 +82,6 @@ public class KursWebservice {
 		@HeaderParam("Authorization")
 		String token
 	){
-		if(token == null) return Response.ok("Kein Token angegeben").build();
 		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			return Response
@@ -105,7 +103,6 @@ public class KursWebservice {
 		@PathParam("id")
 		int id
 	){
-		if(token == null) return Response.ok("Kein Token angegeben").build();
 		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			Kurs kurs = kursFacade.getKursById(id);
@@ -129,7 +126,6 @@ public class KursWebservice {
 		@PathParam("checkincode")
 		String checkincode
 	){
-		if(token == null) return Response.ok("Kein Token angegeben").build();
 		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			Kurs kurs = kursFacade.getKursByCheckinCode(checkincode);
@@ -153,7 +149,6 @@ public class KursWebservice {
 		String token,
 		String json
 	){
-		if(token == null) return Response.ok("Kein Token angegeben").build();
 		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			Kurs k = jsonb.fromJson(json, Kurs.class);
@@ -182,7 +177,6 @@ public class KursWebservice {
 		@PathParam("id")
 		int id
 	){
-		if(token == null) return Response.ok("Kein Token angegeben").build();
 		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			Kurs k = kursFacade.getKursById(id);
@@ -213,7 +207,6 @@ public class KursWebservice {
 		int kursId,
 		String json
 		){
-		if(token == null) return Response.ok("Kein Token angegeben").build();
 		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		 try {
 			 Account k = jsonb.fromJson(json, Account.class);
@@ -244,7 +237,6 @@ public class KursWebservice {
 		int kursId,
 		String json
 		){
-		if(token == null) return Response.ok("Kein Token angegeben").build();
 		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		 try {
 			 Account k = jsonb.fromJson(json, Account.class);
