@@ -4,20 +4,18 @@
  */
 package com.ppj.backend.Facades;
 
+import com.ppj.backend.Entity.Account;
+import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
-import com.ppj.backend.Entity.Account;
-
-import jakarta.ejb.LocalBean;
-
 /**
  *
  * <h2>TODO: Implement a sophisticated hashing and token generation algorithm!! </h2>
- * 
+ *
  * @author phili
- * 
+ *
  */
 @Stateless
 @LocalBean
@@ -25,7 +23,7 @@ public class PermissionFacade {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	/**
 	 * Tries to login with the given credentials
 	 * @param email
@@ -49,6 +47,7 @@ public class PermissionFacade {
 			return null;
 		}
 	}
+
 	/**
 	 * Generates a random token
 	 * @return token
@@ -83,7 +82,7 @@ public class PermissionFacade {
 	}
 
 	public boolean isActive(String token) {
-		if(token == null) return true;
+		if (token == null) return true;
 		try {
 			return getAccountByToken(token).getToken() != null;
 		} catch (Exception e) {

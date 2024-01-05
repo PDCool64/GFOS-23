@@ -26,37 +26,63 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "MELDUNG")
-@NamedQueries({
-	@NamedQuery(name = "Meldung.findAll", query = "SELECT m FROM Meldung m"),
-	@NamedQuery(name = "Meldung.findByBegintimestamp", query = "SELECT m FROM Meldung m WHERE m.begintimestamp = :begintimestamp"),
-	@NamedQuery(name = "Meldung.findByEndtimestamp", query = "SELECT m FROM Meldung m WHERE m.endtimestamp = :endtimestamp"),
-	@NamedQuery(name = "Meldung.findByGrund", query = "SELECT m FROM Meldung m WHERE m.grund = :grund"),
-	@NamedQuery(name = "Meldung.findByKommentar", query = "SELECT m FROM Meldung m WHERE m.kommentar = :kommentar"),
-	@NamedQuery(name = "Meldung.findById", query = "SELECT m FROM Meldung m WHERE m.id = :id")})
+@NamedQueries(
+	{
+		@NamedQuery(
+			name = "Meldung.findAll",
+			query = "SELECT m FROM Meldung m"
+		),
+		@NamedQuery(
+			name = "Meldung.findByBegintimestamp",
+			query = "SELECT m FROM Meldung m WHERE m.begintimestamp = :begintimestamp"
+		),
+		@NamedQuery(
+			name = "Meldung.findByEndtimestamp",
+			query = "SELECT m FROM Meldung m WHERE m.endtimestamp = :endtimestamp"
+		),
+		@NamedQuery(
+			name = "Meldung.findByGrund",
+			query = "SELECT m FROM Meldung m WHERE m.grund = :grund"
+		),
+		@NamedQuery(
+			name = "Meldung.findByKommentar",
+			query = "SELECT m FROM Meldung m WHERE m.kommentar = :kommentar"
+		),
+		@NamedQuery(
+			name = "Meldung.findById",
+			query = "SELECT m FROM Meldung m WHERE m.id = :id"
+		),
+	}
+)
 public class Meldung implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Column(name = "BEGINTIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date begintimestamp;
+
 	@Column(name = "ENDTIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date endtimestamp;
+
 	@Column(name = "GRUND")
 	private String grund;
+
 	@Column(name = "KOMMENTAR")
 	private String kommentar;
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
 	private Integer id;
+
 	@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Account account;
 
-	public Meldung() {
-	}
+	public Meldung() {}
 
 	public Meldung(Integer id) {
 		this.id = id;
@@ -124,7 +150,10 @@ public class Meldung implements Serializable {
 			return false;
 		}
 		Meldung other = (Meldung) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (
+			(this.id == null && other.id != null) ||
+			(this.id != null && !this.id.equals(other.id))
+		) {
 			return false;
 		}
 		return true;
@@ -134,5 +163,4 @@ public class Meldung implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Meldung[ id=" + id + " ]";
 	}
-	
 }

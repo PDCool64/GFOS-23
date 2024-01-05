@@ -25,31 +25,47 @@ import java.util.List;
  */
 @Entity
 @Table(name = "KURS")
-@NamedQueries({
-	@NamedQuery(name = "Kurs.findAll", query = "SELECT k FROM Kurs k"),
-	@NamedQuery(name = "Kurs.findByBezeichnung", query = "SELECT k FROM Kurs k WHERE k.bezeichnung = :bezeichnung"),
-	@NamedQuery(name = "Kurs.findByCheckincode", query = "SELECT k FROM Kurs k WHERE k.checkincode = :checkincode"),
-	@NamedQuery(name = "Kurs.findById", query = "SELECT k FROM Kurs k WHERE k.id = :id")})
+@NamedQueries(
+	{
+		@NamedQuery(name = "Kurs.findAll", query = "SELECT k FROM Kurs k"),
+		@NamedQuery(
+			name = "Kurs.findByBezeichnung",
+			query = "SELECT k FROM Kurs k WHERE k.bezeichnung = :bezeichnung"
+		),
+		@NamedQuery(
+			name = "Kurs.findByCheckincode",
+			query = "SELECT k FROM Kurs k WHERE k.checkincode = :checkincode"
+		),
+		@NamedQuery(
+			name = "Kurs.findById",
+			query = "SELECT k FROM Kurs k WHERE k.id = :id"
+		),
+	}
+)
 public class Kurs implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Column(name = "BEZEICHNUNG")
 	private String bezeichnung;
+
 	@Column(name = "CHECKINCODE")
 	private String checkincode;
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
 	private Integer id;
+
 	@ManyToMany(mappedBy = "kursList")
 	private List<Account> accountList;
+
 	@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Account account;
 
-	public Kurs() {
-	}
+	public Kurs() {}
 
 	public Kurs(Integer id) {
 		this.id = id;
@@ -109,7 +125,10 @@ public class Kurs implements Serializable {
 			return false;
 		}
 		Kurs other = (Kurs) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (
+			(this.id == null && other.id != null) ||
+			(this.id != null && !this.id.equals(other.id))
+		) {
 			return false;
 		}
 		return true;
@@ -119,5 +138,4 @@ public class Kurs implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Kurs[ id=" + id + " ]";
 	}
-	
 }

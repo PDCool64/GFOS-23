@@ -30,63 +30,122 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ACCOUNT")
-@NamedQueries({
-	@NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
-	@NamedQuery(name = "Account.findByName", query = "SELECT a FROM Account a WHERE a.name = :name"),
-	@NamedQuery(name = "Account.findByVorname", query = "SELECT a FROM Account a WHERE a.vorname = :vorname"),
-	@NamedQuery(name = "Account.findByPersonalnummer", query = "SELECT a FROM Account a WHERE a.personalnummer = :personalnummer"),
-	@NamedQuery(name = "Account.findByGeburtsdatum", query = "SELECT a FROM Account a WHERE a.geburtsdatum = :geburtsdatum"),
-	@NamedQuery(name = "Account.findByWochenstunden", query = "SELECT a FROM Account a WHERE a.wochenstunden = :wochenstunden"),
-	@NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
-	@NamedQuery(name = "Account.findByPassworthash", query = "SELECT a FROM Account a WHERE a.passworthash = :passworthash"),
-	@NamedQuery(name = "Account.findByIsadmin", query = "SELECT a FROM Account a WHERE a.isadmin = :isadmin"),
-	@NamedQuery(name = "Account.findByToken", query = "SELECT a FROM Account a WHERE a.token = :token"),
-	@NamedQuery(name = "Account.findByTimestampletzteaktion", query = "SELECT a FROM Account a WHERE a.timestampletzteaktion = :timestampletzteaktion"),
-	@NamedQuery(name = "Account.findById", query = "SELECT a FROM Account a WHERE a.id = :id")})
+@NamedQueries(
+	{
+		@NamedQuery(
+			name = "Account.findAll",
+			query = "SELECT a FROM Account a"
+		),
+		@NamedQuery(
+			name = "Account.findByName",
+			query = "SELECT a FROM Account a WHERE a.name = :name"
+		),
+		@NamedQuery(
+			name = "Account.findByVorname",
+			query = "SELECT a FROM Account a WHERE a.vorname = :vorname"
+		),
+		@NamedQuery(
+			name = "Account.findByPersonalnummer",
+			query = "SELECT a FROM Account a WHERE a.personalnummer = :personalnummer"
+		),
+		@NamedQuery(
+			name = "Account.findByGeburtsdatum",
+			query = "SELECT a FROM Account a WHERE a.geburtsdatum = :geburtsdatum"
+		),
+		@NamedQuery(
+			name = "Account.findByWochenstunden",
+			query = "SELECT a FROM Account a WHERE a.wochenstunden = :wochenstunden"
+		),
+		@NamedQuery(
+			name = "Account.findByEmail",
+			query = "SELECT a FROM Account a WHERE a.email = :email"
+		),
+		@NamedQuery(
+			name = "Account.findByPassworthash",
+			query = "SELECT a FROM Account a WHERE a.passworthash = :passworthash"
+		),
+		@NamedQuery(
+			name = "Account.findByIsadmin",
+			query = "SELECT a FROM Account a WHERE a.isadmin = :isadmin"
+		),
+		@NamedQuery(
+			name = "Account.findByToken",
+			query = "SELECT a FROM Account a WHERE a.token = :token"
+		),
+		@NamedQuery(
+			name = "Account.findByTimestampletzteaktion",
+			query = "SELECT a FROM Account a WHERE a.timestampletzteaktion = :timestampletzteaktion"
+		),
+		@NamedQuery(
+			name = "Account.findById",
+			query = "SELECT a FROM Account a WHERE a.id = :id"
+		),
+	}
+)
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Column(name = "NAME")
 	private String name;
+
 	@Column(name = "VORNAME")
 	private String vorname;
+
 	@Column(name = "PERSONALNUMMER")
 	private Integer personalnummer;
+
 	@Column(name = "GEBURTSDATUM")
-    @Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
 	private Date geburtsdatum;
+
 	@Column(name = "WOCHENSTUNDEN")
 	private Integer wochenstunden;
+
 	@Column(name = "EMAIL")
 	private String email;
+
 	@Column(name = "PASSWORTHASH")
 	private String passworthash;
+
 	@Column(name = "ISADMIN")
 	private Boolean isadmin;
+
 	@Column(name = "TOKEN")
 	private String token;
+
 	@Column(name = "TIMESTAMPLETZTEAKTION")
-    @Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestampletzteaktion;
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
 	private Integer id;
-	@JoinTable(name = "TEILNAHME", joinColumns = {
-    	@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID")}, inverseJoinColumns = {
-    	@JoinColumn(name = "KURS", referencedColumnName = "ID")})
-    @ManyToMany
+
+	@JoinTable(
+		name = "TEILNAHME",
+		joinColumns = {
+			@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID"),
+		},
+		inverseJoinColumns = {
+			@JoinColumn(name = "KURS", referencedColumnName = "ID"),
+		}
+	)
+	@ManyToMany
 	private List<Kurs> kursList;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
 	private List<Unterricht> unterrichtList;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Meldung> meldungList;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Kurs> kursList1;
 
-	public Account() {
-	}
+	public Account() {}
 
 	public Account(Integer id) {
 		this.id = id;
@@ -226,7 +285,10 @@ public class Account implements Serializable {
 			return false;
 		}
 		Account other = (Account) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (
+			(this.id == null && other.id != null) ||
+			(this.id != null && !this.id.equals(other.id))
+		) {
 			return false;
 		}
 		return true;
@@ -236,5 +298,4 @@ public class Account implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Account[ id=" + id + " ]";
 	}
-	
 }

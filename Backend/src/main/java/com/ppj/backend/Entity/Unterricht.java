@@ -26,34 +26,56 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "UNTERRICHT")
-@NamedQueries({
-	@NamedQuery(name = "Unterricht.findAll", query = "SELECT u FROM Unterricht u"),
-	@NamedQuery(name = "Unterricht.findByBeginzeit", query = "SELECT u FROM Unterricht u WHERE u.beginzeit = :beginzeit"),
-	@NamedQuery(name = "Unterricht.findByEndzeit", query = "SELECT u FROM Unterricht u WHERE u.endzeit = :endzeit"),
-	@NamedQuery(name = "Unterricht.findByWochentag", query = "SELECT u FROM Unterricht u WHERE u.wochentag = :wochentag"),
-	@NamedQuery(name = "Unterricht.findById", query = "SELECT u FROM Unterricht u WHERE u.id = :id")})
+@NamedQueries(
+	{
+		@NamedQuery(
+			name = "Unterricht.findAll",
+			query = "SELECT u FROM Unterricht u"
+		),
+		@NamedQuery(
+			name = "Unterricht.findByBeginzeit",
+			query = "SELECT u FROM Unterricht u WHERE u.beginzeit = :beginzeit"
+		),
+		@NamedQuery(
+			name = "Unterricht.findByEndzeit",
+			query = "SELECT u FROM Unterricht u WHERE u.endzeit = :endzeit"
+		),
+		@NamedQuery(
+			name = "Unterricht.findByWochentag",
+			query = "SELECT u FROM Unterricht u WHERE u.wochentag = :wochentag"
+		),
+		@NamedQuery(
+			name = "Unterricht.findById",
+			query = "SELECT u FROM Unterricht u WHERE u.id = :id"
+		),
+	}
+)
 public class Unterricht implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Column(name = "BEGINZEIT")
-    @Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIME)
 	private Date beginzeit;
+
 	@Column(name = "ENDZEIT")
-    @Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIME)
 	private Date endzeit;
+
 	@Column(name = "WOCHENTAG")
 	private String wochentag;
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
 	private Integer id;
+
 	@JoinColumn(name = "KURS", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Account kurs;
 
-	public Unterricht() {
-	}
+	public Unterricht() {}
 
 	public Unterricht(Integer id) {
 		this.id = id;
@@ -113,7 +135,10 @@ public class Unterricht implements Serializable {
 			return false;
 		}
 		Unterricht other = (Unterricht) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (
+			(this.id == null && other.id != null) ||
+			(this.id != null && !this.id.equals(other.id))
+		) {
 			return false;
 		}
 		return true;
@@ -123,5 +148,4 @@ public class Unterricht implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Unterricht[ id=" + id + " ]";
 	}
-	
 }
