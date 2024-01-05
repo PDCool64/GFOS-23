@@ -34,7 +34,9 @@ public class KursFacade {
 
     public Kurs getKursByCheckinCode(String checkincode) {
         try {
-            return em.createNamedQuery("Kurs.findByCheckincode", Kurs.class).setParameter("checkincode", checkincode).getSingleResult();
+            return em.createNamedQuery("Kurs.findByCheckincode", Kurs.class)
+				.setParameter("checkincode", checkincode)
+				.getSingleResult();
         } catch(Exception e) {
             return null;
         }

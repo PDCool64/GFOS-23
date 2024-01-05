@@ -83,9 +83,9 @@ public class PermissionFacade {
 	}
 
 	public boolean isActive(String token) {
+		if(token == null) return true;
 		try {
-			Account a = getAccountByToken(token);
-			return a.getToken() != null;
+			return getAccountByToken(token).getToken() != null;
 		} catch (Exception e) {
 			return false;
 		}

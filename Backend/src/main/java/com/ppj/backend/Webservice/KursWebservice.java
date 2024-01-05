@@ -4,12 +4,15 @@
  */
 package com.ppj.backend.Webservice;
 
+import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.EJB;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -21,9 +24,9 @@ import jakarta.ws.rs.core.Response;
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Facades.KursFacade;
+import com.ppj.backend.Facades.PermissionFacade;
 
-import jakarta.ejb.EJB;
-import jakarta.ejb.LocalBean;
+
 
 /**
  *
@@ -38,12 +41,20 @@ public class KursWebservice {
 
 	@EJB
 	private KursFacade kursFacade;
+	@EJB
+	private PermissionFacade permissionFacade;
 
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createKurs(String json) {
+	public Response createKurs(
+		@HeaderParam("Authorization")
+		String token,
+		String json
+	){
+		if(token == null) return Response.ok("Kein Token angegeben").build();
+		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			Kurs k = jsonb.fromJson(json, Kurs.class);
 			Kurs kursAusDatenbank = kursFacade.createKurs(k);
@@ -68,7 +79,12 @@ public class KursWebservice {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllKurse() {
+	public Response getAllKurse(
+		@HeaderParam("Authorization")
+		String token
+	){
+		if(token == null) return Response.ok("Kein Token angegeben").build();
+		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			return Response
 				.ok(jsonb.toJson(kursFacade.getAllKurse()))
@@ -84,12 +100,18 @@ public class KursWebservice {
 	@GET
 	@Path("/{id}")
 	public Response getKursById(
+		@HeaderParam("Authorization")
+		String token,
 		@PathParam("id")
 		int id
 	){
+		if(token == null) return Response.ok("Kein Token angegeben").build();
+		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
+			Kurs kurs = kursFacade.getKursById(id);
+			if (kurs == null) return Response.ok("Kurs konnte nicht gefunden werden").build();
 			return Response
-				.ok(jsonb.toJson(kursFacade.getKursById(id)))
+				.ok(jsonb.toJson(jsonb.toJson(kurs)))
 				.build();
 		}
 		catch (Exception e) {
@@ -102,12 +124,18 @@ public class KursWebservice {
 	@GET
 	@Path("/checkincode/{checkincode}")
 	public Response getKursByCheckinCode(
+		@HeaderParam("Authorization")
+		String token,
 		@PathParam("checkincode")
 		String checkincode
 	){
+		if(token == null) return Response.ok("Kein Token angegeben").build();
+		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
+			Kurs kurs = kursFacade.getKursByCheckinCode(checkincode);
+			if (kurs == null) return Response.ok("Kurs konnte nicht gefunden werden").build();
 			return Response
-				.ok(jsonb.toJson(kursFacade.getKursByCheckinCode(checkincode)))
+				.ok(jsonb.toJson(jsonb.toJson(kurs)))
 				.build();
 		}
 		catch (Exception e) {
@@ -120,7 +148,13 @@ public class KursWebservice {
 	@PUT
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)	
-	public Response updateKurs(String json) {
+	public Response updateKurs(
+		@HeaderParam("Authorization")
+		String token,
+		String json
+	){
+		if(token == null) return Response.ok("Kein Token angegeben").build();
+		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			Kurs k = jsonb.fromJson(json, Kurs.class);
 			boolean kursInDatenbank = kursFacade.updateKurs(k);
@@ -143,9 +177,13 @@ public class KursWebservice {
 	@DELETE
 	@Path("/{id}")
 	public Response deleteKurs(
+		@HeaderParam("Authorization")
+		String token, 
 		@PathParam("id")
 		int id
 	){
+		if(token == null) return Response.ok("Kein Token angegeben").build();
+		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		try {
 			Kurs k = kursFacade.getKursById(id);
 			boolean kursInDatenbank = kursFacade.deleteKurs(k);
@@ -169,10 +207,14 @@ public class KursWebservice {
 	 @Path("/leitung/{kursId}")
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 public Response setLeitung(
+		@HeaderParam("Authorization")
+		String token,
 		@PathParam("kursId")
 		int kursId,
 		String json
 		){
+		if(token == null) return Response.ok("Kein Token angegeben").build();
+		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		 try {
 			 Account k = jsonb.fromJson(json, Account.class);
 			 boolean kursInDatenbank = kursFacade.setLeitung(kursId, k);
@@ -196,10 +238,14 @@ public class KursWebservice {
 	 @Path("/teilnehmer/{kursId}")
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 public Response addTeilnehmer(
+		@HeaderParam("Authorization")
+		String token,
 		@PathParam("kursId")
 		int kursId,
 		String json
 		){
+		if(token == null) return Response.ok("Kein Token angegeben").build();
+		if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
 		 try {
 			 Account k = jsonb.fromJson(json, Account.class);
 			 boolean kursInDatenbank = kursFacade.addTeilnehmer(kursId, k);
