@@ -21,6 +21,7 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 
   --button-blue: #6B8C83;
+  --input-border-color: #ABCCC3;
 }
 
 /* semantic color variables for this project */
@@ -64,9 +65,6 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
   line-height: 1.6;
   font-family:
     Inter,

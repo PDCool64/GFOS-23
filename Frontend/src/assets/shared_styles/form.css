@@ -1,0 +1,48 @@
+.form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border-left: 5px solid var(--input-border-color);
+    border-right: 5px solid var(--input-border-color);
+}
+
+.form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--button-blue);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.form button:active {
+    animation: button_pressed 0.5s;
+}
+
+@keyframes button_pressed {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(0.98);
+        filter: brightness(0.7);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    } 
+}
