@@ -46,3 +46,14 @@
         filter: brightness(1);
     } 
 }
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+.success-message {
+        color: green;
+        font-weight: bold;
+        margin-top: 10px;
+}

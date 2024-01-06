@@ -8,12 +8,13 @@ import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.PermissionFacade;
 import com.ppj.backend.Facades.ResponseFacade;
-
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -44,6 +45,9 @@ public class AccountWebservice {
 	@EJB
 	private ResponseFacade responseFacade;
 
+	@PersistenceContext
+	private EntityManager em;
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -52,23 +56,25 @@ public class AccountWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return Response
-			.status(401, "Token ist ungültig")
-			.build();
-		try {
-			System.out.println(token);
-			Account a = jsonb.fromJson(json, Account.class);
-			Account accountAusDatenbank = accountFacade.createAccount(a);
-			if (accountAusDatenbank == null) {
-				return Response
-					.ok("Account konnte nicht erstellt werden.")
-					.build();
-			} else {
-				return responseFacade.ok(jsonb.toJson(accountAusDatenbank));
-			}
-		} catch (Exception e) {
+		if (!permissionFacade.isActive(token)) 
 			return responseFacade
-				.status(422, "JSON-String konnte nicht geparsed werden.");
+				.status(401, "{\"error\": \"Token ist ungültig\"}");
+		try {
+			Account a = jsonb.fromJson(json, Account.class);
+			if (accountFacade.getAccountByEmail(a.getEmail()) != null) 
+				return responseFacade
+					.status(400, "{\"error\": \"Account existiert bereits.\"}");
+			accountFacade.createAccount(a);
+			return responseFacade.ok(jsonb.toJson(a));
+		} catch (Exception e) {
+			return responseFacade.status(
+				422,
+				"{\"error\": \"JSON-String konnte nicht geparsed werden.\", \"your request\": " +
+				json +
+				", \"errorMessage\": \"" +
+				e.getMessage() +
+				"\"}"
+			);
 		}
 	}
 

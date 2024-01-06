@@ -54,7 +54,7 @@ public class TokenService {
             JWTVerifier verifier = JWT.require(algorithm)
                                       .withIssuer("GFOSProjekt")
                                       .build();
-            DecodedJWT jwt = verifier.verify(token);
+            verifier.verify(token);
             return token; // das gültige Token wieder zurückgeben.
         } catch (JWTVerificationException ex1){            
             try { 

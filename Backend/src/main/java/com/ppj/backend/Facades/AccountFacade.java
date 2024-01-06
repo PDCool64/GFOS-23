@@ -26,8 +26,8 @@ public class AccountFacade {
 	public Account createAccount(Account a) {
 		try {
 			em.persist(a);
-			Account accountMitId = this.getAccountById(a.getId());
-			return accountMitId;
+			// Account accountMitId = this.getAccountById(a.getId());
+			return a;
 		} catch (Exception e) {
 			return null;
 		}
