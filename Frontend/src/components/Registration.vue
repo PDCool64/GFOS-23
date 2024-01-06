@@ -23,7 +23,7 @@ const submitForm = async () => {
         })
     });
 
-    const response = await fetch('http://localhost:8080/Backend/resources/account', {
+    const response = await fetch('http://localhost:8080/Backend/account', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

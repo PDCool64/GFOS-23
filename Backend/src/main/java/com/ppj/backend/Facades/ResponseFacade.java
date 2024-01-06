@@ -16,10 +16,8 @@ import jakarta.ws.rs.core.Response;
 @LocalBean
 public class ResponseFacade {
 
-	public Response ok(String data) {
-		return Response
-			.status(200)
-			.header("Access-Control-Allow-Origin", "*")
+	/*
+	 * .header("Access-Control-Allow-Origin", "*")
 			.header("Access-Control-Allow-Credentials", "true")
 			.header(
 				"Access-Control-Allow-Headers",
@@ -29,6 +27,11 @@ public class ResponseFacade {
 				"Access-Control-Allow-Methods",
 				"GET, POST, PUT, DELETE, OPTIONS, HEAD"
 			)
+	 */
+
+	public Response ok(String data) {
+		return Response
+			.status(200)
 			.entity(data)
 			.build();
 	}
@@ -36,16 +39,6 @@ public class ResponseFacade {
 	public Response status(int status, String data) {
 		return Response
 			.status(status)
-			.header("Access-Control-Allow-Origin", "*")
-			.header("Access-Control-Allow-Credentials", "true")
-			.header(
-				"Access-Control-Allow-Headers",
-				"origin, content-type, accept, authorization"
-			)
-			.header(
-				"Access-Control-Allow-Methods",
-				"GET, POST, PUT, DELETE, OPTIONS, HEAD"
-			)
 			.entity(data)
 			.build();
 	}
