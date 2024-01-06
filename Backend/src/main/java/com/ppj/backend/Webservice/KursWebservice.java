@@ -8,11 +8,13 @@ import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Facades.KursFacade;
 import com.ppj.backend.Facades.PermissionFacade;
+import com.ppj.backend.Facades.ResponseFacade;
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import jakarta.json.bind.JsonbException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -42,6 +44,9 @@ public class KursWebservice {
 	@EJB
 	private PermissionFacade permissionFacade;
 
+	@EJB
+	private ResponseFacade responseFacade;
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -50,21 +55,19 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
-			.build();
+		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+			"Token ist ungültig"
+		);
 		try {
 			Kurs k = jsonb.fromJson(json, Kurs.class);
 			Kurs kursAusDatenbank = kursFacade.createKurs(k);
 			if (kursAusDatenbank == null) {
-				return Response
-					.ok("Kurs konnte nicht erstellt werden.")
-					.build();
+				return responseFacade.ok("Kurs konnte nicht erstellt werden.");
 			} else {
-				return Response.ok(jsonb.toJson(kursAusDatenbank)).build();
+				return responseFacade.ok(jsonb.toJson(kursAusDatenbank));
 			}
-		} catch (Exception e) {
-			return Response.ok("Json konnte nicht geparst werden.").build();
+		} catch (JsonbException e) {
+			return responseFacade.ok("Json konnte nicht geparst werden.");
 		}
 	}
 
@@ -72,13 +75,13 @@ public class KursWebservice {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllKurse(@HeaderParam("Authorization") String token) {
-		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
-			.build();
+		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+			"Token ist ungültig"
+		);
 		try {
-			return Response.ok(jsonb.toJson(kursFacade.getAllKurse())).build();
-		} catch (Exception e) {
-			return Response.ok("Kurse konnten nicht geladen werden.").build();
+			return responseFacade.ok(jsonb.toJson(kursFacade.getAllKurse()));
+		} catch (JsonbException e) {
+			return responseFacade.ok("Kurse konnten nicht geladen werden.");
 		}
 	}
 
@@ -88,17 +91,17 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
-			.build();
+		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+			"Token ist ungültig"
+		);
 		try {
 			Kurs kurs = kursFacade.getKursById(id);
-			if (kurs == null) return Response
-				.ok("Kurs konnte nicht gefunden werden")
-				.build();
-			return Response.ok(jsonb.toJson(jsonb.toJson(kurs))).build();
-		} catch (Exception e) {
-			return Response.ok("Kurs konnte nicht geladen werden.").build();
+			if (kurs == null) return responseFacade.ok(
+				"Kurs konnte nicht gefunden werden"
+			);
+			return responseFacade.ok(jsonb.toJson(jsonb.toJson(kurs)));
+		} catch (JsonbException e) {
+			return responseFacade.ok("Kurs konnte nicht geladen werden.");
 		}
 	}
 
@@ -108,17 +111,17 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("checkincode") String checkincode
 	) {
-		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
-			.build();
+		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+			"Token ist ungültig"
+		);
 		try {
 			Kurs kurs = kursFacade.getKursByCheckinCode(checkincode);
-			if (kurs == null) return Response
-				.ok("Kurs konnte nicht gefunden werden")
-				.build();
-			return Response.ok(jsonb.toJson(jsonb.toJson(kurs))).build();
-		} catch (Exception e) {
-			return Response.ok("Kurs konnte nicht geladen werden.").build();
+			if (kurs == null) return responseFacade.ok(
+				"Kurs konnte nicht gefunden werden"
+			);
+			return responseFacade.ok(jsonb.toJson(jsonb.toJson(kurs)));
+		} catch (JsonbException e) {
+			return responseFacade.ok("Kurs konnte nicht geladen werden.");
 		}
 	}
 
@@ -129,18 +132,18 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
-			.build();
+		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+			"Token ist ungültig"
+		);
 		try {
 			Kurs k = jsonb.fromJson(json, Kurs.class);
 			boolean kursInDatenbank = kursFacade.updateKurs(k);
 			if (kursInDatenbank != false) {
-				return Response.ok("Kurs wurde geupdated.").build();
+				return responseFacade.ok("Kurs wurde geupdated.");
 			}
-			return Response.ok("Kurs konnte nicht geupdated werden.").build();
-		} catch (Exception e) {
-			return Response.ok("Json konnte nicht geparst werden.").build();
+			return responseFacade.ok("Kurs konnte nicht geupdated werden.");
+		} catch (JsonbException e) {
+			return responseFacade.ok("Json konnte nicht geparst werden.");
 		}
 	}
 
@@ -150,18 +153,18 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
-			.build();
+		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+			"Token ist ungültig"
+		);
 		try {
 			Kurs k = kursFacade.getKursById(id);
 			boolean kursInDatenbank = kursFacade.deleteKurs(k);
 			if (kursInDatenbank != false) {
-				return Response.ok("Kurs wurde gelöscht.").build();
+				return responseFacade.ok("Kurs wurde gelöscht.");
 			}
-			return Response.ok("Kurs konnte nicht gelöscht werden.").build();
-		} catch (Exception e) {
-			return Response.ok("Kurs konnte nicht gelöscht werden.").build();
+			return responseFacade.ok("Kurs konnte nicht gelöscht werden.");
+		} catch (JsonbException e) {
+			return responseFacade.ok("Kurs konnte nicht gelöscht werden.");
 		}
 	}
 
@@ -173,18 +176,18 @@ public class KursWebservice {
 		@PathParam("kursId") int kursId,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
-			.build();
+		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+			"Token ist ungültig"
+		);
 		try {
 			Account k = jsonb.fromJson(json, Account.class);
 			boolean kursInDatenbank = kursFacade.setLeitung(kursId, k);
 			if (!kursInDatenbank) {
-				return Response.ok("Leitung wurde gesetzt.").build();
+				return responseFacade.ok("Leitung wurde gesetzt.");
 			}
-			return Response.ok("Leitung konnte nicht gesetzt werden.").build();
-		} catch (Exception e) {
-			return Response.ok("Json konnte nicht geparst werden.").build();
+			return responseFacade.ok("Leitung konnte nicht gesetzt werden.");
+		} catch (JsonbException e) {
+			return responseFacade.ok("Json konnte nicht geparst werden.");
 		}
 	}
 
@@ -196,20 +199,20 @@ public class KursWebservice {
 		@PathParam("kursId") int kursId,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
-			.build();
+		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+			"Token ist ungültig"
+		);
 		try {
 			Account k = jsonb.fromJson(json, Account.class);
 			boolean kursInDatenbank = kursFacade.addTeilnehmer(kursId, k);
 			if (!kursInDatenbank) {
-				return Response.ok("Teilnehmer wurde hinzugefügt.").build();
+				return responseFacade.ok("Teilnehmer wurde hinzugefügt.");
 			}
-			return Response
-				.ok("Teilnehmer konnte nicht hinzugefügt werden.")
-				.build();
-		} catch (Exception e) {
-			return Response.ok("Json konnte nicht geparst werden.").build();
+			return responseFacade.ok(
+				"Teilnehmer konnte nicht hinzugefügt werden."
+			);
+		} catch (JsonbException e) {
+			return responseFacade.ok("Json konnte nicht geparst werden.");
 		}
 	}
 }

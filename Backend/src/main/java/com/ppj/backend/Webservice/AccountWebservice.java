@@ -7,6 +7,7 @@ package com.ppj.backend.Webservice;
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.PermissionFacade;
+import com.ppj.backend.Facades.ResponseFacade;
 
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
@@ -27,77 +28,65 @@ import jakarta.ws.rs.core.Response;
  *
  * @author phili
  */
-@Stateless()
+@Stateless
 @LocalBean
 @Path("/account")
 public class AccountWebservice {
 
-    private final Jsonb jsonb = JsonbBuilder.create();
-	
-    @EJB
-    private AccountFacade accountFacade;
+	private final Jsonb jsonb = JsonbBuilder.create();
 
-    @EJB
-    private PermissionFacade permissionFacade;
-	
-    @POST
-    @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response create(
-        @HeaderParam("Authorization")
-        String token,
-        String json
-    ){
-        if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
-        try
-        {
-            Account a = jsonb.fromJson(json, Account.class);
-            Account accountAusDatenbank = accountFacade.createAccount(a);
-            if(accountAusDatenbank == null)
-            {
-                return Response
-                    .ok("Account konnte nicht erstellt werden.")
-                    .build();
-            }
-            else
-            {
-                return Response
-                    .ok(jsonb.toJson(accountAusDatenbank))
-                    .build();
-            }
-        }
-        catch(Exception e)
-        {
-            return Response
-                .ok("JSON-String konnte nicht geparsed werden.")
-                .build();
-        }
-    }
-	
-    @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response get(
-        @HeaderParam("Authorization")
-        String token,
-        @PathParam("id")
-        int id
-	)
-    {
-        if(!permissionFacade.isActive(token)) return Response.ok("Token ist ungültig").build();
-        Account a = accountFacade.getAccountById(id);
-        if(a == null)
-        {
-            return Response
-                    .ok("Account konnte nicht gefunden werden.")
-                    .build();
-        }
-        else
-        {
-            return Response
-                    .ok(jsonb.toJson(a))
-                    .build();
-        }
-    }
+	@EJB
+	private AccountFacade accountFacade;
+
+	@EJB
+	private PermissionFacade permissionFacade;
+
+	@EJB
+	private ResponseFacade responseFacade;
+
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response create(
+		@HeaderParam("Authorization") String token,
+		String json
+	) {
+		if (!permissionFacade.isActive(token)) return Response
+			.ok("Token ist ungültig")
+			.build();
+		try {
+			System.out.println(token);
+			Account a = jsonb.fromJson(json, Account.class);
+			Account accountAusDatenbank = accountFacade.createAccount(a);
+			if (accountAusDatenbank == null) {
+				return Response
+					.ok("Account konnte nicht erstellt werden.")
+					.build();
+			} else {
+				return responseFacade.ok(jsonb.toJson(accountAusDatenbank));
+			}
+		} catch (Exception e) {
+			return responseFacade
+				.ok("JSON-String konnte nicht geparsed werden.");
+		}
+	}
+
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response get(
+		@HeaderParam("Authorization") String token,
+		@PathParam("id") int id
+	) {
+		if (!permissionFacade.isActive(token)) return Response
+			.ok("Token ist ungültig")
+			.build();
+		Account a = accountFacade.getAccountById(id);
+		if (a == null) {
+			return responseFacade.ok("Account konnte nicht gefunden werden.");
+		} else {
+			return responseFacade.ok(jsonb.toJson(a));
+		}
+	}
 }

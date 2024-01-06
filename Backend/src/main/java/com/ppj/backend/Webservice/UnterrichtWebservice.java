@@ -6,6 +6,7 @@ package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Unterricht;
 import com.ppj.backend.Facades.PermissionFacade;
+import com.ppj.backend.Facades.ResponseFacade;
 import com.ppj.backend.Facades.UnterrichtFacade;
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
@@ -38,6 +39,9 @@ public class UnterrichtWebservice {
 	@EJB
 	private PermissionFacade permissionFacade;
 
+	@EJB
+	private ResponseFacade responseFacade;
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -53,12 +57,11 @@ public class UnterrichtWebservice {
 			Unterricht unterrichtAusDatenbank = unterrichtFacade.createUnterricht(
 				u
 			);
-			if (unterrichtAusDatenbank == null) return Response
-				.ok("Unterricht konnte nicht erstellt werden")
-				.build();
-			return Response.ok(jsonb.toJson(unterrichtAusDatenbank)).build();
+			if (unterrichtAusDatenbank == null) return responseFacade
+				.ok("Unterricht konnte nicht erstellt werden");
+			return responseFacade.ok(jsonb.toJson(unterrichtAusDatenbank));
 		} catch (Exception e) {
-			return Response.ok("Json konnte nicht geparst werden").build();
+			return responseFacade.ok("Json konnte nicht geparst werden");
 		}
 	}
 
@@ -74,6 +77,6 @@ public class UnterrichtWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("kursId") int kursId
 	) {
-		return Response.ok("Not implemented yet").build();
+		return responseFacade.ok("Not implemented yet");
 	}
 }
