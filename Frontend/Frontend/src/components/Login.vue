@@ -6,7 +6,7 @@
             <input type="password" id="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
-        <p>Don't have an account? <RouterLink to="/register">Register</RouterLink></p>
+        <p>Don't have an account? <RouterLink to="/registration">Register</RouterLink></p>
     </div>
 </template>
 
