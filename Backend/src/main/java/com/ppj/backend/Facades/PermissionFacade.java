@@ -5,6 +5,9 @@
 package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Service.TokenService;
+
+import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -24,6 +27,8 @@ public class PermissionFacade {
 	@PersistenceContext
 	private EntityManager em;
 
+	@EJB
+	TokenService tokenService;
 	/**
 	 * Tries to login with the given credentials
 	 * @param email
@@ -53,11 +58,7 @@ public class PermissionFacade {
 	 * @return token
 	 */
 	private String generateToken(Account a) {
-		String token = "";
-		for (int i = 0; i < 10; i++) {
-			token += (char) (Math.random() * 26 + 'a');
-		}
-		return token;
+		return tokenService.createNewToken(a.getEmail());
 	}
 
 	public Account getAccountByToken(String token) {
@@ -84,7 +85,7 @@ public class PermissionFacade {
 	public boolean isActive(String token) {
 		if (token == null) return true;
 		try {
-			return getAccountByToken(token).getToken() != null;
+			return tokenService.verifyToken(token) != "";
 		} catch (Exception e) {
 			return false;
 		}

@@ -11,8 +11,14 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Facades.AccountFacade;
+
 import jakarta.ejb.Stateless;
+import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
+
+
 
 /**
  *
@@ -21,16 +27,19 @@ import jakarta.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class TokenService {
-    private final String SECRET = "As7FA2df!-,.8Gg345ms/dh(65hj"; // TOPSECRET!
-    private final long DT = 120000; // Token 120 Sekunden gültig
+    private final String SECRET = "R{,hA:>xYSPLvN~>R\\pz*3feN7EgpM`kfF1e=^22AxnpPI"; // TOPSECRET! Wenn jemand das hier liest, dann sind wir rechtlich am Arsch.
+    private final long DT = 120_000; // Token 120 Sekunden gültig
     
-    public String createNewToken(String user) {
+    @EJB
+    private AccountFacade accountFacade;
+
+    public String createNewToken(String email) {
         try {
             long t = (System.currentTimeMillis() / DT) * DT;
             Algorithm algorithm = Algorithm.HMAC256(SECRET + t);
             String token = JWT.create()
                 .withIssuer("GFOSProjekt")
-                .withSubject(user)
+                .withSubject(email)
                 .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {
@@ -64,12 +73,12 @@ public class TokenService {
         }
     }
     
-    public String getUser(String token) {
+    public Account getUser(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
-            return jwt.getSubject();
+            return accountFacade.getAccountByEmail(jwt.getSubject());
         }catch(JWTDecodeException exception){
-            return "";
+            return null; 
         }
     }
 }	

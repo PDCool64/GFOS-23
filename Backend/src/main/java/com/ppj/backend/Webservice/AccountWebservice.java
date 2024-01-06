@@ -53,7 +53,7 @@ public class AccountWebservice {
 		String json
 	) {
 		if (!permissionFacade.isActive(token)) return Response
-			.ok("Token ist ungültig")
+			.status(401, "Token ist ungültig")
 			.build();
 		try {
 			System.out.println(token);
@@ -68,7 +68,7 @@ public class AccountWebservice {
 			}
 		} catch (Exception e) {
 			return responseFacade
-				.ok("JSON-String konnte nicht geparsed werden.");
+				.status(422, "JSON-String konnte nicht geparsed werden.");
 		}
 	}
 

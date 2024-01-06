@@ -33,6 +33,17 @@ public class AccountFacade {
 		}
 	}
 
+	public Account getAccountByEmail(String email) {
+		try {
+			return em
+				.createNamedQuery("Account.findByEmail", Account.class)
+				.setParameter("email", email)
+				.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	public Account getAccountById(int id) {
 		try {
 			return em.find(Account.class, id);
