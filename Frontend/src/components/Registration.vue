@@ -36,7 +36,7 @@ const submitForm = async () => {
             geburtsdatum: geburtstag.value
         })
     });
-
+    console.log(response);
     const data = await response.json();
     console.log(data);
 };
