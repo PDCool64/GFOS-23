@@ -11,5 +11,5 @@
 </template>
 
 <style scoped>
-    @import '../assets/shared_styles/form.css'
+    @import '../assets/shared_styles/form.css';
 </style>
