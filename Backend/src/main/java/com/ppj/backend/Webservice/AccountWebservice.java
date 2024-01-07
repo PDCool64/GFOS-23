@@ -7,7 +7,9 @@ package com.ppj.backend.Webservice;
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.PermissionFacade;
-import com.ppj.backend.Facades.ResponseFacade;
+import com.ppj.backend.Service.HashingService;
+import com.ppj.backend.Service.ResponseService;
+
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -43,7 +45,10 @@ public class AccountWebservice {
 	private PermissionFacade permissionFacade;
 
 	@EJB
-	private ResponseFacade responseFacade;
+	private ResponseService responseFacade;
+	
+	@EJB
+	private HashingService hashingService;
 
 	@PersistenceContext
 	private EntityManager em;
@@ -54,6 +59,7 @@ public class AccountWebservice {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(
 		@HeaderParam("Authorization") String token,
+		@HeaderParam("password") String password,
 		String json
 	) {
 		if (!permissionFacade.isActive(token)) 
@@ -61,11 +67,14 @@ public class AccountWebservice {
 				.status(401, "{\"error\": \"Token ist ungültig\"}");
 		try {
 			Account a = jsonb.fromJson(json, Account.class);
-			if (accountFacade.getAccountByEmail(a.getEmail()) != null) 
+			if (accountFacade.getAccountByEmail(a.getEmail()) != null){ 
 				return responseFacade
 					.status(400, "{\"error\": \"Account existiert bereits.\"}");
-			accountFacade.createAccount(a);
-			return responseFacade.ok(jsonb.toJson(a));
+			}		
+			
+			a.setPassworthash(hashingService.convertStringToHash(password));
+			Account accountAusDatenbank = accountFacade.createAccount(a);
+			return responseFacade.ok(jsonb.toJson(accountAusDatenbank));
 		} catch (Exception e) {
 			return responseFacade.status(
 				422,

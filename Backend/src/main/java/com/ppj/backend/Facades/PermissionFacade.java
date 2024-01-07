@@ -5,6 +5,7 @@
 package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Service.HashingService;
 import com.ppj.backend.Service.TokenService;
 
 import jakarta.ejb.EJB;
@@ -29,6 +30,9 @@ public class PermissionFacade {
 
 	@EJB
 	TokenService tokenService;
+
+	@EJB
+	HashingService hashingService;
 	/**
 	 * Tries to login with the given credentials
 	 * @param email
@@ -36,18 +40,16 @@ public class PermissionFacade {
 	 * @return token if login was successful, null if not
 	 */
 	public String login(String email, String password) {
-		String passwordhash = password;
 		try {
 			Account a = em
 				.createNamedQuery("Account.findByEmail", Account.class)
 				.setParameter("email", email)
 				.getSingleResult();
-			if (a.getPassworthash() == passwordhash) {
-				String token = generateToken(a);
-				a.setToken(token);
-				return token;
-			}
-			return null;
+			String passwordhash = hashingService.convertStringToHash(password);
+			if (a.getPassworthash() != passwordhash) return null;
+			String token = generateToken(a);
+			a.setToken(token);
+			return token;
 		} catch (Exception e) {
 			return null;
 		}
