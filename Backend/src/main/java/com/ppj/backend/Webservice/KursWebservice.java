@@ -8,7 +8,8 @@ import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Facades.KursFacade;
 import com.ppj.backend.Facades.PermissionFacade;
-import com.ppj.backend.Facades.ResponseFacade;
+import com.ppj.backend.Service.ResponseService;
+
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -45,7 +46,7 @@ public class KursWebservice {
 	private PermissionFacade permissionFacade;
 
 	@EJB
-	private ResponseFacade responseFacade;
+	private ResponseService responseFacade;
 
 	@POST
 	@Path("/")

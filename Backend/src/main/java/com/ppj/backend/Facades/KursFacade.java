@@ -18,6 +18,7 @@ public class KursFacade {
 	public Kurs createKurs(Kurs k) {
 		try {
 			em.persist(k);
+			em.flush();
 			Kurs kursMitId = this.getKursById(k.getId());
 			return kursMitId;
 		} catch (Exception e) {
@@ -61,7 +62,7 @@ public class KursFacade {
 			// Update all the values
 			kursInDatenbank.setBezeichnung(k.getBezeichnung());
 			kursInDatenbank.setCheckincode(k.getCheckincode());
-			kursInDatenbank.setAccount(k.getAccount());
+			kursInDatenbank.setLeiter(k.getLeiter());
 			// Add more setters if there are more fields to update
 
 			// Merge the updated kursInDatenbank with the EntityManager
@@ -88,7 +89,7 @@ public class KursFacade {
 				.createNamedQuery("Kurs.findById", Kurs.class)
 				.setParameter("id", kursId)
 				.getSingleResult()
-				.setAccount(a);
+				.setLeiter(a);
 			return true;
 		} catch (Exception e) {
 			return false;

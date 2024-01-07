@@ -12,50 +12,17 @@ const error = ref(false);
 const errorMessage = ref('');
 
 const submitForm = async () => {
-
-    console.log({
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'password': password.value,
-        },
-        body: JSON.stringify({
-            vorname: vorname.value,
-            name: nachname.value,
-            email: email.value,
-            geburtsdatum: geburtstag.value,
-            isadmin: false,
-            kursList: [],
-            kursList1: [],
-            meldungList: [],
-            personalnummer: null,
-            timestampletzteaktion: null,
-            unterrichtList: [],
-            wochenstunden: null, 
-        })
-    });
-
-
     const response = await fetch('http://localhost:8080/Backend/account', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'password': password.value,
-            'mode': 'no-cors'
         },
         body: JSON.stringify({
             vorname: vorname.value,
             name: nachname.value,
             email: email.value,
             geburtsdatum: geburtstag.value + "T00:00:00Z[UTC]",
-            isadmin: false,
-            kursList: [],
-            kursList1: [],
-            meldungList: [],
-            personalnummer: null,
-            timestampletzteaktion: null,
-            unterrichtList: [],
-            wochenstunden: null
         })
     });
 
@@ -66,6 +33,7 @@ const submitForm = async () => {
         const data = await response.json();
         console.log(data);
         errorMessage.value = "Registrierung erfolgreich.";
+        error.value = false;
     }
 };
 </script>

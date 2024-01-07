@@ -73,7 +73,7 @@ public class Unterricht implements Serializable {
 
 	@JoinColumn(name = "KURS", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Account kurs;
+	private Kurs kurs;
 
 	public Unterricht() {}
 
@@ -113,11 +113,11 @@ public class Unterricht implements Serializable {
 		this.id = id;
 	}
 
-	public Account getKurs() {
+	public Kurs getKurs() {
 		return kurs;
 	}
 
-	public void setKurs(Account kurs) {
+	public void setKurs(Kurs kurs) {
 		this.kurs = kurs;
 	}
 

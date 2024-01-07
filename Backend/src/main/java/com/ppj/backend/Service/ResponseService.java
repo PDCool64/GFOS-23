@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB40/StatelessEjbClass.java to edit this template
  */
-package com.ppj.backend.Facades;
+package com.ppj.backend.Service;
 
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.Response;
  */
 @Stateless
 @LocalBean
-public class ResponseFacade {
+public class ResponseService {
 
 	/*
 	 * .header("Access-Control-Allow-Origin", "*")

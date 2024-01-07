@@ -6,8 +6,9 @@ package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Unterricht;
 import com.ppj.backend.Facades.PermissionFacade;
-import com.ppj.backend.Facades.ResponseFacade;
 import com.ppj.backend.Facades.UnterrichtFacade;
+import com.ppj.backend.Service.ResponseService;
+
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
@@ -40,7 +41,7 @@ public class UnterrichtWebservice {
 	private PermissionFacade permissionFacade;
 
 	@EJB
-	private ResponseFacade responseFacade;
+	private ResponseService responseFacade;
 
 	@POST
 	@Path("/")

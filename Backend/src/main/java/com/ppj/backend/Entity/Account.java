@@ -136,13 +136,10 @@ public class Account implements Serializable {
 	@ManyToMany
 	private List<Kurs> kursList;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
-	private List<Unterricht> unterrichtList;
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Meldung> meldungList;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "leiter")
 	private List<Kurs> kursList1;
 
 	public Account() {}
@@ -245,14 +242,6 @@ public class Account implements Serializable {
 
 	public void setKursList(List<Kurs> kursList) {
 		this.kursList = kursList;
-	}
-
-	public List<Unterricht> getUnterrichtList() {
-		return unterrichtList;
-	}
-
-	public void setUnterrichtList(List<Unterricht> unterrichtList) {
-		this.unterrichtList = unterrichtList;
 	}
 
 	public List<Meldung> getMeldungList() {

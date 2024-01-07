@@ -5,6 +5,7 @@
 package com.ppj.backend.Entity;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -61,9 +63,12 @@ public class Kurs implements Serializable {
 	@ManyToMany(mappedBy = "kursList")
 	private List<Account> accountList;
 
-	@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
+	private List<Unterricht> unterrichtList;
+
+	@JoinColumn(name = "LEITER", referencedColumnName = "ID")
 	@ManyToOne(optional = false)
-	private Account account;
+	private Account leiter;
 
 	public Kurs() {}
 
@@ -103,12 +108,20 @@ public class Kurs implements Serializable {
 		this.accountList = accountList;
 	}
 
-	public Account getAccount() {
-		return account;
+	public List<Unterricht> getUnterrichtList() {
+		return unterrichtList;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setUnterrichtList(List<Unterricht> unterrichtList) {
+		this.unterrichtList = unterrichtList;
+	}
+
+	public Account getLeiter() {
+		return leiter;
+	}
+
+	public void setLeiter(Account leiter) {
+		this.leiter = leiter;
 	}
 
 	@Override
