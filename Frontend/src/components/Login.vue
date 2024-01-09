@@ -19,7 +19,7 @@ const submitForm = async () => {
         })
     });
 
-    if (!response.ok()) {
+    if (!response.ok) {
         errorMessage.value = "Die Email oder das Passwort ist falsch.";
         error.value = true;
     } else {
