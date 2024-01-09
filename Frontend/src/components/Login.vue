@@ -1,11 +1,13 @@
 <script setup>
-
+import { useTokenStore } from '@/stores/token';
 import { ref } from 'vue';
 const email = ref('');
 const password = ref('');
 
 const error = ref(false);
 const errorMessage = ref('');
+
+const tokenStore = useTokenStore();
 
 const submitForm = async () => {
     const response = await fetch('http://localhost:8080/Backend/login', {
@@ -27,6 +29,7 @@ const submitForm = async () => {
         console.log(data);
         errorMessage.value = "Login erfolgreich.";
         error.value = false;
+        tokenStore.setToken(data.token);
     }
 };
 </script>
