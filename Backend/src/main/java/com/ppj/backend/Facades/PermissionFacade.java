@@ -12,11 +12,11 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
 /**
  *
- * <h2>TODO: Implement a sophisticated hashing and token generation algorithm!! </h2>
  *
  * @author phili
  *
@@ -39,18 +39,21 @@ public class PermissionFacade {
 	 * @param password
 	 * @return token if login was successful, null if not
 	 */
-	public String login(String email, String password) {
+	public String login(String email, String password) throws NoResultException {
 		try {
 			Account a = em
 				.createNamedQuery("Account.findByEmail", Account.class)
 				.setParameter("email", email)
 				.getSingleResult();
 			String passwordhash = hashingService.convertStringToHash(password);
-			if (a.getPassworthash() != passwordhash) return null;
+			if (!(a.getPassworthash().equals(passwordhash))) return null;
 			String token = generateToken(a);
-			a.setToken(token);
 			return token;
-		} catch (Exception e) {
+		} 
+		catch (NoResultException e){
+			throw new NoResultException("No Account found with email: " + email);
+		}
+		catch (Exception e) {
 			return null;
 		}
 	}

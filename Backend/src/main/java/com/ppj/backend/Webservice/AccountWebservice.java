@@ -54,7 +54,6 @@ public class AccountWebservice {
 	private EntityManager em;
 
 	@POST
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(

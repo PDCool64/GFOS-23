@@ -44,7 +44,6 @@ public class UnterrichtWebservice {
 	private ResponseService responseFacade;
 
 	@POST
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createUnterricht(
 		@HeaderParam("Authorization") String token,

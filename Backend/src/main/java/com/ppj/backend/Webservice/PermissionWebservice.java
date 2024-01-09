@@ -4,20 +4,23 @@
  */
 package com.ppj.backend.Webservice;
 
+import com.ppj.backend.Facades.PermissionFacade;
+import com.ppj.backend.Service.ResponseService;
+import jakarta.ejb.EJB;
+import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
-import jakarta.websocket.server.PathParam;
-import jakarta.ws.rs.HeaderParam;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+import jakarta.persistence.NoResultException;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import com.ppj.backend.Facades.PermissionFacade;
-import com.ppj.backend.Service.ResponseService;
-
-import jakarta.ejb.EJB;
-import jakarta.ejb.LocalBean;
+import java.io.StringReader;
 
 /**
  *
@@ -25,28 +28,43 @@ import jakarta.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
+@Path("/login")
 public class PermissionWebservice {
-    @EJB
-    private PermissionFacade permissionFacade;
-    
-    @EJB
-    private ResponseService responseService;
 
+	@EJB
+	private PermissionFacade permissionFacade;
 
-    @POST
-    @Path("/login/{email}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response login(
-        @HeaderParam("password") String password,
-        @PathParam("email") String email
-    ) {
-        String token = permissionFacade.login(email, password);
-        if(token == null) {
-            return responseService.status(401, "Login fehlgeschlagen");
-        } else {
-            return responseService.ok(token);
-        }
-    }
+	@EJB
+	private ResponseService responseService;
 
+	@GET
+	public Response test() {
+		return responseService.ok("test");
+	}
 
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(String body) {
+		String email, password;
+		try {
+			JsonReader jsonReader = Json.createReader(new StringReader(body));
+			JsonObject jsonObject = jsonReader.readObject();
+			email = jsonObject.getString("email");
+			password = jsonObject.getString("password");
+		} catch (Exception e) {
+			return responseService.status(400, "Bad Request");
+		}
+		String token;
+		try {
+			token = permissionFacade.login(email, password);
+		} catch (NoResultException e) {
+			return responseService.status(403, "Account nicht gefunden");
+		}
+		if (token == null) {
+		    return responseService.status(401, "Login fehlgeschlagen");
+		} else {
+		    return responseService.ok("{\"token\": \"" + token + "\"}");
+		}
+	}
 }

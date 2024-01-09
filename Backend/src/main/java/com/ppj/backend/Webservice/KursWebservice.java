@@ -49,7 +49,6 @@ public class KursWebservice {
 	private ResponseService responseFacade;
 
 	@POST
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createKurs(
@@ -73,7 +72,6 @@ public class KursWebservice {
 	}
 
 	@GET
-	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllKurse(@HeaderParam("Authorization") String token) {
 		if (!permissionFacade.isActive(token)) return responseFacade.ok(
@@ -127,7 +125,6 @@ public class KursWebservice {
 	}
 
 	@PUT
-	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateKurs(
 		@HeaderParam("Authorization") String token,
