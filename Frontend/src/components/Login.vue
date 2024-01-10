@@ -1,12 +1,15 @@
 <script setup>
+import { useAccountIdStore } from '@/stores/accountId';
 import { useTokenStore } from '@/stores/token';
 import { ref } from 'vue';
+import router from '@/router';
 const email = ref('');
 const password = ref('');
 
 const error = ref(false);
 const errorMessage = ref('');
 
+const accountIdStore = useAccountIdStore();
 const tokenStore = useTokenStore();
 
 const submitForm = async () => {
@@ -29,7 +32,9 @@ const submitForm = async () => {
         console.log(data);
         errorMessage.value = "Login erfolgreich.";
         error.value = false;
-        tokenStore.setToken(data.token);
+        sessionStorage.setItem('token', data.token);
+        sessionStorage.setItem('accountId', data.id);
+        router.push('/profile')
     }
 };
 </script>

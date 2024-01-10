@@ -5,6 +5,7 @@
 package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Facades.PermissionFacade;
+import com.ppj.backend.Facades.PermissionFacade.TokenID;
 import com.ppj.backend.Service.ResponseService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
@@ -55,16 +56,22 @@ public class PermissionWebservice {
 		} catch (Exception e) {
 			return responseService.status(400, "Bad Request");
 		}
-		String token;
+		TokenID tokenID;
 		try {
-			token = permissionFacade.login(email, password);
+			tokenID = permissionFacade.login(email, password);
 		} catch (NoResultException e) {
 			return responseService.status(403, "Account nicht gefunden");
 		}
-		if (token == null) {
-		    return responseService.status(401, "Login fehlgeschlagen");
+		if (tokenID.token == null) {
+			return responseService.status(401, "Login fehlgeschlagen");
 		} else {
-		    return responseService.ok("{\"token\": \"" + token + "\"}");
+			return responseService.ok(
+				"{\"token\": \"" +
+				tokenID.token +
+				"\", \"id\": \"" +
+				tokenID.id +
+				"\"}"
+			);
 		}
 	}
 }

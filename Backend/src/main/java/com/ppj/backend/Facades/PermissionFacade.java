@@ -25,6 +25,15 @@ import jakarta.persistence.PersistenceContext;
 @LocalBean
 public class PermissionFacade {
 
+	public class TokenID {
+		public String token;
+		public int id;
+		public TokenID(String token, int id) {
+			this.token = token;
+			this.id = id;
+		}
+	}
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -39,7 +48,7 @@ public class PermissionFacade {
 	 * @param password
 	 * @return token if login was successful, null if not
 	 */
-	public String login(String email, String password) throws NoResultException {
+	public TokenID login(String email, String password) throws NoResultException {
 		try {
 			Account a = em
 				.createNamedQuery("Account.findByEmail", Account.class)
@@ -48,7 +57,7 @@ public class PermissionFacade {
 			String passwordhash = hashingService.convertStringToHash(password);
 			if (!(a.getPassworthash().equals(passwordhash))) return null;
 			String token = generateToken(a);
-			return token;
+			return new TokenID(token, a.getId()); 
 		} 
 		catch (NoResultException e){
 			throw new NoResultException("No Account found with email: " + email);

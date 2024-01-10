@@ -62,7 +62,7 @@ public class AccountFacade {
 		}
 	}
 
-	public boolean updateAccount(Account a) {
+	public Account updateAccount(Account a) {
 		try {
 			Account accountInDatenbank = this.getAccountById(a.getId());
 			accountInDatenbank.setEmail(a.getEmail());
@@ -72,9 +72,9 @@ public class AccountFacade {
 			accountInDatenbank.setPassworthash(a.getPassworthash());
 			accountInDatenbank.setVorname(a.getVorname());
 			em.merge(accountInDatenbank);
-			return true;
+			return accountInDatenbank;
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 	}
 
