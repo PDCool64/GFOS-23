@@ -5,7 +5,6 @@
 package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Account;
-import com.ppj.backend.Entity.Meldung;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -81,18 +80,6 @@ public class AccountFacade {
 	public boolean deleteAccount(Account a) {
 		try {
 			em.remove(a);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public boolean createMeldung(Account a, Meldung m) {
-		try {
-			Account accountInDatenbank = this.getAccountById(a.getId());
-			m.setAccount(accountInDatenbank);
-			em.persist(m);
-			accountInDatenbank.getMeldungList().add(m);
 			return true;
 		} catch (Exception e) {
 			return false;

@@ -84,13 +84,7 @@ public class PermissionFacade {
 	}
 
 	public boolean logout(String token) {
-		try {
-			Account a = getAccountByToken(token);
-			a.setToken(null);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		return true;	
 	}
 
 	public boolean isActive(String token) {

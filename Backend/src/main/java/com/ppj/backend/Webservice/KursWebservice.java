@@ -167,29 +167,6 @@ public class KursWebservice {
 	}
 
 	@POST
-	@Path("/leitung/{kursId}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response setLeitung(
-		@HeaderParam("Authorization") String token,
-		@PathParam("kursId") int kursId,
-		String json
-	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
-			"Token ist ungültig"
-		);
-		try {
-			Account k = jsonb.fromJson(json, Account.class);
-			boolean kursInDatenbank = kursFacade.setLeitung(kursId, k);
-			if (!kursInDatenbank) {
-				return responseFacade.ok("Leitung wurde gesetzt.");
-			}
-			return responseFacade.ok("Leitung konnte nicht gesetzt werden.");
-		} catch (JsonbException e) {
-			return responseFacade.ok("Json konnte nicht geparst werden.");
-		}
-	}
-
-	@POST
 	@Path("/teilnehmer/{kursId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addTeilnehmer(

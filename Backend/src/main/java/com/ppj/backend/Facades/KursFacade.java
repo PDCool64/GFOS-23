@@ -59,13 +59,11 @@ public class KursFacade {
 		try {
 			Kurs kursInDatenbank = this.getKursById(k.getId());
 
-			// Update all the values
-			kursInDatenbank.setBezeichnung(k.getBezeichnung());
-			kursInDatenbank.setCheckincode(k.getCheckincode());
-			kursInDatenbank.setLeiter(k.getLeiter());
-			// Add more setters if there are more fields to update
+			kursInDatenbank.setFach(k.getFach());
+			kursInDatenbank.setLeiterid(k.getLeiterid());
+			kursInDatenbank.setName(k.getName());
+			kursInDatenbank.setStufe(k.getStufe());
 
-			// Merge the updated kursInDatenbank with the EntityManager
 			em.merge(kursInDatenbank);
 
 			return true;
@@ -83,18 +81,6 @@ public class KursFacade {
 		}
 	}
 
-	public boolean setLeitung(int kursId, Account a) {
-		try {
-			em
-				.createNamedQuery("Kurs.findById", Kurs.class)
-				.setParameter("id", kursId)
-				.getSingleResult()
-				.setLeiter(a);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
 
 	public boolean addTeilnehmer(int kursId, Account a) {
 		try {
