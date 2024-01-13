@@ -4,6 +4,8 @@
  */
 package com.ppj.backend.Webservice;
 
+import java.io.StringReader;
+
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.PermissionFacade;
@@ -12,6 +14,9 @@ import com.ppj.backend.Service.ResponseService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.persistence.EntityManager;
@@ -111,7 +116,6 @@ public class AccountWebservice {
 		}
 	}
 
-
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -137,5 +141,47 @@ public class AccountWebservice {
 				"\"}"
 			);
 		}
-	}	
+	}
+
+	@PUT
+	@Path("/password")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updatePassword(
+		@HeaderParam("Authorization") String token,
+		String json
+	) {
+		if (!permissionFacade.isActive(token)) return responseFacade.status(
+			401,
+			"{\"error\": \"Token ist ungültig\"}"
+		);
+		try (
+			JsonReader jsonReader = Json.createReader(new StringReader(json))
+		) {
+			JsonObject jsonObject = jsonReader.readObject();
+			String oldPassword = jsonObject.getString("oldPassword");
+			String newPassword = jsonObject.getString("newPassword");
+
+			Account a = permissionFacade.getAccountByToken(token);
+
+			if(a.getPassworthash().equals(hashingService.convertStringToHash(oldPassword))) {
+				a.setPassworthash(hashingService.convertStringToHash(newPassword));
+				accountFacade.updateAccount(a);
+			} else {
+				return responseFacade.status(
+					401,
+					"{\"error\": \"Altes Passwort ist falsch.\"}"
+				);
+			}
+			return responseFacade.ok("{\"success\": \"Passwort wurde erfolgreich geändert.\"}");
+		} catch (Exception e) {
+			return responseFacade.status(
+				422,
+				"{\"error\": \"JSON-String konnte nicht geparsed werden.\", \"your request\": " +
+				json +
+				", \"errorMessage\": \"" +
+				e.getMessage() +
+				"\"}"
+			);
+		}
+	}
 }

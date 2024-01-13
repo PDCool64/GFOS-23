@@ -1,0 +1,14 @@
+[
+    {
+        "bezeichnung": "Test",
+        "checkinCode": "1234",
+        "id": 1,
+        "leiter": 102
+    },
+    {
+        "bezeichnung": "Test2",
+        "checkinCode": "1234",
+        "id": 2,
+        "leiter": 102
+    }
+]

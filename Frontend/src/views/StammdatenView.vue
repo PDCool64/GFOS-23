@@ -13,12 +13,16 @@ if (sessionStorage.getItem('token') === undefined) {
 </script>
 
 <template>
-  <div>
-    <Stammdaten class="main"/>
+  <div class="wrapper">
+    <Stammdaten />
   </div>
 </template>
 
 <style scoped>
-.main {
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

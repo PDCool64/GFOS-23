@@ -1,33 +1,24 @@
 <template>
-	<div>
+	<div class="stammdaten">
 		<form @submit.prevent="updateAccount">
-			<div class="input-group">
-				<label for="vorname">Vorname:</label>
-				<input id="vorname" v-model="account.vorname" />
-			</div>
+			<label for="vorname">Vorname:</label>
+			<input id="vorname" v-model="account.vorname" />
 
-			<div class="input-group">
-				<label for="name">Name:</label>
-				<input id="name" v-model="account.name" />
-			</div>
+			<label for="name">Name:</label>
+			<input id="name" v-model="account.name" />
 
-			<div class="input-group">
-				<label for="email">Email:</label>
-				<input id="email" v-model="account.email" />
-			</div>
+			<label for="email">Email:</label>
+			<input id="email" v-model="account.email" />
 
-			<div class="input-group">
-				<label for="geburtsdatum">Geburtsdatum:</label>
-				<input
-					type="date"
-					id="geburtsdatum"
-					v-model="account.geburtsdatum"
-				/>
-			</div>
-
+			<label for="geburtsdatum">Geburtsdatum:</label>
+			<input
+				type="date"
+				id="geburtsdatum"
+				v-model="account.geburtsdatum"
+			/>
 			<button type="submit">Update</button>
-			<RouterLink class="link" to="/password">Passwort ändern</RouterLink>
 		</form>
+		<RouterLink class="link" to="/password">Passwort ändern</RouterLink>
 	</div>
 </template>
 
@@ -42,6 +33,10 @@ const accountIdStore = useAccountIdStore();
 const tokenStore = useTokenStore();
 
 let account = ref({});
+
+const cancel = () => {
+	router.push("/");
+};
 
 onMounted(async () => {
 	const response = await fetch(
@@ -88,61 +83,5 @@ async function updateAccount() {
 </script>
 
 <style scoped>
-.link {
-	display: block;
-	color: var(--text-dark-2);
-	text-decoration: none;
-	font-size: 1rem;
-	text-align: center;
-	border-radius: 10px;
-	margin-top: 5px;
-	margin: auto;
-}
-
-form {
-	width: 100%;
-	min-width: 280px;
-	padding: 20px;
-	border-radius: 8px;
-}
-
-.input-group {
-	display: flex;
-	align-items: center;
-	margin-bottom: 10px;
-	gap: 10px;
-}
-
-input {
-	border-radius: 5px;
-	border: none;
-	background-color: var(--black-mute);
-	flex-grow: 1;
-	width: 100%;
-	outline: none;
-	padding: 3px;
-	text-align: center;
-	color: var(--text-dark-2);
-}
-
-button {
-	cursor: pointer;
-	padding: 10px;
-	border: none;
-	border-radius: 40px;
-	color: white;
-	background-color: var(--button-blue);
-	margin-top: 10px;
-	width: 100%;
-}
-
-button:hover {
-	filter: brightness(0.9);
-	transition: all 0.3s ease-in-out;
-}
-
-button:active {
-	scale: 0.97;
-	transition: all 0.15s ease-in-out;
-}
+@import '../assets/shared_styles/data_form.css'
 </style>

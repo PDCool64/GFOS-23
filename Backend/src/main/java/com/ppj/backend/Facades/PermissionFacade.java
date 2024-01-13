@@ -42,6 +42,10 @@ public class PermissionFacade {
 
 	@EJB
 	HashingService hashingService;
+
+	@EJB 
+	AccountFacade accountFacade;
+
 	/**
 	 * Tries to login with the given credentials
 	 * @param email
@@ -76,14 +80,7 @@ public class PermissionFacade {
 	}
 
 	public Account getAccountByToken(String token) {
-		try {
-			return em
-				.createNamedQuery("Account.findByToken", Account.class)
-				.setParameter("token", token)
-				.getSingleResult();
-		} catch (Exception e) {
-			return null;
-		}
+		return accountFacade.getAccountByEmail(tokenService.verifyToken(token));
 	}
 
 	public boolean logout(String token) {
