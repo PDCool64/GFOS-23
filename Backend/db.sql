@@ -6,7 +6,7 @@ CREATE TABLE Account (
     geburtsdatum DATE NOT NULL,
     passwortHash VARCHAR(128) NOT NULL, 
     isAdmin BOOLEAN NOT NULL DEFAULT false 
-)
+);
 
 CREATE TABLE Kurs (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
@@ -15,7 +15,8 @@ CREATE TABLE Kurs (
     stufe INT NOT NULL, 
     leiterID INT,     
     FOREIGN KEY (leiterID) REFERENCES Account(id)
-)
+);
+
 
 CREATE TABLE KursTeilnahme (
     accountID INT NOT NULL,
@@ -23,7 +24,7 @@ CREATE TABLE KursTeilnahme (
     PRIMARY KEY (accountID, kursID),
     FOREIGN KEY (accountID) REFERENCES Account(id),
     FOREIGN KEY (kursID) REFERENCES Kurs(id)
-)
+);
 
 CREATE TABLE Unterricht (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
@@ -31,7 +32,7 @@ CREATE TABLE Unterricht (
     beginZeit VARCHAR(5) NOT NULL,
     endZeit VARCHAR(5) NOT NULL,
     FOREIGN KEY (kursID) REFERENCES Kurs(id)
-)
+);
 
 CREATE TABLE Stunde (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
@@ -40,7 +41,7 @@ CREATE TABLE Stunde (
     endTimestamp TIMESTAMP NOT NULL,
     checkInCode VARCHAR(6) NOT NULL,
     FOREIGN KEY (unterrichtID) REFERENCES Unterricht(id)
-)
+);
 
 CREATE TABLE StundeTeilnahme (
     accountID INT NOT NULL,
@@ -50,7 +51,7 @@ CREATE TABLE StundeTeilnahme (
     PRIMARY KEY (accountID, stundeID),
     FOREIGN KEY (accountID) REFERENCES Account(id),
     FOREIGN KEY (stundeID) REFERENCES Stunde(id)
-)
+);
 
 CREATE TABLE StundeLeitung (
     accountID INT NOT NULL,
@@ -59,4 +60,4 @@ CREATE TABLE StundeLeitung (
     PRIMARY KEY (accountID, stundeID),
     FOREIGN KEY (accountID) REFERENCES Account(id),
     FOREIGN KEY (stundeID) REFERENCES Stunde(id)
-)
+);

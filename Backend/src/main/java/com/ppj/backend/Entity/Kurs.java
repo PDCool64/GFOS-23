@@ -27,69 +27,49 @@ import java.util.List;
  */
 @Entity
 @Table(name = "KURS")
-@NamedQueries(
-	{
-		@NamedQuery(name = "Kurs.findAll", query = "SELECT k FROM Kurs k"),
-		@NamedQuery(
-			name = "Kurs.findByBezeichnung",
-			query = "SELECT k FROM Kurs k WHERE k.bezeichnung = :bezeichnung"
-		),
-		@NamedQuery(
-			name = "Kurs.findByCheckincode",
-			query = "SELECT k FROM Kurs k WHERE k.checkincode = :checkincode"
-		),
-		@NamedQuery(
-			name = "Kurs.findById",
-			query = "SELECT k FROM Kurs k WHERE k.id = :id"
-		),
-	}
-)
+@NamedQueries({
+	@NamedQuery(name = "Kurs.findAll", query = "SELECT k FROM Kurs k"),
+	@NamedQuery(name = "Kurs.findById", query = "SELECT k FROM Kurs k WHERE k.id = :id"),
+	@NamedQuery(name = "Kurs.findByFach", query = "SELECT k FROM Kurs k WHERE k.fach = :fach"),
+	@NamedQuery(name = "Kurs.findByName", query = "SELECT k FROM Kurs k WHERE k.name = :name"),
+	@NamedQuery(name = "Kurs.findByStufe", query = "SELECT k FROM Kurs k WHERE k.stufe = :stufe")})
 public class Kurs implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Column(name = "BEZEICHNUNG")
-	private String bezeichnung;
-
-	@Column(name = "CHECKINCODE")
-	private String checkincode;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-	@Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
 	private Integer id;
-
+	@Basic(optional = false)
+    @Column(name = "FACH")
+	private String fach;
+	@Basic(optional = false)
+    @Column(name = "NAME")
+	private String name;
+	@Basic(optional = false)
+    @Column(name = "STUFE")
+	private int stufe;
 	@ManyToMany(mappedBy = "kursList")
 	private List<Account> accountList;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kursid")
 	private List<Unterricht> unterrichtList;
+	@JoinColumn(name = "LEITERID", referencedColumnName = "ID")
+    @ManyToOne
+	private Account leiterid;
 
-	@JoinColumn(name = "LEITER", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
-	private Account leiter;
-
-	public Kurs() {}
+	public Kurs() {
+	}
 
 	public Kurs(Integer id) {
 		this.id = id;
 	}
 
-	public String getBezeichnung() {
-		return bezeichnung;
-	}
-
-	public void setBezeichnung(String bezeichnung) {
-		this.bezeichnung = bezeichnung;
-	}
-
-	public String getCheckincode() {
-		return checkincode;
-	}
-
-	public void setCheckincode(String checkincode) {
-		this.checkincode = checkincode;
+	public Kurs(Integer id, String fach, String name, int stufe) {
+		this.id = id;
+		this.fach = fach;
+		this.name = name;
+		this.stufe = stufe;
 	}
 
 	public Integer getId() {
@@ -98,6 +78,30 @@ public class Kurs implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getFach() {
+		return fach;
+	}
+
+	public void setFach(String fach) {
+		this.fach = fach;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getStufe() {
+		return stufe;
+	}
+
+	public void setStufe(int stufe) {
+		this.stufe = stufe;
 	}
 
 	public List<Account> getAccountList() {
@@ -116,12 +120,12 @@ public class Kurs implements Serializable {
 		this.unterrichtList = unterrichtList;
 	}
 
-	public Account getLeiter() {
-		return leiter;
+	public Account getLeiterid() {
+		return leiterid;
 	}
 
-	public void setLeiter(Account leiter) {
-		this.leiter = leiter;
+	public void setLeiterid(Account leiterid) {
+		this.leiterid = leiterid;
 	}
 
 	@Override
@@ -138,10 +142,7 @@ public class Kurs implements Serializable {
 			return false;
 		}
 		Kurs other = (Kurs) object;
-		if (
-			(this.id == null && other.id != null) ||
-			(this.id != null && !this.id.equals(other.id))
-		) {
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
 		return true;
@@ -151,4 +152,5 @@ public class Kurs implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Kurs[ id=" + id + " ]";
 	}
+	
 }
