@@ -64,7 +64,7 @@ public class PermissionFacade {
 			return new TokenID(token, a.getId()); 
 		} 
 		catch (NoResultException e){
-			throw new NoResultException("No Account found with email: " + email);
+			return null;
 		}
 		catch (Exception e) {
 			return null;

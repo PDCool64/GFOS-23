@@ -57,9 +57,9 @@ public class Stunde implements Serializable {
 	@JoinColumn(name = "UNTERRICHTID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
 	private Unterricht unterrichtid;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stundeid")
 	private List<Stundeteilnahme> stundeteilnahmeList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stundeid")
 	private List<Stundeleitung> stundeleitungList;
 
 	public Stunde() {

@@ -2,6 +2,8 @@ package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
+import com.ppj.backend.Entity.Kursteilnahme;
+
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -88,8 +90,8 @@ public class KursFacade {
 				.createNamedQuery("Kurs.findById", Kurs.class)
 				.setParameter("id", kursId)
 				.getSingleResult()
-				.getAccountList()
-				.add(a);
+				.getKursteilnahmeList();
+
 			return true;
 		} catch (Exception e) {
 			return false;

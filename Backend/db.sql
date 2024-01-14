@@ -4,24 +4,24 @@ CREATE TABLE Account (
     vorname VARCHAR(64) NOT NULL,
     name VARCHAR(64) NOT NULL,
     geburtsdatum DATE NOT NULL,
-    passwortHash VARCHAR(128) NOT NULL, 
-    isAdmin BOOLEAN NOT NULL DEFAULT false 
+    passwortHash VARCHAR(128), 
+    isAdmin BOOLEAN 
 );
 
 CREATE TABLE Kurs (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
     fach VARCHAR(64) NOT NULL,
     name VARCHAR(64) NOT NULL,
-    stufe INT NOT NULL, 
+    stufe INT, 
     leiterID INT,     
     FOREIGN KEY (leiterID) REFERENCES Account(id)
 );
 
 
 CREATE TABLE KursTeilnahme (
+    id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
     accountID INT NOT NULL,
     kursID INT NOT NULL,
-    PRIMARY KEY (accountID, kursID),
     FOREIGN KEY (accountID) REFERENCES Account(id),
     FOREIGN KEY (kursID) REFERENCES Kurs(id)
 );
@@ -44,20 +44,22 @@ CREATE TABLE Stunde (
 );
 
 CREATE TABLE StundeTeilnahme (
+    id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
     accountID INT NOT NULL,
     stundeID INT NOT NULL,
     anwesend BOOLEAN NOT NULL DEFAULT false,
     note INT,
-    PRIMARY KEY (accountID, stundeID),
+    kommentar VARCHAR(255),
     FOREIGN KEY (accountID) REFERENCES Account(id),
     FOREIGN KEY (stundeID) REFERENCES Stunde(id)
 );
 
 CREATE TABLE StundeLeitung (
+    id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
     accountID INT NOT NULL,
     stundeID INT NOT NULL,
     leitungsBewertung INT NOT NULL,
-    PRIMARY KEY (accountID, stundeID),
+    kommentar VARCHAR(255),
     FOREIGN KEY (accountID) REFERENCES Account(id),
     FOREIGN KEY (stundeID) REFERENCES Stunde(id)
 );

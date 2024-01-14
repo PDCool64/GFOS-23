@@ -11,9 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -60,22 +57,17 @@ public class Account implements Serializable {
     @Column(name = "GEBURTSDATUM")
     @Temporal(TemporalType.DATE)
 	private Date geburtsdatum;
-	@Basic(optional = false)
-    @Column(name = "PASSWORTHASH")
+	@Column(name = "PASSWORTHASH")
 	private String passworthash;
-	@Basic(optional = false)
-    @Column(name = "ISADMIN")
+	@Column(name = "ISADMIN")
 	private Boolean isadmin;
-	@JoinTable(name = "KURSTEILNAHME", joinColumns = {
-    	@JoinColumn(name = "ACCOUNTID", referencedColumnName = "ID")}, inverseJoinColumns = {
-    	@JoinColumn(name = "KURSID", referencedColumnName = "ID")})
-    @ManyToMany
-	private List<Kurs> kursList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
 	private List<Stundeteilnahme> stundeteilnahmeList;
 	@OneToMany(mappedBy = "leiterid")
-	private List<Kurs> kursList1;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+	private List<Kurs> kursList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+	private List<Kursteilnahme> kursteilnahmeList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
 	private List<Stundeleitung> stundeleitungList;
 
 	public Account() {
@@ -85,14 +77,12 @@ public class Account implements Serializable {
 		this.id = id;
 	}
 
-	public Account(Integer id, String email, String vorname, String name, Date geburtsdatum, String passworthash, Boolean isadmin) {
+	public Account(Integer id, String email, String vorname, String name, Date geburtsdatum) {
 		this.id = id;
 		this.email = email;
 		this.vorname = vorname;
 		this.name = name;
 		this.geburtsdatum = geburtsdatum;
-		this.passworthash = passworthash;
-		this.isadmin = isadmin;
 	}
 
 	public Integer getId() {
@@ -151,14 +141,6 @@ public class Account implements Serializable {
 		this.isadmin = isadmin;
 	}
 
-	public List<Kurs> getKursList() {
-		return kursList;
-	}
-
-	public void setKursList(List<Kurs> kursList) {
-		this.kursList = kursList;
-	}
-
 	public List<Stundeteilnahme> getStundeteilnahmeList() {
 		return stundeteilnahmeList;
 	}
@@ -167,12 +149,20 @@ public class Account implements Serializable {
 		this.stundeteilnahmeList = stundeteilnahmeList;
 	}
 
-	public List<Kurs> getKursList1() {
-		return kursList1;
+	public List<Kurs> getKursList() {
+		return kursList;
 	}
 
-	public void setKursList1(List<Kurs> kursList1) {
-		this.kursList1 = kursList1;
+	public void setKursList(List<Kurs> kursList) {
+		this.kursList = kursList;
+	}
+
+	public List<Kursteilnahme> getKursteilnahmeList() {
+		return kursteilnahmeList;
+	}
+
+	public void setKursteilnahmeList(List<Kursteilnahme> kursteilnahmeList) {
+		this.kursteilnahmeList = kursteilnahmeList;
 	}
 
 	public List<Stundeleitung> getStundeleitungList() {

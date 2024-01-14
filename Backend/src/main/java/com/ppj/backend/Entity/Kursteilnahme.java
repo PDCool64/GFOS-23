@@ -22,13 +22,11 @@ import java.io.Serializable;
  * @author philipp.doering
  */
 @Entity
-@Table(name = "STUNDELEITUNG")
+@Table(name = "KURSTEILNAHME")
 @NamedQueries({
-	@NamedQuery(name = "Stundeleitung.findAll", query = "SELECT s FROM Stundeleitung s"),
-	@NamedQuery(name = "Stundeleitung.findById", query = "SELECT s FROM Stundeleitung s WHERE s.id = :id"),
-	@NamedQuery(name = "Stundeleitung.findByLeitungsbewertung", query = "SELECT s FROM Stundeleitung s WHERE s.leitungsbewertung = :leitungsbewertung"),
-	@NamedQuery(name = "Stundeleitung.findByKommentar", query = "SELECT s FROM Stundeleitung s WHERE s.kommentar = :kommentar")})
-public class Stundeleitung implements Serializable {
+	@NamedQuery(name = "Kursteilnahme.findAll", query = "SELECT k FROM Kursteilnahme k"),
+	@NamedQuery(name = "Kursteilnahme.findById", query = "SELECT k FROM Kursteilnahme k WHERE k.id = :id")})
+public class Kursteilnahme implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -36,28 +34,18 @@ public class Stundeleitung implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
 	private Integer id;
-	@Basic(optional = false)
-    @Column(name = "LEITUNGSBEWERTUNG")
-	private int leitungsbewertung;
-	@Column(name = "KOMMENTAR")
-	private String kommentar;
 	@JoinColumn(name = "ACCOUNTID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
 	private Account accountid;
-	@JoinColumn(name = "STUNDEID", referencedColumnName = "ID")
+	@JoinColumn(name = "KURSID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	private Stunde stundeid;
+	private Kurs kursid;
 
-	public Stundeleitung() {
+	public Kursteilnahme() {
 	}
 
-	public Stundeleitung(Integer id) {
+	public Kursteilnahme(Integer id) {
 		this.id = id;
-	}
-
-	public Stundeleitung(Integer id, int leitungsbewertung) {
-		this.id = id;
-		this.leitungsbewertung = leitungsbewertung;
 	}
 
 	public Integer getId() {
@@ -68,22 +56,6 @@ public class Stundeleitung implements Serializable {
 		this.id = id;
 	}
 
-	public int getLeitungsbewertung() {
-		return leitungsbewertung;
-	}
-
-	public void setLeitungsbewertung(int leitungsbewertung) {
-		this.leitungsbewertung = leitungsbewertung;
-	}
-
-	public String getKommentar() {
-		return kommentar;
-	}
-
-	public void setKommentar(String kommentar) {
-		this.kommentar = kommentar;
-	}
-
 	public Account getAccountid() {
 		return accountid;
 	}
@@ -92,12 +64,12 @@ public class Stundeleitung implements Serializable {
 		this.accountid = accountid;
 	}
 
-	public Stunde getStundeid() {
-		return stundeid;
+	public Kurs getKursid() {
+		return kursid;
 	}
 
-	public void setStundeid(Stunde stundeid) {
-		this.stundeid = stundeid;
+	public void setKursid(Kurs kursid) {
+		this.kursid = kursid;
 	}
 
 	@Override
@@ -110,10 +82,10 @@ public class Stundeleitung implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Stundeleitung)) {
+		if (!(object instanceof Kursteilnahme)) {
 			return false;
 		}
-		Stundeleitung other = (Stundeleitung) object;
+		Kursteilnahme other = (Kursteilnahme) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
@@ -122,7 +94,7 @@ public class Stundeleitung implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.ppj.backend.Entity.Stundeleitung[ id=" + id + " ]";
+		return "com.ppj.backend.Entity.Kursteilnahme[ id=" + id + " ]";
 	}
 	
 }

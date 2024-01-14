@@ -6,8 +6,10 @@ package com.ppj.backend.Entity;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
@@ -23,49 +25,50 @@ import java.io.Serializable;
 @Table(name = "STUNDETEILNAHME")
 @NamedQueries({
 	@NamedQuery(name = "Stundeteilnahme.findAll", query = "SELECT s FROM Stundeteilnahme s"),
-	@NamedQuery(name = "Stundeteilnahme.findByAccountid", query = "SELECT s FROM Stundeteilnahme s WHERE s.stundeteilnahmePK.accountid = :accountid"),
-	@NamedQuery(name = "Stundeteilnahme.findByStundeid", query = "SELECT s FROM Stundeteilnahme s WHERE s.stundeteilnahmePK.stundeid = :stundeid"),
+	@NamedQuery(name = "Stundeteilnahme.findById", query = "SELECT s FROM Stundeteilnahme s WHERE s.id = :id"),
 	@NamedQuery(name = "Stundeteilnahme.findByAnwesend", query = "SELECT s FROM Stundeteilnahme s WHERE s.anwesend = :anwesend"),
-	@NamedQuery(name = "Stundeteilnahme.findByNote", query = "SELECT s FROM Stundeteilnahme s WHERE s.note = :note")})
+	@NamedQuery(name = "Stundeteilnahme.findByNote", query = "SELECT s FROM Stundeteilnahme s WHERE s.note = :note"),
+	@NamedQuery(name = "Stundeteilnahme.findByKommentar", query = "SELECT s FROM Stundeteilnahme s WHERE s.kommentar = :kommentar")})
 public class Stundeteilnahme implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@EmbeddedId
-	protected StundeteilnahmePK stundeteilnahmePK;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+	private Integer id;
 	@Basic(optional = false)
     @Column(name = "ANWESEND")
 	private Boolean anwesend;
 	@Column(name = "NOTE")
 	private Integer note;
-	@JoinColumn(name = "ACCOUNTID", referencedColumnName = "ID", insertable = false, updatable = false)
+	@Column(name = "KOMMENTAR")
+	private String kommentar;
+	@JoinColumn(name = "ACCOUNTID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	private Account account;
-	@JoinColumn(name = "STUNDEID", referencedColumnName = "ID", insertable = false, updatable = false)
+	private Account accountid;
+	@JoinColumn(name = "STUNDEID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	private Stunde stunde;
+	private Stunde stundeid;
 
 	public Stundeteilnahme() {
 	}
 
-	public Stundeteilnahme(StundeteilnahmePK stundeteilnahmePK) {
-		this.stundeteilnahmePK = stundeteilnahmePK;
+	public Stundeteilnahme(Integer id) {
+		this.id = id;
 	}
 
-	public Stundeteilnahme(StundeteilnahmePK stundeteilnahmePK, Boolean anwesend) {
-		this.stundeteilnahmePK = stundeteilnahmePK;
+	public Stundeteilnahme(Integer id, Boolean anwesend) {
+		this.id = id;
 		this.anwesend = anwesend;
 	}
 
-	public Stundeteilnahme(int accountid, int stundeid) {
-		this.stundeteilnahmePK = new StundeteilnahmePK(accountid, stundeid);
+	public Integer getId() {
+		return id;
 	}
 
-	public StundeteilnahmePK getStundeteilnahmePK() {
-		return stundeteilnahmePK;
-	}
-
-	public void setStundeteilnahmePK(StundeteilnahmePK stundeteilnahmePK) {
-		this.stundeteilnahmePK = stundeteilnahmePK;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Boolean getAnwesend() {
@@ -84,26 +87,34 @@ public class Stundeteilnahme implements Serializable {
 		this.note = note;
 	}
 
-	public Account getAccount() {
-		return account;
+	public String getKommentar() {
+		return kommentar;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setKommentar(String kommentar) {
+		this.kommentar = kommentar;
 	}
 
-	public Stunde getStunde() {
-		return stunde;
+	public Account getAccountid() {
+		return accountid;
 	}
 
-	public void setStunde(Stunde stunde) {
-		this.stunde = stunde;
+	public void setAccountid(Account accountid) {
+		this.accountid = accountid;
+	}
+
+	public Stunde getStundeid() {
+		return stundeid;
+	}
+
+	public void setStundeid(Stunde stundeid) {
+		this.stundeid = stundeid;
 	}
 
 	@Override
 	public int hashCode() {
 		int hash = 0;
-		hash += (stundeteilnahmePK != null ? stundeteilnahmePK.hashCode() : 0);
+		hash += (id != null ? id.hashCode() : 0);
 		return hash;
 	}
 
@@ -114,7 +125,7 @@ public class Stundeteilnahme implements Serializable {
 			return false;
 		}
 		Stundeteilnahme other = (Stundeteilnahme) object;
-		if ((this.stundeteilnahmePK == null && other.stundeteilnahmePK != null) || (this.stundeteilnahmePK != null && !this.stundeteilnahmePK.equals(other.stundeteilnahmePK))) {
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
 		return true;
@@ -122,7 +133,7 @@ public class Stundeteilnahme implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.ppj.backend.Entity.Stundeteilnahme[ stundeteilnahmePK=" + stundeteilnahmePK + " ]";
+		return "com.ppj.backend.Entity.Stundeteilnahme[ id=" + id + " ]";
 	}
 	
 }

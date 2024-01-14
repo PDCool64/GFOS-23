@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -47,16 +46,15 @@ public class Kurs implements Serializable {
 	@Basic(optional = false)
     @Column(name = "NAME")
 	private String name;
-	@Basic(optional = false)
-    @Column(name = "STUFE")
-	private int stufe;
-	@ManyToMany(mappedBy = "kursList")
-	private List<Account> accountList;
+	@Column(name = "STUFE")
+	private Integer stufe;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kursid")
 	private List<Unterricht> unterrichtList;
 	@JoinColumn(name = "LEITERID", referencedColumnName = "ID")
     @ManyToOne
 	private Account leiterid;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kursid")
+	private List<Kursteilnahme> kursteilnahmeList;
 
 	public Kurs() {
 	}
@@ -65,11 +63,10 @@ public class Kurs implements Serializable {
 		this.id = id;
 	}
 
-	public Kurs(Integer id, String fach, String name, int stufe) {
+	public Kurs(Integer id, String fach, String name) {
 		this.id = id;
 		this.fach = fach;
 		this.name = name;
-		this.stufe = stufe;
 	}
 
 	public Integer getId() {
@@ -96,20 +93,12 @@ public class Kurs implements Serializable {
 		this.name = name;
 	}
 
-	public int getStufe() {
+	public Integer getStufe() {
 		return stufe;
 	}
 
-	public void setStufe(int stufe) {
+	public void setStufe(Integer stufe) {
 		this.stufe = stufe;
-	}
-
-	public List<Account> getAccountList() {
-		return accountList;
-	}
-
-	public void setAccountList(List<Account> accountList) {
-		this.accountList = accountList;
 	}
 
 	public List<Unterricht> getUnterrichtList() {
@@ -126,6 +115,14 @@ public class Kurs implements Serializable {
 
 	public void setLeiterid(Account leiterid) {
 		this.leiterid = leiterid;
+	}
+
+	public List<Kursteilnahme> getKursteilnahmeList() {
+		return kursteilnahmeList;
+	}
+
+	public void setKursteilnahmeList(List<Kursteilnahme> kursteilnahmeList) {
+		this.kursteilnahmeList = kursteilnahmeList;
 	}
 
 	@Override
