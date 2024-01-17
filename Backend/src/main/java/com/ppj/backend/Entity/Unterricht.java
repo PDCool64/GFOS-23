@@ -45,10 +45,10 @@ public class Unterricht implements Serializable {
 	@Basic(optional = false)
     @Column(name = "ENDZEIT")
 	private String endzeit;
-	@JoinColumn(name = "KURSID", referencedColumnName = "ID")
+	@JoinColumn(name = "KURS", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	private Kurs kursid;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "unterrichtid")
+	private Kurs kurs;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "unterricht")
 	private List<Stunde> stundeList;
 
 	public Unterricht() {
@@ -88,12 +88,12 @@ public class Unterricht implements Serializable {
 		this.endzeit = endzeit;
 	}
 
-	public Kurs getKursid() {
-		return kursid;
+	public Kurs getKurs() {
+		return kurs;
 	}
 
-	public void setKursid(Kurs kursid) {
-		this.kursid = kursid;
+	public void setKurs(Kurs kurs) {
+		this.kurs = kurs;
 	}
 
 	public List<Stunde> getStundeList() {

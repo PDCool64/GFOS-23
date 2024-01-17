@@ -61,14 +61,14 @@ public class Account implements Serializable {
 	private String passworthash;
 	@Column(name = "ISADMIN")
 	private Boolean isadmin;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Stundeteilnahme> stundeteilnahmeList;
-	@OneToMany(mappedBy = "leiterid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+	private List<Stundebewertung> stundebewertungList;
+	@OneToMany(mappedBy = "leiter")
 	private List<Kurs> kursList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	private List<Kursteilnahme> kursteilnahmeList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountid")
-	private List<Stundeleitung> stundeleitungList;
 
 	public Account() {
 	}
@@ -149,6 +149,14 @@ public class Account implements Serializable {
 		this.stundeteilnahmeList = stundeteilnahmeList;
 	}
 
+	public List<Stundebewertung> getStundebewertungList() {
+		return stundebewertungList;
+	}
+
+	public void setStundebewertungList(List<Stundebewertung> stundebewertungList) {
+		this.stundebewertungList = stundebewertungList;
+	}
+
 	public List<Kurs> getKursList() {
 		return kursList;
 	}
@@ -163,14 +171,6 @@ public class Account implements Serializable {
 
 	public void setKursteilnahmeList(List<Kursteilnahme> kursteilnahmeList) {
 		this.kursteilnahmeList = kursteilnahmeList;
-	}
-
-	public List<Stundeleitung> getStundeleitungList() {
-		return stundeleitungList;
-	}
-
-	public void setStundeleitungList(List<Stundeleitung> stundeleitungList) {
-		this.stundeleitungList = stundeleitungList;
 	}
 
 	@Override

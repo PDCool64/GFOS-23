@@ -5,6 +5,8 @@
 package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Entity.Stundeteilnahme;
+
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -25,8 +27,9 @@ public class AccountFacade {
 	public Account createAccount(Account a) {
 		try {
 			em.persist(a);
-			// Account accountMitId = this.getAccountById(a.getId());
-			return a;
+			em.flush();
+			Account accountMitId = this.getAccountById(a.getId());
+			return accountMitId;
 		} catch (Exception e) {
 			return null;
 		}
@@ -71,6 +74,7 @@ public class AccountFacade {
 			accountInDatenbank.setPassworthash(a.getPassworthash());
 			accountInDatenbank.setVorname(a.getVorname());
 			em.merge(accountInDatenbank);
+			em.flush();
 			return accountInDatenbank;
 		} catch (Exception e) {
 			return null;
@@ -80,6 +84,58 @@ public class AccountFacade {
 	public boolean deleteAccount(Account a) {
 		try {
 			em.remove(a);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public Stundeteilnahme createTeilnahme(Stundeteilnahme s) {
+		try {
+			em.persist(s);
+			em.flush();
+			return s;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Stundeteilnahme getTeilnahmeById(int id) {
+		try {
+			return em.find(Stundeteilnahme.class, id);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public List<Stundeteilnahme> getAllTeilnahmen() {
+		try {
+			return em
+				.createNamedQuery("Stundeteilnahme.findAll", Stundeteilnahme.class)
+				.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Stundeteilnahme updateTeilnahme(Stundeteilnahme s) {
+		try {
+			Stundeteilnahme teilnahmeInDatenbank = this.getTeilnahmeById(s.getId());
+			teilnahmeInDatenbank.setAccount(s.getAccount());
+			teilnahmeInDatenbank.setBegintimestamp(s.getBegintimestamp());
+			teilnahmeInDatenbank.setEndtimestamp(s.getEndtimestamp());
+			teilnahmeInDatenbank.setNote (s.getNote());
+			teilnahmeInDatenbank.setStunde(s.getStunde());
+			em.merge(teilnahmeInDatenbank);
+			return teilnahmeInDatenbank;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public boolean deleteTeilnahme(Stundeteilnahme s) {
+		try {
+			em.remove(s);
 			return true;
 		} catch (Exception e) {
 			return false;

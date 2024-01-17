@@ -48,12 +48,12 @@ public class Kurs implements Serializable {
 	private String name;
 	@Column(name = "STUFE")
 	private Integer stufe;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kursid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
 	private List<Unterricht> unterrichtList;
-	@JoinColumn(name = "LEITERID", referencedColumnName = "ID")
+	@JoinColumn(name = "LEITER", referencedColumnName = "ID")
     @ManyToOne
-	private Account leiterid;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kursid")
+	private Account leiter;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
 	private List<Kursteilnahme> kursteilnahmeList;
 
 	public Kurs() {
@@ -109,12 +109,12 @@ public class Kurs implements Serializable {
 		this.unterrichtList = unterrichtList;
 	}
 
-	public Account getLeiterid() {
-		return leiterid;
+	public Account getLeiter() {
+		return leiter;
 	}
 
-	public void setLeiterid(Account leiterid) {
-		this.leiterid = leiterid;
+	public void setLeiter(Account leiter) {
+		this.leiter = leiter;
 	}
 
 	public List<Kursteilnahme> getKursteilnahmeList() {

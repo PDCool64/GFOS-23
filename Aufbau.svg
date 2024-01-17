@@ -1,405 +1,490 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="125cm" height="43cm" viewBox="-1316 -435 2491 844" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="136cm" height="57cm" viewBox="-1602 -562 2710 1123" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g>
-    <rect style="fill: #1cff5b" x="497.251" y="204.682" width="74.2" height="36"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="497.251" y="204.682" width="74.2" height="36"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="534.351" y="226.682">Stunde</text>
+    <rect style="fill: #1cff5b" x="353.269" y="174.985" width="74.2" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="353.269" y="174.985" width="74.2" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="390.369" y="196.985">Stunde</text>
   </g>
   <g>
-    <ellipse style="fill: #1cff5b" cx="696.702" cy="287.39" rx="73.9" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="696.702" cy="287.39" rx="73.9" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="696.702" y="291.39">beginTimestamp</text>
+    <ellipse style="fill: #1cff5b" cx="536.073" cy="269.584" rx="73.9" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="536.073" cy="269.584" rx="73.9" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="536.073" y="273.584">beginTimestamp</text>
   </g>
   <g>
-    <ellipse style="fill: #1cff5b" cx="488.2" cy="322" rx="66.2" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="488.2" cy="322" rx="66.2" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="488.2" y="326">endTimestamp</text>
+    <ellipse style="fill: #1cff5b" cx="469.217" cy="352.584" rx="66.2" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="469.217" cy="352.584" rx="66.2" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="469.217" y="356.584">endTimestamp</text>
   </g>
   <g>
-    <ellipse style="fill: #1cff5b" cx="330.35" cy="269" rx="62.35" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="330.35" cy="269" rx="62.35" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="330.35" y="273">checkInCode</text>
+    <ellipse style="fill: #1cff5b" cx="257.721" cy="230.978" rx="62.35" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="257.721" cy="230.978" rx="62.35" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="257.721" y="234.978">checkInCode</text>
   </g>
   <g>
-    <ellipse style="fill: #1cff5b" cx="632.178" cy="136.135" rx="27.7" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="632.178" cy="136.135" rx="27.7" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="632.178" y="140.135">id</text>
-    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="624.478" y1="144.135" x2="639.878" y2="144.135"/>
+    <ellipse style="fill: #1cff5b" cx="529.819" cy="215.843" rx="27.7" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="529.819" cy="215.843" rx="27.7" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="529.819" y="219.843">id</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="522.119" y1="223.843" x2="537.519" y2="223.843"/>
   </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="394.208,269 444.974,269 444.974,222.682 495.741,222.682 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="488.2,302.49 488.2,272.341 534.351,272.341 534.351,242.191 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="621.293,287.39 597.126,287.39 597.126,222.682 572.96,222.682 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="632.178,155.645 632.178,179.408 534.351,179.408 534.351,203.172 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="321.579,230.978 336.669,230.978 336.669,192.985 351.76,192.985 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="469.217,333.085 469.217,303.794 390.369,303.794 390.369,212.477 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="536.073,250.075 536.073,231.285 390.369,231.285 390.369,212.494 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="500.612,215.843 464.795,215.843 464.795,192.985 428.978,192.985 "/>
   <g>
-    <polygon style="fill: #ffaf1e" points="247.707,-18.9567 302.357,-51.7467 357.007,-18.9567 302.357,13.8333 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="247.707,-18.9567 302.357,-51.7467 357.007,-18.9567 302.357,13.8333 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="306.357" y="-57.7467">n</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="306.357" y="35.8333">m</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="302.357" y="-14.9567">Teilnahme</text>
+    <polygon style="fill: #95b3c0" points="96.4056,-135.508 178.006,-184.468 259.606,-135.508 178.006,-86.5479 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="96.4056,-135.508 178.006,-184.468 259.606,-135.508 178.006,-86.5479 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="182.006" y="-190.468">n</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="182.006" y="-64.5479">m</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="178.006" y="-131.508">Stundenteilnahme</text>
   </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="261.11,-135.508 272.863,-135.508 272.863,192.985 351.784,192.985 "/>
   <g>
-    <ellipse style="fill: #ffaf1e" cx="161.673" cy="-84.4836" rx="50.8" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="161.673" cy="-84.4836" rx="50.8" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="161.673" y="-80.4836">anwesend</text>
+    <rect style="fill: #617eff" x="821.373" y="137.666" width="105" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="821.373" y="137.666" width="105" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="873.873" y="159.666">Unterricht</text>
   </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="213.98,-84.4836 230.09,-84.4836 230.09,-18.9567 246.2,-18.9567 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="358.514,-18.9567 427.127,-18.9567 427.127,222.682 495.741,222.682 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="428.978,192.985 506.957,192.985 506.957,173.804 584.936,173.804 "/>
   <g>
-    <rect style="fill: #8a9ef7" x="766.758" y="50.8226" width="105" height="36"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="766.758" y="50.8226" width="105" height="36"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="819.258" y="72.8226">Unterricht</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="572.96,222.682 636.07,222.682 636.07,192.799 699.18,192.799 "/>
-  <g>
-    <rect style="fill: #34fdff" x="979.704" y="-209.56" width="58.8" height="36"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="979.704" y="-209.56" width="58.8" height="36"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1009.1" y="-187.56">Kurs</text>
+    <rect style="fill: #00ffb4" x="898.751" y="-179.798" width="58.8" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="898.751" y="-179.798" width="58.8" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="928.151" y="-157.798">Kurs</text>
   </g>
   <g>
-    <rect style="fill: #ff5534" x="417.002" y="-334.968" width="81.9" height="36"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="417.002" y="-334.968" width="81.9" height="36"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="457.952" y="-312.968">Account</text>
+    <rect style="fill: #ff5534" x="336.049" y="-305.206" width="81.9" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="336.049" y="-305.206" width="81.9" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="376.999" y="-283.206">Account</text>
   </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="358.514,-18.9567 387.005,-18.9567 387.005,-316.968 415.497,-316.968 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="261.111,-135.508 297.827,-135.508 297.827,-287.206 334.544,-287.206 "/>
   <g>
-    <polygon style="fill: #ffaf1e" points="832.388,-49.3196 894.738,-86.7296 957.088,-49.3196 894.738,-11.9096 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="832.388,-49.3196 894.738,-86.7296 957.088,-49.3196 894.738,-11.9096 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="898.738" y="-92.7296">1</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="898.738" y="10.0904">n</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="894.738" y="-45.3196">Stundenplan</text>
+    <polygon style="fill: #ffaf1e" points="804.949,-4.098 867.299,-41.508 929.649,-4.098 867.299,33.312 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="804.949,-4.098 867.299,-41.508 929.649,-4.098 867.299,33.312 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="871.299" y="-47.508">1</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="871.299" y="55.312">n</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="867.299" y="-0.0979974">Stundenplan</text>
   </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="894.738,-88.2285 894.738,-130.14 1009.1,-130.14 1009.1,-172.05 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="894.738,-10.4107 894.738,19.4512 819.258,19.4512 819.258,49.3131 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="867.299,-43.0069 867.299,-92.6476 928.151,-92.6476 928.151,-142.288 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="867.299,34.8109 867.299,85.4837 873.873,85.4837 873.873,136.156 "/>
   <g>
-    <polygon style="fill: #ffaf1e" points="792.586,-291.796 862.636,-333.826 932.686,-291.796 862.636,-249.766 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="792.586,-291.796 862.636,-333.826 932.686,-291.796 862.636,-249.766 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="786.586" y="-297.796">n</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="938.686" y="-297.796">m</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="862.636" y="-287.796">Kursteilnahme</text>
-  </g>
-  <g>
-    <ellipse style="fill: #8a9ef7" cx="997.152" cy="84.5834" rx="54.65" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="997.152" cy="84.5834" rx="54.65" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="997.152" y="88.5834">beginZeit</text>
+    <polygon style="fill: #95b3c0" points="711.633,-262.034 781.683,-304.064 851.733,-262.034 781.683,-220.004 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="711.633,-262.034 781.683,-304.064 851.733,-262.034 781.683,-220.004 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="705.633" y="-268.034">n</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="857.733" y="-268.034">m</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="781.683" y="-258.034">Kursteilnahme</text>
   </g>
   <g>
-    <ellipse style="fill: #8a9ef7" cx="898.67" cy="148.774" rx="46.95" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="898.67" cy="148.774" rx="46.95" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="898.67" y="152.774">endZeit</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="898.67,129.264 898.67,108.798 819.258,108.798 819.258,88.3321 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="940.995,84.5834 907.13,84.5834 907.13,68.8226 873.265,68.8226 "/>
-  <g>
-    <ellipse style="fill: #8a9ef7" cx="713.342" cy="84.1868" rx="27.7" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="713.342" cy="84.1868" rx="27.7" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="713.342" y="88.1868">id</text>
-    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="705.642" y1="92.1868" x2="721.042" y2="92.1868"/>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="742.549,84.1868 753.9,84.1868 753.9,68.8226 765.251,68.8226 "/>
-  <g>
-    <polygon style="fill: #ffaf1e" points="700.686,192.799 747.636,164.629 794.586,192.799 747.636,220.969 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="700.686,192.799 747.636,164.629 794.586,192.799 747.636,220.969 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="751.636" y="158.629">1</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="751.636" y="242.969">n</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="747.636" y="196.799">Verlauf</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="747.636,163.123 747.636,125.727 819.258,125.727 819.258,88.3321 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="791.102,-291.796 645.754,-291.796 645.754,-316.968 500.407,-316.968 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="934.17,-291.796 956.183,-291.796 956.183,-191.56 978.196,-191.56 "/>
-  <g>
-    <ellipse style="fill: #ff5534" cx="537.798" cy="-173.417" rx="27.7" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="537.798" cy="-173.417" rx="27.7" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="537.798" y="-169.417">id</text>
-    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="530.098" y1="-165.417" x2="545.498" y2="-165.417"/>
+    <ellipse style="fill: #617eff" cx="1051.77" cy="171.427" rx="54.65" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="1051.77" cy="171.427" rx="54.65" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1051.77" y="175.427">beginZeit</text>
   </g>
   <g>
-    <ellipse style="fill: #ff5534" cx="311.61" cy="-344.302" rx="35.4" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="311.61" cy="-344.302" rx="35.4" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="311.61" y="-340.302">name</text>
+    <ellipse style="fill: #617eff" cx="953.285" cy="235.617" rx="46.95" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="953.285" cy="235.617" rx="46.95" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="953.285" y="239.617">endZeit</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="953.285,216.107 953.285,195.642 873.873,195.642 873.873,175.176 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="995.61,171.427 961.745,171.427 961.745,155.666 927.88,155.666 "/>
+  <g>
+    <ellipse style="fill: #617eff" cx="786.983" cy="212.652" rx="27.7" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="786.983" cy="212.652" rx="27.7" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="786.983" y="216.652">id</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="779.283" y1="220.652" x2="794.683" y2="220.652"/>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="786.983,193.142 786.983,155.666 819.866,155.666 "/>
+  <g>
+    <polygon style="fill: #ffaf1e" points="586.435,173.804 633.385,145.634 680.335,173.804 633.385,201.974 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="586.435,173.804 633.385,145.634 680.335,173.804 633.385,201.974 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="580.435" y="167.804">n</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="686.335" y="167.804">1</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="633.385" y="177.804">Verlauf</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="681.833,173.804 750.85,173.804 750.85,155.666 819.866,155.666 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="710.149,-262.034 564.801,-262.034 564.801,-287.206 419.454,-287.206 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="853.217,-262.034 875.23,-262.034 875.23,-161.798 897.243,-161.798 "/>
+  <g>
+    <ellipse style="fill: #ff5534" cx="466.347" cy="-138.898" rx="27.7" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="466.347" cy="-138.898" rx="27.7" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="466.347" y="-134.898">id</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="458.647" y1="-130.898" x2="474.047" y2="-130.898"/>
   </g>
   <g>
-    <ellipse style="fill: #ff5534" cx="383.264" cy="-407.398" rx="46.95" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="383.264" cy="-407.398" rx="46.95" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="383.264" y="-403.398">vorname</text>
+    <ellipse style="fill: #ff5534" cx="230.657" cy="-314.54" rx="35.4" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="230.657" cy="-314.54" rx="35.4" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="230.657" y="-310.54">name</text>
   </g>
   <g>
-    <ellipse style="fill: #ff5534" cx="502.474" cy="-414.734" rx="46.95" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="502.474" cy="-414.734" rx="46.95" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="502.474" y="-410.734">isAdmin</text>
+    <ellipse style="fill: #ff5534" cx="302.311" cy="-377.636" rx="46.95" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="302.311" cy="-377.636" rx="46.95" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="302.311" y="-373.636">vorname</text>
   </g>
   <g>
-    <ellipse style="fill: #ff5534" cx="605.172" cy="-365.216" rx="66.2" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="605.172" cy="-365.216" rx="66.2" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="605.172" y="-361.216">geburtsdatum</text>
+    <ellipse style="fill: #ff5534" cx="421.521" cy="-384.972" rx="46.95" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="421.521" cy="-384.972" rx="46.95" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="421.521" y="-380.972">isAdmin</text>
   </g>
   <g>
-    <ellipse style="fill: #ff5534" cx="199.349" cy="-316.936" rx="66.2" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="199.349" cy="-316.936" rx="66.2" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="199.349" y="-312.936">passwortHash</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="267.057,-316.936 341.277,-316.936 341.277,-316.968 415.497,-316.968 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="348.519,-344.302 382.008,-344.302 382.008,-316.968 415.497,-316.968 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="383.264,-387.888 383.264,-362.183 457.952,-362.183 457.952,-336.478 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="502.474,-395.224 502.474,-365.851 457.952,-365.851 457.952,-336.478 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="537.464,-365.216 518.935,-365.216 518.935,-316.968 500.407,-316.968 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="537.798,-192.927 537.798,-245.193 457.952,-245.193 457.952,-297.458 "/>
-  <g>
-    <ellipse style="fill: #34fdff" cx="1133.37" cy="-255.448" rx="35.4" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="1133.37" cy="-255.448" rx="35.4" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1133.37" y="-251.448">name</text>
+    <ellipse style="fill: #ff5534" cx="524.219" cy="-335.454" rx="66.2" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="524.219" cy="-335.454" rx="66.2" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="524.219" y="-331.454">geburtsdatum</text>
   </g>
   <g>
-    <ellipse style="fill: #34fdff" cx="1145.85" cy="-163.747" rx="27.7" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="1145.85" cy="-163.747" rx="27.7" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1145.85" y="-159.747">id</text>
-    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="1138.15" y1="-155.747" x2="1153.55" y2="-155.747"/>
+    <ellipse style="fill: #ff5534" cx="118.396" cy="-287.174" rx="66.2" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="118.396" cy="-287.174" rx="66.2" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="118.396" y="-283.174">passwortHash</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="186.104,-287.174 260.324,-287.174 260.324,-287.206 334.544,-287.206 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="267.566,-314.54 301.055,-314.54 301.055,-287.206 334.544,-287.206 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="302.311,-358.126 302.311,-332.421 376.999,-332.421 376.999,-306.715 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="421.521,-365.462 421.521,-336.089 376.999,-336.089 376.999,-306.715 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="456.511,-335.454 437.982,-335.454 437.982,-287.206 419.454,-287.206 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="466.347,-158.408 466.347,-213.052 376.999,-213.052 376.999,-267.696 "/>
+  <g>
+    <ellipse style="fill: #00ffb4" cx="1052.42" cy="-225.686" rx="35.4" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="1052.42" cy="-225.686" rx="35.4" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1052.42" y="-221.686">name</text>
   </g>
   <g>
-    <polygon style="fill: #ffaf1e" points="695.988,-210.696 739.088,-236.556 782.188,-210.696 739.088,-184.836 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="695.988,-210.696 739.088,-236.556 782.188,-210.696 739.088,-184.836 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="689.988" y="-216.696">1</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="788.188" y="-216.696">n</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="739.088" y="-206.696">Leiter</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="739.088,-238.063 739.088,-267.761 457.952,-267.761 457.952,-297.458 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1096.46,-255.448 1068.24,-255.448 1068.24,-191.56 1040.01,-191.56 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1116.64,-163.747 1078.33,-163.747 1078.33,-191.56 1040.01,-191.56 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="783.681,-210.696 880.939,-210.696 880.939,-191.56 978.196,-191.56 "/>
-  <g>
-    <ellipse style="fill: #ffaf1e" cx="89.8646" cy="0.708615" rx="35.4" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="89.8646" cy="0.708615" rx="35.4" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="89.8646" y="4.70862">note</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="126.774,0.708615 186.487,0.708615 186.487,-18.9567 246.2,-18.9567 "/>
-  <g>
-    <polygon style="fill: #ffaf1e" points="454.758,10.1649 501.708,-18.0051 548.658,10.1649 501.708,38.3349 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="454.758,10.1649 501.708,-18.0051 548.658,10.1649 501.708,38.3349 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="505.708" y="-24.0051">n</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="505.708" y="60.3349">m</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="501.708" y="14.1649">Leitung</text>
+    <ellipse style="fill: #00ffb4" cx="1064.89" cy="-133.985" rx="27.7" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="1064.89" cy="-133.985" rx="27.7" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1064.89" y="-129.985">id</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="1057.19" y1="-125.985" x2="1072.59" y2="-125.985"/>
   </g>
   <g>
-    <ellipse style="fill: #ffaf1e" cx="650.582" cy="-22.4596" rx="54.65" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="650.582" cy="-22.4596" rx="54.65" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="650.582" y="-18.4596">bewertung</text>
+    <polygon style="fill: #ffaf1e" points="615.035,-180.934 658.135,-206.794 701.235,-180.934 658.135,-155.074 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="615.035,-180.934 658.135,-206.794 701.235,-180.934 658.135,-155.074 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="609.035" y="-186.934">1</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="707.235" y="-186.934">n</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="658.135" y="-176.934">Leiter</text>
   </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="594.425,-22.4596 572.295,-22.4596 572.295,10.1649 550.164,10.1649 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="501.708,-19.5113 501.708,-158.485 457.952,-158.485 457.952,-297.458 "/>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="501.708,39.8411 501.708,121.507 534.351,121.507 534.351,203.172 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="658.135,-208.3 658.135,-237.998 376.999,-237.998 376.999,-267.696 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1015.51,-225.686 987.285,-225.686 987.285,-161.798 959.059,-161.798 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1035.69,-133.985 997.373,-133.985 997.373,-161.798 959.059,-161.798 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="702.728,-180.934 799.986,-180.934 799.986,-161.798 897.243,-161.798 "/>
   <g>
-    <ellipse style="fill: #ff5534" cx="619.736" cy="-221.876" rx="39.25" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="619.736" cy="-221.876" rx="39.25" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="619.736" y="-217.876">email</text>
+    <ellipse style="fill: #95b3c0" cx="-21.113" cy="-106.542" rx="35.4" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="-21.113" cy="-106.542" rx="35.4" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-21.113" y="-102.542">note</text>
   </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="619.736,-241.386 619.736,-269.422 457.952,-269.422 457.952,-297.458 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="15.7897,-106.542 34.2445,-106.542 34.2445,-135.508 96.0168,-135.508 "/>
   <g>
-    <ellipse style="fill: #34fdff" cx="1052.09" cy="-100.83" rx="35.4" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="1052.09" cy="-100.83" rx="35.4" ry="18"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1052.09" y="-96.83">fach</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1052.09,-120.34 1052.09,-146.195 1009.1,-146.195 1009.1,-172.05 "/>
-  <g>
-    <ellipse style="fill: #ffaf1e" cx="643.666" cy="36.1012" rx="54.65" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="643.666" cy="36.1012" rx="54.65" ry="18"/>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="643.666" y="40.1012">kommentar</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="587.509,36.1012 568.837,36.1012 568.837,10.1649 550.164,10.1649 "/>
-  <g>
-    <ellipse style="fill: #ffaf1e" cx="218.976" cy="59.2128" rx="54.65" ry="18"/>
-    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="218.976" cy="59.2128" rx="54.65" ry="18"/>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="218.976" y="63.2128">kommentar</text>
-  </g>
-  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="275.133,59.2128 302.357,59.2128 302.357,14.9052 "/>
-  <g>
-    <rect style="fill: #ff5534" x="-296.083" y="-403.149" width="171.7" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-296.083" y="-403.149" width="171.7" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-210.233" y="-384.149">Account</text>
-    <rect style="fill: #ff5534" x="-296.083" y="-375.149" width="171.7" height="116"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-296.083" y="-375.149" width="171.7" height="116"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-292.583" y="-361.149">+id: int</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-292.583" y="-345.149">+email: String</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-292.583" y="-329.149">+vorname: String</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-292.583" y="-313.149">+name: String</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-292.583" y="-297.149">+geburtsdatum: Date</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-292.583" y="-281.149">+passwortHash: String</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-292.583" y="-265.149">+isadmin: boolean</text>
-    <rect style="fill: #ff5534" x="-296.083" y="-259.149" width="171.7" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-296.083" y="-259.149" width="171.7" height="8"/>
+    <polygon style="fill: #95b3c0" points="360,-31.04 441.6,-80 523.2,-31.04 441.6,17.92 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="360,-31.04 441.6,-80 523.2,-31.04 441.6,17.92 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="445.6" y="-86">n</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="445.6" y="39.92">m</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="441.6" y="-27.04">Leitungsfeedback</text>
   </g>
   <g>
-    <rect style="fill: #34fdff" x="-293.712" y="-240.153" width="110.1" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-293.712" y="-240.153" width="110.1" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-238.662" y="-221.153">Kurs</text>
-    <rect style="fill: #34fdff" x="-293.712" y="-212.153" width="110.1" height="68"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-293.712" y="-212.153" width="110.1" height="68"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-290.212" y="-198.153">+id: int</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-290.212" y="-182.153">+fach: String</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-290.212" y="-166.153">+name: String</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-290.212" y="-150.153">+stufe: int</text>
-    <rect style="fill: #34fdff" x="-293.712" y="-144.153" width="110.1" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-293.712" y="-144.153" width="110.1" height="8"/>
+    <ellipse style="fill: #95b3c0" cx="347.521" cy="45.2848" rx="54.65" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="347.521" cy="45.2848" rx="54.65" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="347.521" y="49.2848">bewertung</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="403.678,45.2848 441.6,45.2848 441.6,19.422 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="441.6,-81.4858 441.6,-95.2694 376.999,-95.2694 376.999,-267.701 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="441.6,19.422 441.6,96.4486 390.369,96.4486 390.369,173.475 "/>
+  <g>
+    <ellipse style="fill: #ff5534" cx="545.325" cy="-189.934" rx="39.25" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="545.325" cy="-189.934" rx="39.25" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="545.325" y="-185.934">email</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="545.325,-209.443 545.325,-238.57 376.999,-238.57 376.999,-267.696 "/>
+  <g>
+    <ellipse style="fill: #00ffb4" cx="971.135" cy="-71.0678" rx="35.4" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="971.135" cy="-71.0678" rx="35.4" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="971.135" y="-67.0678">fach</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="971.135,-90.5773 971.135,-116.433 928.151,-116.433 928.151,-142.288 "/>
+  <g>
+    <ellipse style="fill: #95b3c0" cx="610.947" cy="41.557" rx="54.65" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="610.947" cy="41.557" rx="54.65" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="610.947" y="45.557">kommentar</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="554.79,41.557 539.748,41.557 539.748,-31.04 524.705,-31.04 "/>
+  <g>
+    <ellipse style="fill: #95b3c0" cx="-41.2809" cy="-13.4108" rx="54.65" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="-41.2809" cy="-13.4108" rx="54.65" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="-41.2809" y="-9.41075">kommentar</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-41.2809,-32.9203 -41.2809,-58.9831 178.006,-58.9831 178.006,-85.046 "/>
+  <g>
+    <rect style="fill: #ff5534" x="-580" y="-560" width="387.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-560" width="387.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-386.35" y="-541">Account</text>
+    <rect style="fill: #ff5534" x="-580" y="-532" width="387.3" height="180"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-532" width="387.3" height="180"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-518">+id: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-502">+email: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-486">+vorname: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-470">+name: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-454">+geburtsdatum: Date</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-438">+passwortHash: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-422">+isadmin: boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-406">+stundeteilnahmeList: List&lt;Stundteilnahme&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-390">+leiterList: List&lt;Kurs&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-374">+kursteilnahmeList: List&lt;Kursteilnahme&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-358">+stundleitungsbewertungsList: List&lt;Stundeleitung&gt;</text>
+    <rect style="fill: #ff5534" x="-580" y="-352" width="387.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-352" width="387.3" height="8"/>
   </g>
   <g>
-    <rect style="fill: #ffaf1e" x="-292.316" y="343.707" width="145.05" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-292.316" y="343.707" width="145.05" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-219.791" y="362.707">KursTeilnahme</text>
-    <rect style="fill: #ffaf1e" x="-292.316" y="371.707" width="145.05" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-292.316" y="371.707" width="145.05" height="20"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-288.816" y="385.707">+id: int</text>
-    <rect style="fill: #ffaf1e" x="-292.316" y="391.707" width="145.05" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-292.316" y="391.707" width="145.05" height="8"/>
+    <rect style="fill: #34fdff" x="-580" y="-320" width="264.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-320" width="264.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-447.95" y="-301">Kurs</text>
+    <rect style="fill: #34fdff" x="-580" y="-292" width="264.1" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-292" width="264.1" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-278">+id: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-262">+fach: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-246">+name: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-230">+stufe: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-214">+leiter: Account</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-198">+kursteilnahmeList: List&lt;Account&gt;</text>
+    <rect style="fill: #34fdff" x="-580" y="-192" width="264.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-192" width="264.1" height="8"/>
   </g>
   <g>
-    <rect style="fill: #1cff5b" x="-294.12" y="-13.2138" width="171.7" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-294.12" y="-13.2138" width="171.7" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-208.27" y="5.78622">Stunde</text>
-    <rect style="fill: #1cff5b" x="-294.12" y="14.7862" width="171.7" height="68"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-294.12" y="14.7862" width="171.7" height="68"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-290.62" y="28.7862">+id: int</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-290.62" y="44.7862">+begintimestamp: Date</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-290.62" y="60.7862">+endtimestamp: Date</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-290.62" y="76.7862">+checkincode: String</text>
-    <rect style="fill: #1cff5b" x="-294.12" y="82.7862" width="171.7" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-294.12" y="82.7862" width="171.7" height="8"/>
+    <rect style="fill: #ffaf1e" x="-580" y="460" width="145.05" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="460" width="145.05" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-507.475" y="479">KursTeilnahme</text>
+    <rect style="fill: #ffaf1e" x="-580" y="488" width="145.05" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="488" width="145.05" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="502">+id: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="518">+account: Account</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="534">+kurs: Kurs</text>
+    <rect style="fill: #ffaf1e" x="-580" y="540" width="145.05" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="540" width="145.05" height="8"/>
   </g>
   <g>
-    <rect style="fill: #8a9ef7" x="-291.146" y="-119.148" width="148.6" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-291.146" y="-119.148" width="148.6" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-216.846" y="-100.148">Unterricht</text>
-    <rect style="fill: #8a9ef7" x="-291.146" y="-91.1477" width="148.6" height="52"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-291.146" y="-91.1477" width="148.6" height="52"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-287.646" y="-77.1477">+id: int</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-287.646" y="-61.1477">+beginzeit: String</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-287.646" y="-45.1477">+endzeit: String</text>
-    <rect style="fill: #8a9ef7" x="-291.146" y="-39.1477" width="148.6" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-291.146" y="-39.1477" width="148.6" height="8"/>
+    <rect style="fill: #1cff5b" x="-580" y="-20" width="395" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-20" width="395" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-382.5" y="-1">Stunde</text>
+    <rect style="fill: #1cff5b" x="-580" y="8" width="395" height="116"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="8" width="395" height="116"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="22">+id: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="38">+begintimestamp: Date</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="54">+endtimestamp: Date</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="70">+checkincode: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="86">+unterricht: Unterricht</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="102">+stundeteilnahmeList: List&lt;Stundteilnahme&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="118">+stundeleitungsbewertungsList: List&lt;Stundeleitung&gt;</text>
+    <rect style="fill: #1cff5b" x="-580" y="124" width="395" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="124" width="395" height="8"/>
   </g>
   <g>
-    <rect style="fill: #ffaf1e" x="-294.859" y="233.947" width="194.8" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-294.859" y="233.947" width="194.8" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-197.459" y="252.947">Stundeleitung</text>
-    <rect style="fill: #ffaf1e" x="-294.859" y="261.947" width="194.8" height="52"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-294.859" y="261.947" width="194.8" height="52"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-291.359" y="275.947">+id: int</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-291.359" y="291.947">+leistungsbewertung: int</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-291.359" y="307.947">+kommentar: String</text>
-    <rect style="fill: #ffaf1e" x="-294.859" y="313.947" width="194.8" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-294.859" y="313.947" width="194.8" height="8"/>
+    <rect style="fill: #8a9ef7" x="-580" y="-160" width="202.5" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-160" width="202.5" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-478.75" y="-141">Unterricht</text>
+    <rect style="fill: #8a9ef7" x="-580" y="-132" width="202.5" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-132" width="202.5" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-118">+id: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-102">+beginzeit: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-86">+endzeit: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-70">+kurs: Kurs</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="-54">+stundeList: List&lt;Stunde&gt;</text>
+    <rect style="fill: #8a9ef7" x="-580" y="-48" width="202.5" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="-48" width="202.5" height="8"/>
   </g>
   <g>
-    <rect style="fill: #ffaf1e" x="-290.937" y="108.57" width="164.85" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-290.937" y="108.57" width="164.85" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-208.512" y="127.57">Stundeteilnahme</text>
-    <rect style="fill: #ffaf1e" x="-290.937" y="136.57" width="164.85" height="68"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-290.937" y="136.57" width="164.85" height="68"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-287.437" y="150.57">+id: int</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-287.437" y="166.57">+anwesend: boolean</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-287.437" y="182.57">+note: int</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-287.437" y="198.57">+kommentar: String</text>
-    <rect style="fill: #ffaf1e" x="-290.937" y="204.57" width="164.85" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-290.937" y="204.57" width="164.85" height="8"/>
+    <rect style="fill: #ffaf1e" x="-580" y="320" width="194.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="320" width="194.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-482.6" y="339">Stundeleitung</text>
+    <rect style="fill: #ffaf1e" x="-580" y="348" width="194.8" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="348" width="194.8" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="362">+id: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="378">+leistungsbewertung: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="394">+kommentar: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="410">+account: Account</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="426">+stunde: Stunde</text>
+    <rect style="fill: #ffaf1e" x="-580" y="432" width="194.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="432" width="194.8" height="8"/>
   </g>
   <g>
-    <rect style="fill: #f8ff74" x="-874.224" y="-408.072" width="516.7" height="816.463"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-874.224" y="-408.072" width="516.7" height="816.463"/>
-    <text font-size="67.7323" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-615.874" y="20.7258">
-      <tspan x="-615.874" y="20.7258">EntityManager</tspan>
+    <rect style="fill: #ffaf1e" x="-580" y="160" width="164.85" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="160" width="164.85" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-497.575" y="179">Stundeteilnahme</text>
+    <rect style="fill: #ffaf1e" x="-580" y="188" width="164.85" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="188" width="164.85" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="202">+id: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="218">+anwesend: boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="234">+note: int</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="250">+kommentar: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="266">+account: Account</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-576.5" y="282">+stunde: Stunde</text>
+    <rect style="fill: #ffaf1e" x="-580" y="288" width="164.85" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-580" y="288" width="164.85" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #f8ff74" x="-1160" y="-560" width="516.7" height="1120"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1160" y="-560" width="516.7" height="1120"/>
+    <text font-size="67.7333" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-901.65" y="20.5667">
+      <tspan x="-901.65" y="20.5667">EntityManager</tspan>
     </text>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="-349.494,-323.558 -329.278,-323.558 -329.278,-332.477 -309.062,-314.639 -329.278,-296.802 -329.278,-305.72 -349.494,-305.72 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-349.494,-323.558 -329.278,-323.558 -329.278,-332.477 -309.062,-314.639 -329.278,-296.802 -329.278,-305.72 -349.494,-305.72 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-349.494,-323.558 -329.278,-323.558 -329.278,-332.477 -309.062,-314.639 -329.278,-296.802 -329.278,-305.72 -349.494,-305.72 "/>
+    <polygon style="fill: #ffffff" points="-640,-471.081 -619.784,-471.081 -619.784,-480 -599.567,-462.162 -619.784,-444.324 -619.784,-453.243 -640,-453.243 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-640,-471.081 -619.784,-471.081 -619.784,-480 -599.567,-462.162 -619.784,-444.324 -619.784,-453.243 -640,-453.243 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-640,-471.081 -619.784,-471.081 -619.784,-480 -599.567,-462.162 -619.784,-444.324 -619.784,-453.243 -640,-453.243 "/>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="-348.305,-203.45 -328.089,-203.45 -328.089,-213.558 -307.872,-193.342 -328.089,-173.125 -328.089,-183.233 -348.305,-183.233 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-348.305,-203.45 -328.089,-203.45 -328.089,-213.558 -307.872,-193.342 -328.089,-173.125 -328.089,-183.233 -348.305,-183.233 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-348.305,-203.45 -328.089,-203.45 -328.089,-213.558 -307.872,-193.342 -328.089,-173.125 -328.089,-183.233 -348.305,-183.233 "/>
+    <polygon style="fill: #ffffff" points="-640,-269.892 -619.784,-269.892 -619.784,-280 -599.567,-259.784 -619.784,-239.567 -619.784,-249.676 -640,-249.676 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,-269.892 -619.784,-269.892 -619.784,-280 -599.567,-259.784 -619.784,-239.567 -619.784,-249.676 -640,-249.676 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,-269.892 -619.784,-269.892 -619.784,-280 -599.567,-259.784 -619.784,-239.567 -619.784,-249.676 -640,-249.676 "/>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="-344.737,-83.6385 -323.332,-83.6385 -323.332,-94.6386 -301.927,-72.6385 -323.332,-50.6384 -323.332,-61.6384 -344.737,-61.6384 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-344.737,-83.6385 -323.332,-83.6385 -323.332,-94.6386 -301.927,-72.6385 -323.332,-50.6384 -323.332,-61.6384 -344.737,-61.6384 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-344.737,-83.6385 -323.332,-83.6385 -323.332,-94.6386 -301.927,-72.6385 -323.332,-50.6384 -323.332,-61.6384 -344.737,-61.6384 "/>
+    <polygon style="fill: #ffffff" points="-640,-129 -618.595,-129 -618.595,-140 -597.189,-118 -618.595,-95.9998 -618.595,-107 -640,-107 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,-129 -618.595,-129 -618.595,-140 -597.189,-118 -618.595,-95.9998 -618.595,-107 -640,-107 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,-129 -618.595,-129 -618.595,-140 -597.189,-118 -618.595,-95.9998 -618.595,-107 -640,-107 "/>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="-349.494,29.6322 -323.332,29.6322 -323.332,15.9565 -297.17,43.3079 -323.332,70.6594 -323.332,56.9837 -349.494,56.9837 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-349.494,29.6322 -323.332,29.6322 -323.332,15.9565 -297.17,43.3079 -323.332,70.6594 -323.332,56.9837 -349.494,56.9837 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-349.494,29.6322 -323.332,29.6322 -323.332,15.9565 -297.17,43.3079 -323.332,70.6594 -323.332,56.9837 -349.494,56.9837 "/>
+    <polygon style="fill: #ffffff" points="-640,13.6757 -613.838,13.6757 -613.838,0 -587.675,27.3515 -613.838,54.7029 -613.838,41.0272 -640,41.0272 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,13.6757 -613.838,13.6757 -613.838,0 -587.675,27.3515 -613.838,54.7029 -613.838,41.0272 -640,41.0272 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,13.6757 -613.838,13.6757 -613.838,0 -587.675,27.3515 -613.838,54.7029 -613.838,41.0272 -640,41.0272 "/>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="-356.629,142.606 -328.683,142.606 -328.683,127.741 -300.737,157.471 -328.683,187.2 -328.683,172.335 -356.629,172.335 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-356.629,142.606 -328.683,142.606 -328.683,127.741 -300.737,157.471 -328.683,187.2 -328.683,172.335 -356.629,172.335 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-356.629,142.606 -328.683,142.606 -328.683,127.741 -300.737,157.471 -328.683,187.2 -328.683,172.335 -356.629,172.335 "/>
+    <polygon style="fill: #ffffff" points="-640,174.865 -612.054,174.865 -612.054,160 -584.108,189.73 -612.054,219.46 -612.054,204.595 -640,204.595 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,174.865 -612.054,174.865 -612.054,160 -584.108,189.73 -612.054,219.46 -612.054,204.595 -640,204.595 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,174.865 -612.054,174.865 -612.054,160 -584.108,189.73 -612.054,219.46 -612.054,204.595 -640,204.595 "/>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="-353.062,263.606 -326.9,263.606 -326.9,251.417 -300.737,275.795 -326.9,300.174 -326.9,287.985 -353.062,287.985 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-353.062,263.606 -326.9,263.606 -326.9,251.417 -300.737,275.795 -326.9,300.174 -326.9,287.985 -353.062,287.985 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-353.062,263.606 -326.9,263.606 -326.9,251.417 -300.737,275.795 -326.9,300.174 -326.9,287.985 -353.062,287.985 "/>
+    <polygon style="fill: #ffffff" points="-640,332.189 -613.838,332.189 -613.838,320 -587.675,344.378 -613.838,368.757 -613.838,356.568 -640,356.568 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,332.189 -613.838,332.189 -613.838,320 -587.675,344.378 -613.838,368.757 -613.838,356.568 -640,356.568 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,332.189 -613.838,332.189 -613.838,320 -587.675,344.378 -613.838,368.757 -613.838,356.568 -640,356.568 "/>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="-353.062,365.579 -325.71,365.579 -325.71,357.255 -298.359,373.904 -325.71,390.553 -325.71,382.228 -353.062,382.228 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-353.062,365.579 -325.71,365.579 -325.71,357.255 -298.359,373.904 -325.71,390.553 -325.71,382.228 -353.062,382.228 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-353.062,365.579 -325.71,365.579 -325.71,357.255 -298.359,373.904 -325.71,390.553 -325.71,382.228 -353.062,382.228 "/>
+    <polygon style="fill: #ffffff" points="-640,468.324 -612.649,468.324 -612.649,460 -585.297,476.649 -612.649,493.297 -612.649,484.973 -640,484.973 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,468.324 -612.649,468.324 -612.649,460 -585.297,476.649 -612.649,493.297 -612.649,484.973 -640,484.973 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="-640,468.324 -612.649,468.324 -612.649,460 -585.297,476.649 -612.649,493.297 -612.649,484.973 -640,484.973 "/>
   </g>
   <g>
-    <rect style="fill: #ff5534" x="-1283.22" y="-379.717" width="256.4" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1283.22" y="-379.717" width="256.4" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1155.02" y="-360.717">AccountFacade</text>
-    <rect style="fill: #ff5534" x="-1283.22" y="-351.717" width="256.4" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1283.22" y="-351.717" width="256.4" height="8"/>
-    <rect style="fill: #ff5534" x="-1283.22" y="-343.717" width="256.4" height="84"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1283.22" y="-343.717" width="256.4" height="84"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1279.72" y="-329.717">+createAccount(a:Account)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1279.72" y="-313.717">+getAccountById(id:int): Account</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1279.72" y="-297.717">+getAllAccounts(): List&lt;Account&gt;</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1279.72" y="-281.717">+updateAccount(a:Account)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1279.72" y="-265.717">+deleteAccount(a:Account)</text>
+    <rect style="fill: #ff5534" x="-1600" y="-500" width="341.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="-500" width="341.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1429.45" y="-481">AccountFacade</text>
+    <rect style="fill: #ff5534" x="-1600" y="-472" width="341.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="-472" width="341.1" height="8"/>
+    <rect style="fill: #ff5534" x="-1600" y="-464" width="341.1" height="164"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="-464" width="341.1" height="164"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-450">+createAccount(a:Account)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-434">+getAccountById(id:int): Account</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-418">+getAllAccounts(): List&lt;Account&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-402">+updateAccount(a:Account)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-386">+deleteAccount(a:Account)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-370">+createTeilnahme(t:teilnahme)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-354">+getTeilnahmeById(id:int): Stundenteilnahme</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-338">+getAllTeilnahmen(): List&lt;Stundenteilnahme&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-322">+updateTeilnahme(t:Stundenteilnahme)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-306">+deleteTeilnahme(t:Stundenteilnahme)</text>
   </g>
   <g>
-    <rect style="fill: #34fdff" x="-1314.21" y="-218.999" width="371.9" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1314.21" y="-218.999" width="371.9" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1128.26" y="-199.999">KursFacade</text>
-    <rect style="fill: #34fdff" x="-1314.21" y="-190.999" width="371.9" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1314.21" y="-190.999" width="371.9" height="8"/>
-    <rect style="fill: #34fdff" x="-1314.21" y="-182.999" width="371.9" height="196"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1314.21" y="-182.999" width="371.9" height="196"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-168.999">+createKurs(k:Kurs)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-152.999">+getKursById(id:int): Kurs</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-136.999">+getKursByCheckinCode(checkinCode:int): Kurs</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-120.999">+getAllKurse(): List&lt;Kurs&gt;</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-104.999">+updateKurs(k:Kurs)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-88.9995">+setLeitung(a:Account)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-72.9995">+addTeilnehmer(a:Account)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-56.9995">+setTeilnehmerListe(liste:List&lt;Kursteilnehmer&gt;)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-40.9995">+createUnterricht(u:Unterricht)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-24.9995">+updateUnterricht(u:Unterricht)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="-8.99946">+deleteUnterricht(u:Unterricht): boolean</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1310.71" y="7.00054">+getUnterrichtList(): List&lt;Unterricht&gt;</text>
+    <rect style="fill: #34fdff" x="-1600" y="-220" width="371.9" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="-220" width="371.9" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1414.05" y="-201">KursFacade</text>
+    <rect style="fill: #34fdff" x="-1600" y="-192" width="371.9" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="-192" width="371.9" height="8"/>
+    <rect style="fill: #34fdff" x="-1600" y="-184" width="371.9" height="292"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="-184" width="371.9" height="292"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-170">+createKurs(k:Kurs)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-154">+getKursById(id:int): Kurs</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-138">+getKursByCheckinCode(checkinCode:int): Kurs</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-122">+getAllKurse(): List&lt;Kurs&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-106">+updateKurs(k:Kurs)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-90">+setLeitung(a:Account)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-74">+addTeilnehmer(a:Account)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-58">+setTeilnehmerListe(liste:List&lt;Kursteilnehmer&gt;)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-42">+createUnterricht(u:Unterricht)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-26">+updateUnterricht(u:Unterricht)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="-10">+deleteUnterricht(u:Unterricht): boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="6">+getUnterrichtList(): List&lt;Unterricht&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="22">+createStunde(s:Stunde)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="38">+getStundeById(id:int): Stunde</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="54">+getAllActiveStunden(): List&lt;Stunde&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="70">+getAllStunden(): List&lt;Stunde&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="86">+updateStunde(s:Stunde)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="102">+deleteStunde(s:Stunde)</text>
   </g>
   <g>
-    <rect style="fill: #e180ff" x="-1296.06" y="125.955" width="356.5" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1296.06" y="125.955" width="356.5" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1117.81" y="144.955">PermissionFacade</text>
-    <rect style="fill: #e180ff" x="-1296.06" y="153.955" width="356.5" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1296.06" y="153.955" width="356.5" height="8"/>
-    <rect style="fill: #e180ff" x="-1296.06" y="161.955" width="356.5" height="84"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1296.06" y="161.955" width="356.5" height="84"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1292.56" y="175.955">+login(email:String,password:String): TokenID</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1292.56" y="191.955">+logout(token:String)</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1292.56" y="207.955">+getAccount(token:String): Account</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1292.56" y="223.955">+isActive(token:String): boolean</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1292.56" y="239.955">+isAdmin(token:String): boolean</text>
+    <rect style="fill: #e180ff" x="-1600" y="160" width="356.5" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="160" width="356.5" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1421.75" y="179">PermissionFacade</text>
+    <rect style="fill: #e180ff" x="-1600" y="188" width="356.5" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="188" width="356.5" height="8"/>
+    <rect style="fill: #e180ff" x="-1600" y="196" width="356.5" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1600" y="196" width="356.5" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="210">+login(email:String,password:String): TokenID</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="226">+logout(token:String)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="242">+getAccount(token:String): Account</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="258">+isActive(token:String): boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="274">+isAdmin(token:String): boolean</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1596.5" y="290">+isLeiter(token:String,k:Kurs)</text>
   </g>
   <g>
-    <rect style="fill: #e180ff" x="-1268.82" y="33.8809" width="117.8" height="28"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1268.82" y="33.8809" width="117.8" height="28"/>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1209.92" y="52.8809">TokenID</text>
-    <rect style="fill: #e180ff" x="-1268.82" y="61.8809" width="117.8" height="36"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1268.82" y="61.8809" width="117.8" height="36"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1265.32" y="75.8809">+token: String</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1265.32" y="91.8809">+id: int</text>
-    <rect style="fill: #e180ff" x="-1268.82" y="97.8809" width="117.8" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1268.82" y="97.8809" width="117.8" height="8"/>
+    <rect style="fill: #e180ff" x="-1340" y="260" width="117.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1340" y="260" width="117.8" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1281.1" y="279">TokenID</text>
+    <rect style="fill: #e180ff" x="-1340" y="288" width="117.8" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1340" y="288" width="117.8" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1336.5" y="302">+token: String</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1336.5" y="318">+id: int</text>
+    <rect style="fill: #e180ff" x="-1340" y="324" width="117.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x="-1340" y="324" width="117.8" height="8"/>
   </g>
+  <g>
+    <rect style="fill: #95b3c0" x="-1600" y="400" width="333.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1600" y="400" width="333.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="-1433.3" y="419">BewertungsFacade</text>
+    <rect style="fill: #95b3c0" x="-1600" y="428" width="333.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1600" y="428" width="333.4" height="8"/>
+    <rect style="fill: #95b3c0" x="-1600" y="436" width="333.4" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-1600" y="436" width="333.4" height="84"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1597" y="450">+createFeedback(f:Leitungsfeedback)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1597" y="466">+getFeedbackById(id:int): Leitungsfeedback</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1597" y="482">+getAllFeedback(): List&lt;Leitungsfeedback&gt;</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1597" y="498">+updateFeedback(f:Leitungsfeedback)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-1597" y="514">+deleteFeedback(f:Leitungsfeedback)</text>
+  </g>
+  <g>
+    <ellipse style="fill: #95b3c0" cx="67.7566" cy="58.9303" rx="66.2" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="67.7566" cy="58.9303" rx="66.2" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="67.7566" y="62.9303">endTimestamp</text>
+  </g>
+  <g>
+    <ellipse style="fill: #95b3c0" cx="142.347" cy="0.718248" rx="27.7" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="142.347" cy="0.718248" rx="27.7" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="142.347" y="4.71825">id</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="134.647" y1="8.71825" x2="150.047" y2="8.71825"/>
+  </g>
+  <g>
+    <ellipse style="fill: #95b3c0" cx="804.269" cy="-354.21" rx="27.7" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="804.269" cy="-354.21" rx="27.7" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="804.269" y="-350.21">id</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="796.569" y1="-346.21" x2="811.969" y2="-346.21"/>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="142.347,-18.7501 142.347,-34.3179 178.006,-34.3179 178.006,-85.0488 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="804.269,-334.7 804.269,-320.135 781.683,-320.135 781.683,-305.569 "/>
+  <g>
+    <ellipse style="fill: #95b3c0" cx="584.084" cy="-77.385" rx="27.7" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="584.084" cy="-77.385" rx="27.7" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="584.084" y="-73.385">id</text>
+    <line style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" x1="576.384" y1="-69.385" x2="591.784" y2="-69.385"/>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="584.084,-57.8754 584.084,-31.04 524.705,-31.04 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="67.7566,39.6371 67.7566,-47.2863 178.006,-47.2863 178.006,-85.0541 "/>
+  <g>
+    <ellipse style="fill: #1cff5b" cx="324.425" cy="126.655" rx="43.1" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="324.425" cy="126.655" rx="43.1" ry="18"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="324.425" y="130.655">Leiter</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="369.03,126.655 390.369,126.655 390.369,173.475 "/>
+  <g>
+    <polygon style="fill: #ffaf1e" points="209.793,332.222 264.443,299.432 319.093,332.222 264.443,365.012 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" points="209.793,332.222 264.443,299.432 319.093,332.222 264.443,365.012 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="203.793" y="326.222"></text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="325.093" y="326.222"></text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="264.443" y="336.222">Vorstunde</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="390.369,212.494 390.369,255.209 264.443,255.209 264.443,297.924 "/>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="264.443,366.515 264.443,405.208 389.723,405.208 389.723,255.208 390.369,255.208 390.369,212.46 "/>
+  <g>
+    <ellipse style="fill: #95b3c0" cx="77.0203" cy="-209.547" rx="73.9" ry="18"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 3; stroke: #000000" cx="77.0203" cy="-209.547" rx="73.9" ry="18"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="77.0203" y="-205.547">beginTimestamp</text>
+  </g>
+  <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="152.43,-209.547 178.006,-209.547 178.006,-185.97 "/>
 </svg>

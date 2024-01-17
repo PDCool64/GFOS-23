@@ -13,53 +13,61 @@ CREATE TABLE Kurs (
     fach VARCHAR(64) NOT NULL,
     name VARCHAR(64) NOT NULL,
     stufe INT, 
-    leiterID INT,     
-    FOREIGN KEY (leiterID) REFERENCES Account(id)
+    leiter INT,     
+    FOREIGN KEY (leiter) REFERENCES Account(id)
 );
 
 
 CREATE TABLE KursTeilnahme (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
-    accountID INT NOT NULL,
-    kursID INT NOT NULL,
-    FOREIGN KEY (accountID) REFERENCES Account(id),
-    FOREIGN KEY (kursID) REFERENCES Kurs(id)
+    account INT NOT NULL,
+    kurs INT NOT NULL,
+    FOREIGN KEY (account) REFERENCES Account(id),
+    FOREIGN KEY (kurs) REFERENCES Kurs(id)
 );
 
 CREATE TABLE Unterricht (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
-    kursID INT NOT NULL,
+    kurs INT NOT NULL,
     beginZeit VARCHAR(5) NOT NULL,
     endZeit VARCHAR(5) NOT NULL,
-    FOREIGN KEY (kursID) REFERENCES Kurs(id)
+    FOREIGN KEY (kurs) REFERENCES Kurs(id)
 );
 
 CREATE TABLE Stunde (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
-    unterrichtID INT NOT NULL,
+    unterricht INT NOT NULL,
     beginTimestamp TIMESTAMP NOT NULL,
     endTimestamp TIMESTAMP NOT NULL,
     checkInCode VARCHAR(6) NOT NULL,
-    FOREIGN KEY (unterrichtID) REFERENCES Unterricht(id)
+    FOREIGN KEY (unterricht) REFERENCES Unterricht(id)
+);
+
+CREATE TABLE StundeBewertung (
+    id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
+    account INT NOT NULL,
+    stunde INT NOT NULL,
+    note INT,
+    kommentar VARCHAR(255),
+    FOREIGN KEY (account) REFERENCES Account(id),
+    FOREIGN KEY (stunde) REFERENCES Stunde(id)
 );
 
 CREATE TABLE StundeTeilnahme (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
-    accountID INT NOT NULL,
-    stundeID INT NOT NULL,
-    anwesend BOOLEAN NOT NULL DEFAULT false,
+    account INT NOT NULL,
+    stunde INT NOT NULL,
+    beginTimestamp TIMESTAMP NOT NULL,
+    endTimestamp TIMESTAMP,
     note INT,
-    kommentar VARCHAR(255),
-    FOREIGN KEY (accountID) REFERENCES Account(id),
-    FOREIGN KEY (stundeID) REFERENCES Stunde(id)
+    FOREIGN KEY (account) REFERENCES Account(id),
+    FOREIGN KEY (stunde) REFERENCES Stunde(id)
 );
 
-CREATE TABLE StundeLeitung (
+CREATE TABLE Vorstunde(
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
-    accountID INT NOT NULL,
-    stundeID INT NOT NULL,
-    leitungsBewertung INT NOT NULL,
-    kommentar VARCHAR(255),
-    FOREIGN KEY (accountID) REFERENCES Account(id),
-    FOREIGN KEY (stundeID) REFERENCES Stunde(id)
+    stunde INT NOT NULL,
+    vorstunde INT NOT NULL,
+    FOREIGN KEY (stunde) REFERENCES Stunde(id),
+    FOREIGN KEY (vorstunde) REFERENCES Stunde(id)
 );

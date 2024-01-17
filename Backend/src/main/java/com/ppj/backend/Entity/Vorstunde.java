@@ -22,11 +22,11 @@ import java.io.Serializable;
  * @author philipp.doering
  */
 @Entity
-@Table(name = "KURSTEILNAHME")
+@Table(name = "VORSTUNDE")
 @NamedQueries({
-	@NamedQuery(name = "Kursteilnahme.findAll", query = "SELECT k FROM Kursteilnahme k"),
-	@NamedQuery(name = "Kursteilnahme.findById", query = "SELECT k FROM Kursteilnahme k WHERE k.id = :id")})
-public class Kursteilnahme implements Serializable {
+	@NamedQuery(name = "Vorstunde.findAll", query = "SELECT v FROM Vorstunde v"),
+	@NamedQuery(name = "Vorstunde.findById", query = "SELECT v FROM Vorstunde v WHERE v.id = :id")})
+public class Vorstunde implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -34,22 +34,17 @@ public class Kursteilnahme implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
 	private Integer id;
-	@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID")
+	@JoinColumn(name = "VORSTUNDE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	private Account account;
-	@JoinColumn(name = "KURS", referencedColumnName = "ID")
+	private Stunde vorstunde;
+	@JoinColumn(name = "STUNDE", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	private Kurs kurs;
+	private Stunde stunde;
 
-	public Kursteilnahme() {
+	public Vorstunde() {
 	}
 
-	public Kursteilnahme(Account account, Kurs kurs) {
-		this.account = account;
-		this.kurs = kurs;
-	}
-
-	public Kursteilnahme(Integer id) {
+	public Vorstunde(Integer id) {
 		this.id = id;
 	}
 
@@ -61,20 +56,20 @@ public class Kursteilnahme implements Serializable {
 		this.id = id;
 	}
 
-	public Account getAccount() {
-		return account;
+	public Stunde getVorstunde() {
+		return vorstunde;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setVorstunde(Stunde vorstunde) {
+		this.vorstunde = vorstunde;
 	}
 
-	public Kurs getKurs() {
-		return kurs;
+	public Stunde getStunde() {
+		return stunde;
 	}
 
-	public void setKurs(Kurs kurs) {
-		this.kurs = kurs;
+	public void setStunde(Stunde stunde) {
+		this.stunde = stunde;
 	}
 
 	@Override
@@ -87,10 +82,10 @@ public class Kursteilnahme implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Kursteilnahme)) {
+		if (!(object instanceof Vorstunde)) {
 			return false;
 		}
-		Kursteilnahme other = (Kursteilnahme) object;
+		Vorstunde other = (Vorstunde) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
@@ -99,7 +94,7 @@ public class Kursteilnahme implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.ppj.backend.Entity.Kursteilnahme[ id=" + id + " ]";
+		return "com.ppj.backend.Entity.Vorstunde[ id=" + id + " ]";
 	}
 	
 }

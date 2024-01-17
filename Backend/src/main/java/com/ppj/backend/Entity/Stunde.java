@@ -54,13 +54,17 @@ public class Stunde implements Serializable {
 	@Basic(optional = false)
     @Column(name = "CHECKINCODE")
 	private String checkincode;
-	@JoinColumn(name = "UNTERRICHTID", referencedColumnName = "ID")
+	@JoinColumn(name = "UNTERRICHT", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-	private Unterricht unterrichtid;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stundeid")
+	private Unterricht unterricht;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
 	private List<Stundeteilnahme> stundeteilnahmeList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stundeid")
-	private List<Stundeleitung> stundeleitungList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
+	private List<Stundebewertung> stundebewertungList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vorstunde")
+	private List<Vorstunde> vorstundeList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
+	private List<Vorstunde> vorstundeList1;
 
 	public Stunde() {
 	}
@@ -108,12 +112,12 @@ public class Stunde implements Serializable {
 		this.checkincode = checkincode;
 	}
 
-	public Unterricht getUnterrichtid() {
-		return unterrichtid;
+	public Unterricht getUnterricht() {
+		return unterricht;
 	}
 
-	public void setUnterrichtid(Unterricht unterrichtid) {
-		this.unterrichtid = unterrichtid;
+	public void setUnterricht(Unterricht unterricht) {
+		this.unterricht = unterricht;
 	}
 
 	public List<Stundeteilnahme> getStundeteilnahmeList() {
@@ -124,12 +128,28 @@ public class Stunde implements Serializable {
 		this.stundeteilnahmeList = stundeteilnahmeList;
 	}
 
-	public List<Stundeleitung> getStundeleitungList() {
-		return stundeleitungList;
+	public List<Stundebewertung> getStundebewertungList() {
+		return stundebewertungList;
 	}
 
-	public void setStundeleitungList(List<Stundeleitung> stundeleitungList) {
-		this.stundeleitungList = stundeleitungList;
+	public void setStundebewertungList(List<Stundebewertung> stundebewertungList) {
+		this.stundebewertungList = stundebewertungList;
+	}
+
+	public List<Vorstunde> getVorstundeList() {
+		return vorstundeList;
+	}
+
+	public void setVorstundeList(List<Vorstunde> vorstundeList) {
+		this.vorstundeList = vorstundeList;
+	}
+
+	public List<Vorstunde> getVorstundeList1() {
+		return vorstundeList1;
+	}
+
+	public void setVorstundeList1(List<Vorstunde> vorstundeList1) {
+		this.vorstundeList1 = vorstundeList1;
 	}
 
 	@Override

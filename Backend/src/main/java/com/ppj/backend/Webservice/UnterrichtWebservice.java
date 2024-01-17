@@ -6,7 +6,6 @@ package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Unterricht;
 import com.ppj.backend.Facades.PermissionFacade;
-import com.ppj.backend.Facades.UnterrichtFacade;
 import com.ppj.backend.Service.ResponseService;
 
 import jakarta.ejb.EJB;
@@ -35,9 +34,6 @@ public class UnterrichtWebservice {
 	private final Jsonb jsonb = JsonbBuilder.create();
 
 	@EJB
-	private UnterrichtFacade unterrichtFacade;
-
-	@EJB
 	private PermissionFacade permissionFacade;
 
 	@EJB
@@ -54,12 +50,7 @@ public class UnterrichtWebservice {
 			.build();
 		try {
 			Unterricht u = jsonb.fromJson(json, Unterricht.class);
-			Unterricht unterrichtAusDatenbank = unterrichtFacade.createUnterricht(
-				u
-			);
-			if (unterrichtAusDatenbank == null) return responseFacade
-				.ok("Unterricht konnte nicht erstellt werden");
-			return responseFacade.ok(jsonb.toJson(unterrichtAusDatenbank));
+			return responseFacade.ok(jsonb.toJson(""));
 		} catch (Exception e) {
 			return responseFacade.ok("Json konnte nicht geparst werden");
 		}
