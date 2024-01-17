@@ -180,6 +180,7 @@ public class KursFacade {
 		}
 	}
 
+
 	public Stunde createStunde(Stunde s) {
 		try {
 			em.persist(s);
