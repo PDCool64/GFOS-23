@@ -23,6 +23,7 @@ const submitForm = async () => {
             name: nachname.value,
             email: email.value,
             geburtsdatum: geburtstag.value + "T00:00:00Z[UTC]",
+            isadmin: false
         })
     });
 

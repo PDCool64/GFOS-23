@@ -62,7 +62,7 @@ public class PermissionWebservice {
 		} catch (NoResultException e) {
 			return responseService.status(403, "Account nicht gefunden");
 		}
-		if (tokenID.token == null) {
+		if (tokenID == null) {
 			return responseService.status(401, "Login fehlgeschlagen");
 		} else {
 			return responseService.ok(

@@ -5,7 +5,6 @@
 package com.ppj.backend.Entity;
 
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,23 +14,19 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  *
  * @author philipp.doering
  */
 @Entity
-@Table(name = "UNTERRICHT")
+@Table(name = "KURSTEILNAHME")
 @NamedQueries({
-	@NamedQuery(name = "Unterricht.findAll", query = "SELECT u FROM Unterricht u"),
-	@NamedQuery(name = "Unterricht.findById", query = "SELECT u FROM Unterricht u WHERE u.id = :id"),
-	@NamedQuery(name = "Unterricht.findByBeginzeit", query = "SELECT u FROM Unterricht u WHERE u.beginzeit = :beginzeit"),
-	@NamedQuery(name = "Unterricht.findByEndzeit", query = "SELECT u FROM Unterricht u WHERE u.endzeit = :endzeit")})
-public class Unterricht implements Serializable {
+	@NamedQuery(name = "Kursteilnahme.findAll", query = "SELECT k FROM Kursteilnahme k"),
+	@NamedQuery(name = "Kursteilnahme.findById", query = "SELECT k FROM Kursteilnahme k WHERE k.id = :id")})
+public class Kursteilnahme implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -39,29 +34,23 @@ public class Unterricht implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
 	private Integer id;
-	@Basic(optional = false)
-    @Column(name = "BEGINZEIT")
-	private String beginzeit;
-	@Basic(optional = false)
-    @Column(name = "ENDZEIT")
-	private String endzeit;
+	@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+	private Account account;
 	@JoinColumn(name = "KURS", referencedColumnName = "ID")
     @ManyToOne(optional = false)
 	private Kurs kurs;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "unterricht")
-	private List<Stunde> stundeList;
 
-	public Unterricht() {
+	public Kursteilnahme() {
 	}
 
-	public Unterricht(Integer id) {
-		this.id = id;
+	public Kursteilnahme(Account account, Kurs kurs) {
+		this.account = account;
+		this.kurs = kurs;
 	}
 
-	public Unterricht(Integer id, String beginzeit, String endzeit) {
+	public Kursteilnahme(Integer id) {
 		this.id = id;
-		this.beginzeit = beginzeit;
-		this.endzeit = endzeit;
 	}
 
 	public Integer getId() {
@@ -72,20 +61,12 @@ public class Unterricht implements Serializable {
 		this.id = id;
 	}
 
-	public String getBeginzeit() {
-		return beginzeit;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setBeginzeit(String beginzeit) {
-		this.beginzeit = beginzeit;
-	}
-
-	public String getEndzeit() {
-		return endzeit;
-	}
-
-	public void setEndzeit(String endzeit) {
-		this.endzeit = endzeit;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	public Kurs getKurs() {
@@ -94,14 +75,6 @@ public class Unterricht implements Serializable {
 
 	public void setKurs(Kurs kurs) {
 		this.kurs = kurs;
-	}
-
-	public List<Stunde> getStundeList() {
-		return stundeList;
-	}
-
-	public void setStundeList(List<Stunde> stundeList) {
-		this.stundeList = stundeList;
 	}
 
 	@Override
@@ -114,10 +87,10 @@ public class Unterricht implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Unterricht)) {
+		if (!(object instanceof Kursteilnahme)) {
 			return false;
 		}
-		Unterricht other = (Unterricht) object;
+		Kursteilnahme other = (Kursteilnahme) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
@@ -126,7 +99,7 @@ public class Unterricht implements Serializable {
 
 	@Override
 	public String toString() {
-		return "com.ppj.backend.Entity.Unterricht[ id=" + id + " ]";
+		return "com.ppj.backend.Entity.Kursteilnahme[ id=" + id + " ]";
 	}
 	
 }

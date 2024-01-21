@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -27,69 +26,47 @@ import java.util.List;
  */
 @Entity
 @Table(name = "KURS")
-@NamedQueries(
-	{
-		@NamedQuery(name = "Kurs.findAll", query = "SELECT k FROM Kurs k"),
-		@NamedQuery(
-			name = "Kurs.findByBezeichnung",
-			query = "SELECT k FROM Kurs k WHERE k.bezeichnung = :bezeichnung"
-		),
-		@NamedQuery(
-			name = "Kurs.findByCheckincode",
-			query = "SELECT k FROM Kurs k WHERE k.checkincode = :checkincode"
-		),
-		@NamedQuery(
-			name = "Kurs.findById",
-			query = "SELECT k FROM Kurs k WHERE k.id = :id"
-		),
-	}
-)
+@NamedQueries({
+	@NamedQuery(name = "Kurs.findAll", query = "SELECT k FROM Kurs k"),
+	@NamedQuery(name = "Kurs.findById", query = "SELECT k FROM Kurs k WHERE k.id = :id"),
+	@NamedQuery(name = "Kurs.findByFach", query = "SELECT k FROM Kurs k WHERE k.fach = :fach"),
+	@NamedQuery(name = "Kurs.findByName", query = "SELECT k FROM Kurs k WHERE k.name = :name"),
+	@NamedQuery(name = "Kurs.findByStufe", query = "SELECT k FROM Kurs k WHERE k.stufe = :stufe")})
 public class Kurs implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Column(name = "BEZEICHNUNG")
-	private String bezeichnung;
-
-	@Column(name = "CHECKINCODE")
-	private String checkincode;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-	@Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
 	private Integer id;
-
-	@ManyToMany(mappedBy = "kursList")
-	private List<Account> accountList;
-
+	@Basic(optional = false)
+    @Column(name = "FACH")
+	private String fach;
+	@Basic(optional = false)
+    @Column(name = "NAME")
+	private String name;
+	@Column(name = "STUFE")
+	private Integer stufe;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
 	private List<Unterricht> unterrichtList;
-
 	@JoinColumn(name = "LEITER", referencedColumnName = "ID")
-	@ManyToOne(optional = false)
+    @ManyToOne
 	private Account leiter;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
+	private List<Kursteilnahme> kursteilnahmeList;
 
-	public Kurs() {}
+	public Kurs() {
+	}
 
 	public Kurs(Integer id) {
 		this.id = id;
 	}
 
-	public String getBezeichnung() {
-		return bezeichnung;
-	}
-
-	public void setBezeichnung(String bezeichnung) {
-		this.bezeichnung = bezeichnung;
-	}
-
-	public String getCheckincode() {
-		return checkincode;
-	}
-
-	public void setCheckincode(String checkincode) {
-		this.checkincode = checkincode;
+	public Kurs(Integer id, String fach, String name) {
+		this.id = id;
+		this.fach = fach;
+		this.name = name;
 	}
 
 	public Integer getId() {
@@ -100,12 +77,28 @@ public class Kurs implements Serializable {
 		this.id = id;
 	}
 
-	public List<Account> getAccountList() {
-		return accountList;
+	public String getFach() {
+		return fach;
 	}
 
-	public void setAccountList(List<Account> accountList) {
-		this.accountList = accountList;
+	public void setFach(String fach) {
+		this.fach = fach;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getStufe() {
+		return stufe;
+	}
+
+	public void setStufe(Integer stufe) {
+		this.stufe = stufe;
 	}
 
 	public List<Unterricht> getUnterrichtList() {
@@ -124,6 +117,14 @@ public class Kurs implements Serializable {
 		this.leiter = leiter;
 	}
 
+	public List<Kursteilnahme> getKursteilnahmeList() {
+		return kursteilnahmeList;
+	}
+
+	public void setKursteilnahmeList(List<Kursteilnahme> kursteilnahmeList) {
+		this.kursteilnahmeList = kursteilnahmeList;
+	}
+
 	@Override
 	public int hashCode() {
 		int hash = 0;
@@ -138,10 +139,7 @@ public class Kurs implements Serializable {
 			return false;
 		}
 		Kurs other = (Kurs) object;
-		if (
-			(this.id == null && other.id != null) ||
-			(this.id != null && !this.id.equals(other.id))
-		) {
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}
 		return true;
@@ -151,4 +149,5 @@ public class Kurs implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Kurs[ id=" + id + " ]";
 	}
+	
 }

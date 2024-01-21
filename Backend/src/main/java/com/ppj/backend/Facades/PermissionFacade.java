@@ -5,6 +5,7 @@
 package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Service.HashingService;
 import com.ppj.backend.Service.TokenService;
 
@@ -46,6 +47,8 @@ public class PermissionFacade {
 	@EJB 
 	AccountFacade accountFacade;
 
+	@EJB
+	KursFacade kursFacade;
 	/**
 	 * Tries to login with the given credentials
 	 * @param email
@@ -64,7 +67,7 @@ public class PermissionFacade {
 			return new TokenID(token, a.getId()); 
 		} 
 		catch (NoResultException e){
-			throw new NoResultException("No Account found with email: " + email);
+			return null;
 		}
 		catch (Exception e) {
 			return null;
@@ -84,13 +87,7 @@ public class PermissionFacade {
 	}
 
 	public boolean logout(String token) {
-		try {
-			Account a = getAccountByToken(token);
-			a.setToken(null);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		return true;	
 	}
 
 	public boolean isActive(String token) {
@@ -106,6 +103,16 @@ public class PermissionFacade {
 		try {
 			Account a = getAccountByToken(token);
 			return a.getIsadmin();
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean isLeiter(String token, int kursId) {
+		try {
+			Kurs k = kursFacade.getKursById(kursId);
+			Account a = getAccountByToken(token);	
+			return k.getLeiter().getId() == a.getId();
 		} catch (Exception e) {
 			return false;
 		}
