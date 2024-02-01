@@ -16,8 +16,8 @@ let token = sessionStorage.getItem("token");
 <style scoped>
 .app {
   margin-top: var(--navbar-height);
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -25,10 +25,13 @@ let token = sessionStorage.getItem("token");
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  padding: auto;
   height: var(--navbar-height);
+  width: calc(100% - 2*var(--navbar-margin));
+  margin:  var(--navbar-margin);
   background-color: #333;
   color: #fff;
+  border-radius: 10px;
 }
 
 .view{
