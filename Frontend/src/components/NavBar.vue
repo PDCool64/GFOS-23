@@ -3,16 +3,12 @@
 		<ul class="große-liste">
 			<li class="große-liste"><router-link to="/">Home</router-link></li>
 			<li class="große-liste">
-				<router-link to="/profile">Stammdaten</router-link>
-			</li>
-			<li class="große-liste">
-				<router-link to="/contact">Contact</router-link>
+				<router-link to="/stundenplan">Calendar</router-link>
 			</li>
 		</ul>
 		<div
 			class="klickbarer-bereich"
-			@mouseenter="zeigeListe"
-			@mouseleave="versteckeListe"
+			@click="listeSichtbar = !listeSichtbar"
 		>
 			<img
 				src="../assets/pictures/unnamed.png"
@@ -27,22 +23,23 @@
 	</nav>
 </template>
 
-<script>
-export default {
-	data() {
-		return {
-			listeSichtbar: false,
-		};
-	},
-	methods: {
-		zeigeListe() {
-			this.listeSichtbar = true;
-		},
-		versteckeListe() {
-			this.listeSichtbar = false;
-		},
-	},
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const listeSichtbar = ref(false);
+
+const closeListe = (event) => {
+  if (event.target.closest('.klickbarer-bereich')) return;
+  listeSichtbar.value = false;
 };
+
+onMounted(() => {
+  window.addEventListener('click', closeListe);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('click', closeListe);
+});
 </script>
 
 <style scoped>
@@ -53,9 +50,10 @@ nav {
 	color: #6b8c83;
 	display: flex;
 	justify-content: center;
-	box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.8);
+	box-shadow: 0px 10px 10px var(--shadow);
 	margin: 10px;
 	width: 100%;
+	align-items: center;
 }
 .große-liste {
 	list-style-type: none;
@@ -102,8 +100,7 @@ a {
 	align-items: center;
 	width: 50px;
 	height: 38px;
-	padding: 0;
-	margin: 0;
+	position: relative;
 }
 
 .kleine-liste {
@@ -112,10 +109,9 @@ a {
 	border-radius: 5px;
 	position: absolute;
 	top: 100%;
-	left: 97%;
-	transform: translateX(-50%);
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 5px var(--shadow); 
 	box-sizing: border-box;
+	padding: 10px;
 }
 
 .kleine-liste li:last-child {

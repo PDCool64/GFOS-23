@@ -20,8 +20,8 @@ const handleInput = (index) => {
 const handleDelete = () => {
 	const activeElementId = document.activeElement.id;
 	const activeIndex = Number(activeElementId.split("-")[1]);
-    if(activeIndex === 4 && code.value[7] !== ''){
-        code.value[7] = '';
+    if(activeIndex === 4 && code.value[4] !== ''){
+        code.value[4] = '';
         return;
     }
 	const targetIndex = activeIndex > 0 ? activeIndex - 1 : 0;
@@ -67,7 +67,7 @@ h1{
 .input-container {
 	display: flex;
 	justify-content: center;
-    background-color: var(--black-soft);
+    background-color: var(--background-soft);
     padding: 10px;
     border-radius: 10px;
 }
@@ -79,9 +79,9 @@ input {
 	font-size: 2.5rem;
 	margin: 0 5px;
 	outline: none;
-	background-color: var(--black-mute);
+	background-color: var(--background-soft);
 	border: none;
-	color: var(--text-dark-2);
+	color: var(--color-text);
 	text-align: center;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
     border-radius: 10px;

@@ -16,7 +16,7 @@
 		</table>
 	</div>
 </template>
-
+abc
 <script setup>
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
 const times = [
@@ -34,32 +34,31 @@ const times = [
 
 <style scoped>
 .table-container {
-	margin: 3cm;
+	margin: var(--navbar-margin);
 	overflow-y: auto;
 	box-shadow:
 		0 0 10px rgba(0, 0, 0, 0.9),
 		0 0 10px rgba(0, 0, 0, 0.9); /* Schatten rechts und unten */
 	width: calc(
-		100% - 6cm
+		100% - (var(--navbar-margin)*2)
 	); /* 100% Breite minus doppelter Rand des äußeren Containers */
 	padding-bottom: 1cm;
 	height: auto;
 	padding: 10px;
 	border-radius: 10px;
 }
-
 table {
 	width: 100%;
 	border-collapse: collapse;
 	border-radius: 10px; /* Runde Ecken hinzufügen */
-	overflow: hidden; /* Verhindern von Überlauf aus abgerundeten Ecken */
-	width: 100%;
+	overflow: hidden; 
+	table-layout: fixed;
 }
 
 th,
 td {
 	padding: 12px;
-	text-align: left;
+	text-align: center;
 	border-top: 1px solid #77aca7;
 }
 
