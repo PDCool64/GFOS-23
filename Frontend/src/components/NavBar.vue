@@ -111,7 +111,8 @@ a {
 	top: 100%;
 	box-shadow: 0 2px 5px var(--shadow); 
 	box-sizing: border-box;
-	padding: 10px;
+	padding: 0;
+	margin-top: 5px;
 }
 
 .kleine-liste li:last-child {

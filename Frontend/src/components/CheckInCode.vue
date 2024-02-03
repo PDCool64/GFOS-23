@@ -76,14 +76,18 @@ input {
 	width: 60px;
 	height: 80px;
 	border: 1px solid #000;
-	font-size: 2.5rem;
+	font-size: 2.2rem;
 	margin: 0 5px;
 	outline: none;
 	background-color: var(--background-soft);
-	border: none;
+	border: none; 
 	color: var(--color-text);
 	text-align: center;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
     border-radius: 10px;
+}
+
+input:focus {
+  border: 2px solid var(--color-border-hover);
 }
 </style>
