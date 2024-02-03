@@ -5,7 +5,6 @@ import CheckInCode from "@/components/CheckInCode.vue";
 
 <template>
 	<main>
-		<Stammdaten class="profile" />
 		<CheckInCode class="check-in-code" />
 	</main>
 </template>
@@ -16,7 +15,7 @@ main {
 	height: 100vh;
 	width: 100vw;
 	align-items: center;
-	justify-items: start;
-	grid-template-columns: 1fr auto 1fr;
+	justify-items: center;
+	grid-template-columns: auto;
 }
 </style>
