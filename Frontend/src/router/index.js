@@ -36,6 +36,12 @@ const router = createRouter({
 			path: "/password",
 			name: "password",
 			component: () => import("../views/PasswortView.vue"),
+		},
+		{
+			path: "/Stundenplan",
+			name: "/Stundenplan",
+			component: () => import("../views/Stundenplan.vue")
+
 		}
 	],
 });
