@@ -66,7 +66,7 @@ public class AccountWebservice {
 		@HeaderParam("password") String password,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.status(
+		if (!permissionFacade.isAdmin(token)) return responseFacade.status(
 			401,
 			"{\"error\": \"Token ist ungültig\"}"
 		);

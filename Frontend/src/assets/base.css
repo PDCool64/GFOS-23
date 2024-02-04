@@ -3,14 +3,16 @@
   --white-soft: #cccccc;
   --white-mute: #bbbbbb;
 
-  --black: #181818;
+  --black: #181C22;
   --black-soft: #222222;
   --black-mute: #282828;
   --black-light: #3d3d3d;
 
-  --indigo: #2c3e50;
   --first-color:#d7fbe3;
-  --second-color: #6B8C83;
+  --second-color: #A1C4B3;
+  --third-color: #6B8C83;
+  --fourth-color: #2C3E50;
+  --fivth-color: #182533;
 
   --divider-light-1: rgba(60, 60, 60, 0.29);
   --divider-light-2: rgba(60, 60, 60, 0.12);
@@ -33,6 +35,8 @@
 
   --shadow-dark-soft: rgba(0, 0, 0, 0.3);
   --shadow-light-soft: rgba(0, 0, 0, 0.1);
+
+
 }
 
 /* semantic color variables for this project */
@@ -46,6 +50,8 @@
 
   --color-heading: var(--text-light-1);
   --color-text: var(--text-light-1);
+
+  --text-size: 16px;
 
   --section-gap: 160px;
   --navbar-height: 50px;

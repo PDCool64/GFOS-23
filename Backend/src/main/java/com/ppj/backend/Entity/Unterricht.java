@@ -26,33 +26,56 @@ import java.util.List;
  */
 @Entity
 @Table(name = "UNTERRICHT")
-@NamedQueries({
-	@NamedQuery(name = "Unterricht.findAll", query = "SELECT u FROM Unterricht u"),
-	@NamedQuery(name = "Unterricht.findById", query = "SELECT u FROM Unterricht u WHERE u.id = :id"),
-	@NamedQuery(name = "Unterricht.findByBeginzeit", query = "SELECT u FROM Unterricht u WHERE u.beginzeit = :beginzeit"),
-	@NamedQuery(name = "Unterricht.findByEndzeit", query = "SELECT u FROM Unterricht u WHERE u.endzeit = :endzeit")})
+@NamedQueries(
+	{
+		@NamedQuery(
+			name = "Unterricht.findAll",
+			query = "SELECT u FROM Unterricht u"
+		),
+		@NamedQuery(
+			name = "Unterricht.findById",
+			query = "SELECT u FROM Unterricht u WHERE u.id = :id"
+		),
+		@NamedQuery(
+			name = "Unterricht.findByBeginzeit",
+			query = "SELECT u FROM Unterricht u WHERE u.beginzeit = :beginzeit"
+		),
+		@NamedQuery(
+			name = "Unterricht.findByEndzeit",
+			query = "SELECT u FROM Unterricht u WHERE u.endzeit = :endzeit"
+		),
+		@NamedQuery(
+			name = "Unterricht.findByKurs",
+			query = "SELECT u FROM Unterricht u WHERE u.kurs = :kurs"
+		),
+	}
+)
 public class Unterricht implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
 	private Integer id;
+
 	@Basic(optional = false)
-    @Column(name = "BEGINZEIT")
+	@Column(name = "BEGINZEIT")
 	private String beginzeit;
+
 	@Basic(optional = false)
-    @Column(name = "ENDZEIT")
+	@Column(name = "ENDZEIT")
 	private String endzeit;
+
 	@JoinColumn(name = "KURS", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Kurs kurs;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "unterricht")
 	private List<Stunde> stundeList;
 
-	public Unterricht() {
-	}
+	public Unterricht() {}
 
 	public Unterricht(Integer id) {
 		this.id = id;
@@ -118,7 +141,10 @@ public class Unterricht implements Serializable {
 			return false;
 		}
 		Unterricht other = (Unterricht) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (
+			(this.id == null && other.id != null) ||
+			(this.id != null && !this.id.equals(other.id))
+		) {
 			return false;
 		}
 		return true;
@@ -128,5 +154,4 @@ public class Unterricht implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Unterricht[ id=" + id + " ]";
 	}
-	
 }
