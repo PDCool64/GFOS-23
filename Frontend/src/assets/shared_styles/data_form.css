@@ -1,12 +1,13 @@
 form {
 	width: 100%;
 	min-width: 300px;
-	padding: 0 20px;
+	padding: 20px 20px;
 	border-radius: 8px;
 	grid-column: span 2;
 	display: grid;
 	grid-template-columns: 1fr auto;
 	gap: 10px;
+
 }
 .link {
 	display: block;
@@ -29,13 +30,14 @@ form {
 input {
 	border-radius: 5px;
 	border: none;
-	background-color: var(--color-background-mute);
+	background-color: var(--second-color);
 	flex-grow: 1;
 	width: 100%;
 	outline: none;
 	padding: 3px;
 	text-align: center;
-	color: var(--color-text);
+	color: var(--black);
+	font-weight: bold;
 }
 
 button {
@@ -43,11 +45,13 @@ button {
 	padding: 10px;
 	border: none;
 	border-radius: 40px;
-	color: white;
-	background-color: var(--button-blue);
+	color: var(--black);
+	background-color: var(--first-color);
 	width: 100%;
 	grid-column: span 2;
     margin: 10px 0;
+	font-weight: bold;
+	border: 2px solid black;
 }
 
 button:hover {
