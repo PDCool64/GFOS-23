@@ -9,7 +9,7 @@
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
-      <img src="./unnamed.png" alt="Ende der Navbar" class="navbar-image" @click="toggleTable" />
+      <img src="../assets/pictures/unnamed.png" alt="Ende der Navbar" class="navbar-image" @click="toggleTable" />
     </nav>
     <ol v-show="showList" class="info-list">
         <li><a href="/">Home</a></li>
