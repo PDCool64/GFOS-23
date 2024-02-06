@@ -4,19 +4,16 @@
 			<li><RouterLink to="/">Home</RouterLink></li>
 			<li><RouterLink to="/profile">Profile</RouterLink></li>
 			<li><RouterLink to="/stundenplan">Stundenplan</RouterLink></li>
+			<li><button @click="logOut">Log out</button></li>
 		</ul>
 		<img
 			src="../assets/pictures/unnamed.png"
 			alt="Ende der Navbar"
 			class="navbar-image"
-			@click="toggleTable"
+			@click="clickImage()"
 		/>
 	</nav>
-	<ul v-show="showList" class="info-list">
-		<li><a href="/">Home</a></li>
-		<li><a href="/profile">Profile</a></li>
-		<li><button @click="logOut">Log out</button></li>
-	</ul>
+	<p></p>
 </template>
 
 <script setup>
@@ -27,11 +24,9 @@ import { useUserStore } from "@/stores/user";
 
 const userData = useUserStore();
 
-const showList = ref(false);
-
-const toggleTable = () => {
-	showList.value = !showList.value;
-};
+function clickImage() {
+	router.push("/profile");
+}
 
 const logOut = () => {
 	userData.reset();
@@ -94,37 +89,15 @@ const logOut = () => {
 	cursor: pointer;
 }
 
-.info-list {
-	position: fixed; 
-	top: calc(-0.1vw + 64.4px); 
-	right: 0; 
-	left: auto; 
-	bottom: 0; 
-	width: 10%; 
-	min-height: 100; 
-	background-color: var(--fivth-color); 
-	padding: 10px; 
-	display: block; 
-	list-style: none; 
-}
-
-.info-list li a {
-	color: var(--color-text);
-	font-weight: bold;
-}
-
-.info-list li button {
-	color: var(--color-text);
-	font-weight: bold;
+.navbar button {
 	background-color: transparent;
-	font-size: var(--text-size);
+	color: var(--color-text);
 	border: none;
-	padding: 10px;
+	border-radius: 5px;
+	padding: 10px 20px;
 	cursor: pointer;
-}
-
-.info-list li {
-	margin-bottom: 50px; 
-	text-align: center; 
+	text-wrap: nowrap;
+	font-weight: bold;
+	font-size: var(--text-size);
 }
 </style>

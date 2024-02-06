@@ -25,7 +25,7 @@ import jakarta.ejb.LocalBean;
 public class UnterrichtFacade {
     @EJB
     private AccountFacade accountFacade;
-    public List<Unterricht> getUntterichtByAccount(Account a) {
+    public List<Unterricht> getUnterrichtByAccount(Account a) {
         try{   
             List<Unterricht> unterrichtList = new ArrayList<Unterricht>();
             for (Kurs k : a.getKursList()) {

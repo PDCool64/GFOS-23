@@ -39,22 +39,22 @@ const submitCode = () => {
 
 <template>
   <div class="check-in-code">
-    <h1>Enter your CheckInCode</h1>
+    <h1>Gib deinen CheckInCode ein</h1>
     <form @submit.prevent="submitCode">
       <div class="input-container">
         <input v-for="(item, index) in Array.from({ length: 5 })" :key="index" type="text" maxlength="1"
           v-model="code[index]" @input="handleInput(index)" @keydown.delete="handleDelete" ref="inputs"
           :id="`input-${index}`" />
       </div>
-      <button type="submit" style="display: none;"></button>
     </form>
   </div>
 </template>
 
 <style scoped>
 h1 {
+  color: var(--color-text);
+  font-size: calc(var(--text-size)*2);
   text-align: center;
-  font-size: 2.5rem;
 }
 
 .input-container {
@@ -81,5 +81,14 @@ input {
 
 input:focus {
   border: 2px solid var(--color-border-hover);
+}
+
+button {
+  width: 100%;
+  height: auto;
+  font-size: calc(var(--text-size) * 1.5);
+  background-color: transparent;
+  border: none;
+  color: var(--color-text);
 }
 </style>
