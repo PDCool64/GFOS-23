@@ -38,11 +38,17 @@ const router = createRouter({
 			component: () => import("../views/PasswortView.vue"),
 		},
 		{
-			path: "/Stundenplan",
-			name: "/Stundenplan",
+			path: "/stundenplan",
+			name: "/stundenplan",
 			component: () => import("../views/Stundenplan.vue")
 
+		},
+		{
+			path: "/kurs",
+			name: "/kurs",
+			component: () => import("../views/CreateKursView.vue")
 		}
+
 	],
 });
 

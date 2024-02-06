@@ -42,7 +42,11 @@ const logOut = () => {
 
 <style scoped>
 .navbar {
-	background-color: var(--fivth-color); 
+	background-image: linear-gradient(
+		to right,
+		var(--fivth-color),
+		var(--third-color)
+	);
 	height: 6.25vp; 
 	width: 100%; 
 	position: fixed; 

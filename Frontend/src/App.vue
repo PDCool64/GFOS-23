@@ -9,7 +9,7 @@ import { computed } from "vue";
 const userData = useUserStore();
 
 const isLoggedIn = computed(() => {
-  return userData.token != "";
+  return userData.token == "";
 });
 
 if(!isLoggedIn.value){
@@ -42,7 +42,6 @@ if(!isLoggedIn.value){
   height: var(--navbar-height);
   width: calc(100% - 2*var(--navbar-margin));
   margin:  var(--navbar-margin);
-  background-color: #333;
   color: #fff;
   border-radius: 10px;
 }

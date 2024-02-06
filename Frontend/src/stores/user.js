@@ -21,7 +21,6 @@ export const useUserStore = defineStore("user", {
 		reset() {
             this.setToken("");
             this.setUserId(0);
-            console.log('reset');
 		},
 	},
 	persist: {
