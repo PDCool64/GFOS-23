@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 20px;
     box-shadow: 0 0 10px var(--shadow-soft);
+    background-color: var(--fivth-color);
 }
 
 .form h1 {

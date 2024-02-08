@@ -16,7 +16,19 @@ const handleInput = (index) => {
       inputs.value[index + 1].focus();
     });
   }
+  else {
+    submitCode();
+    clearInputs();
+    inputs.value[0].focus();
+  }
 };
+
+const clearInputs = () => {
+  for (let i = 0; i < 5; i++) {
+    code.value[i] = "";
+  }
+};
+
 const handleDelete = () => {
   const activeElementId = document.activeElement.id;
   const activeIndex = Number(activeElementId.split("-")[1]);
@@ -34,6 +46,7 @@ const handleDelete = () => {
 
 const submitCode = () => {
   console.log(code.value.join(""));
+
 };
 </script>
 
@@ -42,7 +55,7 @@ const submitCode = () => {
     <h1>Gib deinen CheckInCode ein</h1>
     <form @submit.prevent="submitCode">
       <div class="input-container">
-        <input v-for="(item, index) in Array.from({ length: 5 })" :key="index" type="text" maxlength="1"
+        <input v-for="(item, index) in Array.from({ length: 5 })" :key="index" type="digit" maxlength="1"
           v-model="code[index]" @input="handleInput(index)" @keydown.delete="handleDelete" ref="inputs"
           :id="`input-${index}`" />
       </div>

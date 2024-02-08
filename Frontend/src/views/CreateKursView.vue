@@ -21,7 +21,7 @@
                 />
                 <input
                     v-model="kursstart"
-                    type="date"
+                    type="time"
                     id="kursstart"
                     name="kursstart"
                     placeholder="Kursstart"
@@ -29,7 +29,7 @@
                 />
                 <input
                     v-model="kursende"
-                    type="date"
+                    type="time"
                     id="kursende"
                     name="kursende"
                     placeholder="Kursende"
@@ -57,4 +57,14 @@ const submitForm = () => {
 
 <style scoped>
 @import "../assets/shared_styles/form.css";
+input {
+    padding: auto;
+}
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
 </style>

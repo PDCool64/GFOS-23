@@ -2,16 +2,17 @@
 	<nav class="navbar">
 		<ul>
 			<li><RouterLink to="/">Home</RouterLink></li>
-			<li><RouterLink to="/profile">Profile</RouterLink></li>
 			<li><RouterLink to="/stundenplan">Stundenplan</RouterLink></li>
-			<li><button @click="logOut">Log out</button></li>
 		</ul>
-		<img
+		<div class="left">
+			<button @click="logOut">Log out</button>
+			<img
 			src="../assets/pictures/unnamed.png"
 			alt="Ende der Navbar"
 			class="navbar-image"
 			@click="clickImage()"
 		/>
+	</div>
 	</nav>
 	<p></p>
 </template>
@@ -87,6 +88,11 @@ const logOut = () => {
 	width: 40px;
 	height: 40px;
 	cursor: pointer;
+}
+
+.left {
+	display: flex;
+	align-items: center;
 }
 
 .navbar button {

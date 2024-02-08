@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
+import com.ppj.backend.Entity.Kursteilnahme;
 import com.ppj.backend.Entity.Unterricht;
 
 import jakarta.ejb.EJB;
@@ -26,10 +27,10 @@ public class UnterrichtFacade {
     @EJB
     private AccountFacade accountFacade;
     public List<Unterricht> getUnterrichtByAccount(Account a) {
-        try{   
-            List<Unterricht> unterrichtList = new ArrayList<Unterricht>();
-            for (Kurs k : a.getKursList()) {
-                unterrichtList.addAll(k.getUnterrichtList());
+        try{
+            List<Unterricht> unterrichtList = new ArrayList<Unterricht>();   
+            for (Kursteilnahme kt : a.getKursteilnahmeList()) {
+                unterrichtList.addAll(kt.getKurs().getUnterrichtList());
             }
             return unterrichtList;
         } catch (Exception e) {

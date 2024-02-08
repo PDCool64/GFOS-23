@@ -39,13 +39,13 @@ const router = createRouter({
 		},
 		{
 			path: "/stundenplan",
-			name: "/stundenplan",
+			name: "stundenplan",
 			component: () => import("../views/Stundenplan.vue")
 
 		},
 		{
 			path: "/kurs",
-			name: "/kurs",
+			name: "kurs",
 			component: () => import("../views/CreateKursView.vue")
 		}
 
