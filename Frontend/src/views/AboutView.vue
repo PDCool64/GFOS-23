@@ -1,5 +1,5 @@
 <script setup>
-  import Login from '@/components/Login.vue'
+  import Anwesenheitsliste from '@/components/Anwesenheitsliste.vue'
 </script>
 
 <template>
