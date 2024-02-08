@@ -4,20 +4,31 @@
 			<thead>
 				<tr>
 					<th>Zeit</th>
-					<th v-for="day in days" :key="day">{{ day }}</th>
+					<th v-for="(day, dayIndex) in days" :key="dayIndex">
+						{{ day }}
+					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="time in times" :key="time">
+				<tr v-for="(time, timeIndex) in times" :key="timeIndex">
 					<td class="time-cell">{{ time }}</td>
-					<td class="data-cell" v-for="day in days" :key="day"></td>
+					<td
+						class="data-cell"
+						v-for="(day, dayIndex) in days"
+						:key="dayIndex"
+						:id="`cell-${timeIndex}-${dayIndex}`"
+					>
+						{{ stunden[dayIndex][timeIndex] }}
+					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </template>
-abc
+
 <script setup>
+import { ref } from 'vue';
+
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
 const times = [
 	"07:55 - 08:40",
@@ -28,19 +39,22 @@ const times = [
 	"12:30 - 13:15",
 	"13:30 - 14:15",
 	"14:15 - 15:00",
-  "15:05 - 15:50"
+	"15:05 - 15:50",
 ];
+
+const stunden = ref(days.map(() => Array(times.length).fill('')));
+stunden.value[3][2] = "Deutsch";
 </script>
 
 <style scoped>
 .table-container {
-	margin: var(--navbar-margin);
+	margin: calc(var(--navbar-margin) * 5);
 	overflow-y: auto;
 	box-shadow:
 		0 0 10px rgba(0, 0, 0, 0.9),
 		0 0 10px rgba(0, 0, 0, 0.9); /* Schatten rechts und unten */
 	width: calc(
-		100% - (var(--navbar-margin)*2)
+		100% - (var(--navbar-margin) * 10)
 	); /* 100% Breite minus doppelter Rand des äußeren Containers */
 	padding-bottom: 1cm;
 	height: auto;
@@ -51,7 +65,7 @@ table {
 	width: 100%;
 	border-collapse: collapse;
 	border-radius: 10px; /* Runde Ecken hinzufügen */
-	overflow: hidden; 
+	overflow: hidden;
 	table-layout: fixed;
 }
 
@@ -63,7 +77,7 @@ td {
 }
 
 th {
-	background-color: #77aca7;
+	background-color: var(--second-color);
 	color: #333;
 }
 

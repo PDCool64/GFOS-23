@@ -1,14 +1,27 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import NavBar from "./components/NavBar.vue";
+import { useUserStore } from "./stores/user";
+import router from "./router";
+import { computed } from "vue";
 
-let token = sessionStorage.getItem("token");
+
+const userData = useUserStore();
+
+const isLoggedIn = computed(() => {
+  return userData.token != "";
+});
+
+if(!isLoggedIn.value){
+  router.push("/login");
+  console.log(userData.token);
+}
 
 </script>
 
 <template>
 	<div class="app">
-		<NavBar v-if="token != ''" class="navbar" />
+		<NavBar v-if="isLoggedIn" class="navbar" />
 		<RouterView class="view"/>
 	</div>
 </template>

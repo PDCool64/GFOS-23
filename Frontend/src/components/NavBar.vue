@@ -1,115 +1,126 @@
 <template>
-  <div>
-    <nav class="navbar">
-      <!-- Hier kommen die Inhalte deiner Navbar -->
-      <ul>
-        <li>
-          <a href="/">Home</a></li>
-        <li><a href="/profile">Profile</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-      <img src="../assets/pictures/unnamed.png" alt="Ende der Navbar" class="navbar-image" @click="toggleTable" />
-    </nav>
-    <ol v-show="showList" class="info-list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/profile">Profile</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ol>
-      </div>
+	<nav class="navbar">
+		<ul>
+			<li><RouterLink to="/">Home</RouterLink></li>
+			<li><RouterLink to="/profile">Profile</RouterLink></li>
+			<li><RouterLink to="/stundenplan">Stundenplan</RouterLink></li>
+		</ul>
+		<img
+			src="../assets/pictures/unnamed.png"
+			alt="Ende der Navbar"
+			class="navbar-image"
+			@click="toggleTable"
+		/>
+	</nav>
+	<ul v-show="showList" class="info-list">
+		<li><a href="/">Home</a></li>
+		<li><a href="/profile">Profile</a></li>
+		<li><button @click="logOut">Log out</button></li>
+	</ul>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      showList: false // Variable, um den Listenstatus zu verfolgen
-    };
-  },
-  methods: {
-    toggleTable() {
-      this.showList = !this.showList; // Umkehrung des Listenstatus
-    }
-  }
+<script setup>
+import router from "@/router";
+import { RouterLink } from "vue-router";
+import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
+
+const userData = useUserStore();
+
+const showList = ref(false);
+
+const toggleTable = () => {
+	showList.value = !showList.value;
 };
 
+const logOut = () => {
+	userData.reset();
+	router.push("/login");
+	showList.value = false;
+};
 </script>
 
 <style scoped>
-/* Hier kommt das Styling für deine Navbar */
 .navbar {
-  background-color: var(--first-color); /* Hintergrundfarbe deiner Navbar */
-  height: 6.25vp; /* 1/8 der gesamten vertikalen Höhe */
-  width: 100%; /* Volle Breite des Bildschirms */
-  position: fixed; /* Fixierte Position am oberen Bildschirmrand */
-  top: 0; /* Oben ausrichten */
-  left: 0; /* Links ausrichten */
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Gleichmäßige Verteilung der Elemente */
-  padding: 12px 20px; /* Innenabstand für die Inhalte der Navbar */
-  text-align: center; /* Zentrierung des Inhalts innerhalb der Navbar */
+	background-color: var(--fivth-color); 
+	height: 6.25vp; 
+	width: 100%; 
+	position: fixed; 
+	top: 0; 
+	left: 0; 
+	display: flex;
+	align-items: center;
+	justify-content: space-between; 
+	padding: 12px 20px; 
+	text-align: center; 
 }
 
-/* Styling für die Navbar-Links */
 .navbar ul {
-  list-style: none;
-  display: flex;
-  margin: 0; /* Kein zusätzlicher Abstand für die Liste */
-  padding: 0; /* Kein zusätzlicher Abstand für die Liste */
+	list-style: none;
+	display: flex;
+	margin: 0; 
+	padding: 0; 
 }
 
 .navbar ul li {
-  flex: 1; /* Gleichmäßige Verteilung der li-Elemente */
-  margin: 0 50px; /* Abstand zwischen den Elementen */
-  display: flex; 
-  align-items: center;
+	flex: 1; 
+	margin: 0 50px; 
+	display: flex;
+	align-items: center;
 }
 
 .navbar ul li a {
-  text-decoration: none;
-  color: var(--black); /* Textfarbe der Navbar-Links */
-  font-weight: bold;
+	text-decoration: none;
+	color: var(--color-text); 
+	font-weight: bold;
+	cursor: pointer;
 }
-/* Hier kannst du weiteres Styling für deine Seite hinzufügen */
+
 .main-content {
-  /* Hier kommt das Styling für den Hauptinhalt deiner Seite */
-  margin-top: 12.5vh; /* Platz unterhalb der Navbar */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 87.5vh; /* Der Rest der vertikalen Höhe */
+	margin-top: 12.5vh; 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 87.5vh; 
 }
 .navbar-image {
-  max-height: 100%; /* Maximale Höhe des Bildes */
-  width: 40px;
-  height: 40px;
-  border: 2px solid black; /* Schwarze Umrandung */
-  border-radius: 50%; /* Runde Ecken für das runde Bild */
-  cursor: pointer;
+	max-height: 100%; 
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
 }
 
 .info-list {
-  position: fixed; /* Fixierte Position am rechten Bildschirmrand */
-  top: calc(-0.1vw + 64.4px); /* 10% der Bildschirmhöhe */
-  right: 0; /* Rechts ausrichten */
-  left: auto; /* Automatische Positionierung von links entfernen */
-  bottom: 0; /* Bis zum unteren Rand ausrichten */
-  width: 10%; /* 20% der Bildschirmbreite */
-  min-height: 100; /* Volle Bildschirmhöhe */
-  background-color: var(--second-color); /* Hintergrundfarbe der Liste */
-  padding: 10px; /* Innenabstand für die Inhalte der Liste */
-  display: block; /* Jetzt standardmäßig sichtbar (zum Testen) */
-  list-style: none; /* Entferne die Standardpunktliste */
+	position: fixed; 
+	top: calc(-0.1vw + 64.4px); 
+	right: 0; 
+	left: auto; 
+	bottom: 0; 
+	width: 10%; 
+	min-height: 100; 
+	background-color: var(--fivth-color); 
+	padding: 10px; 
+	display: block; 
+	list-style: none; 
 }
 
 .info-list li a {
-  color: var(--black);
-  font-weight: bold;
+	color: var(--color-text);
+	font-weight: bold;
 }
-.info-list li{
-  margin-bottom: 50px; /* Abstand zwischen den Listeneinträgen */
 
+.info-list li button {
+	color: var(--color-text);
+	font-weight: bold;
+	background-color: transparent;
+	font-size: var(--text-size);
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.info-list li {
+	margin-bottom: 50px; 
+	text-align: center; 
 }
 </style>
