@@ -83,19 +83,19 @@ public class PermissionFacade {
 	}
 
 	public Account getAccountByToken(String token) {
-		return accountFacade.getAccountByEmail(tokenService.verifyToken(token));
+		return accountFacade.getAccountByEmail(tokenService.verifyToken(token).email);
 	}
 
 	public boolean logout(String token) {
 		return true;	
 	}
 
-	public boolean isActive(String token) {
-		if (token == null) return true;
+	public String isActive(String token) {
+		if (token == null) return "no token";
 		try {
-			return tokenService.verifyToken(token) != "";
+			return tokenService.verifyToken(token).token;
 		} catch (Exception e) {
-			return false;
+			return e.getMessage();
 		}
 	}
 

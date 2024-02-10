@@ -27,8 +27,18 @@ import jakarta.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class TokenService {
+
+    public class TokenEmail {
+        public String token;
+        public String email;
+        public TokenEmail(String token, String email) {
+            this.token = token;
+            this.email = email;
+        }
+    }
+
     private final String SECRET = "R{,hA:>xYSPLvN~>R\\pz*3feN7EgpM`kfF1e=^22AxnpPI"; // TOPSECRET! Wenn jemand das hier liest, dann sind wir rechtlich am Arsch.
-    private final long DT = 120_000; // Token 120 Sekunden gültig
+    private final long DT = 120_000_000; // Token 120_000 Sekunden gültig
     
     @EJB
     private AccountFacade accountFacade;
@@ -47,7 +57,7 @@ public class TokenService {
         }
     }        
     
-    public String verifyToken(String token) {
+    public TokenEmail verifyToken(String token) {
         try {
             long t = (System.currentTimeMillis() / DT) * DT;
             Algorithm algorithm = Algorithm.HMAC256(SECRET + t);
@@ -55,7 +65,7 @@ public class TokenService {
                                       .withIssuer("GFOSProjekt")
                                       .build();
             DecodedJWT jwt = verifier.verify(token);
-            return jwt.getSubject(); // das gültige Token wieder zurückgeben.
+            return new TokenEmail(token, jwt.getSubject()); // das gültige Token wieder zurückgeben.
         } catch (JWTVerificationException ex1){            
             try { 
                 // Wenn altes Token gerade (innerhalb eines Zeitfensters von
@@ -66,9 +76,9 @@ public class TokenService {
                                           .withIssuer("GFOSProjekt")
                                           .build();
                 DecodedJWT jwt = verifier.verify(token);
-                return this.createNewToken(jwt.getSubject());
+                return new TokenEmail(this.createNewToken(jwt.getSubject()), jwt.getSubject());
             } catch(JWTVerificationException ex2) {                
-                return ""; // altes Token zu lange (> 2*DT) abgelaufen
+                return new TokenEmail(null, null); // altes Token zu lange (> 2*DT) abgelaufen
             }
         }
     }

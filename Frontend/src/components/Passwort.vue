@@ -23,10 +23,8 @@
 
 <script setup>
 import { ref } from "vue";
-import { useTokenStore } from "@/stores/token";
 import router from "@/router";
 
-const tokenStore = useTokenStore();
 const oldPassword = ref("");
 const newPassword = ref("");
 

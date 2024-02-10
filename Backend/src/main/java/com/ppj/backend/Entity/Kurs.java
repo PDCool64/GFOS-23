@@ -4,6 +4,7 @@
  */
 package com.ppj.backend.Entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -30,8 +31,9 @@ import java.util.List;
 	@NamedQuery(name = "Kurs.findAll", query = "SELECT k FROM Kurs k"),
 	@NamedQuery(name = "Kurs.findById", query = "SELECT k FROM Kurs k WHERE k.id = :id"),
 	@NamedQuery(name = "Kurs.findByFach", query = "SELECT k FROM Kurs k WHERE k.fach = :fach"),
-	@NamedQuery(name = "Kurs.findByName", query = "SELECT k FROM Kurs k WHERE k.name = :name"),
-	@NamedQuery(name = "Kurs.findByStufe", query = "SELECT k FROM Kurs k WHERE k.stufe = :stufe")})
+	@NamedQuery(name = "Kurs.findByStufe", query = "SELECT k FROM Kurs k WHERE k.stufe = :stufe"),
+	@NamedQuery(name = "Kurs.findByNummer", query = "SELECT k FROM Kurs k WHERE k.nummer = :nummer"),
+	@NamedQuery(name = "Kurs.findByArt", query = "SELECT k FROM Kurs k WHERE k.art = :art")})
 public class Kurs implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,17 +45,20 @@ public class Kurs implements Serializable {
 	@Basic(optional = false)
     @Column(name = "FACH")
 	private String fach;
-	@Basic(optional = false)
-    @Column(name = "NAME")
-	private String name;
 	@Column(name = "STUFE")
 	private Integer stufe;
+	@Column(name = "NUMMER")
+	private Integer nummer;
+	@Column(name = "ART")
+	private String art;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
+	@JsonbTransient
 	private List<Unterricht> unterrichtList;
 	@JoinColumn(name = "LEITER", referencedColumnName = "ID")
     @ManyToOne
 	private Account leiter;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kurs")
+	@JsonbTransient
 	private List<Kursteilnahme> kursteilnahmeList;
 
 	public Kurs() {
@@ -63,10 +68,9 @@ public class Kurs implements Serializable {
 		this.id = id;
 	}
 
-	public Kurs(Integer id, String fach, String name) {
+	public Kurs(Integer id, String fach) {
 		this.id = id;
 		this.fach = fach;
-		this.name = name;
 	}
 
 	public Integer getId() {
@@ -85,20 +89,28 @@ public class Kurs implements Serializable {
 		this.fach = fach;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Integer getStufe() {
 		return stufe;
 	}
 
 	public void setStufe(Integer stufe) {
 		this.stufe = stufe;
+	}
+
+	public Integer getNummer() {
+		return nummer;
+	}
+
+	public void setNummer(Integer nummer) {
+		this.nummer = nummer;
+	}
+
+	public String getArt() {
+		return art;
+	}
+
+	public void setArt(String art) {
+		this.art = art;
 	}
 
 	public List<Unterricht> getUnterrichtList() {

@@ -55,7 +55,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -74,12 +74,13 @@ public class KursWebservice {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllKurse(@HeaderParam("Authorization") String token) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
 			return responseFacade.ok(jsonb.toJson(kursFacade.getAllKurse()));
 		} catch (JsonbException e) {
+			e.printStackTrace();
 			return responseFacade.ok("Kurse konnten nicht geladen werden.");
 		}
 	}
@@ -90,7 +91,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -110,7 +111,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("checkincode") String checkincode
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -130,7 +131,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -151,7 +152,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -174,7 +175,7 @@ public class KursWebservice {
 		@PathParam("kursId") int kursId,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {

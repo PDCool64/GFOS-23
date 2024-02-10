@@ -13,11 +13,13 @@
 				<tr v-for="(time, timeIndex) in times" :key="timeIndex">
 					<td class="time-cell">{{ time }}</td>
 					<td
-						v-bind:class="{ 'data-cell': stunden[dayIndex][timeIndex] != '' }"
+						v-bind:class="{
+							'data-cell': stunden[dayIndex][timeIndex] != '',
+						}"
 						v-for="(day, dayIndex) in days"
 						:key="dayIndex"
 						:id="`cell-${timeIndex}-${dayIndex}`"
-						@click="openUnterricht(timeIndex, dayIndex)"
+						@click="openStunden(timeIndex, dayIndex)"
 					>
 						{{ stunden[dayIndex][timeIndex] }}
 					</td>
@@ -28,13 +30,21 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useUserStore } from '@/stores/user';
-import { useUnterrichtStore } from '@/stores/unterricht';
-import router from '@/router';
+import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
+import { useStundenStore } from "@/stores/stunden";
+import router from "@/router";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const date = route.params.day;
+
+const startDate = new Date(date);
+const endDate = new Date(date);
+endDate.setDate(endDate.getDate() + 6);
 
 const userData = useUserStore();
-const unterrichtData = useUnterrichtStore();
+const stundenData = useStundenStore();
 
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
 const times = [
@@ -49,52 +59,61 @@ const times = [
 	"15:05 - 15:50",
 ];
 
-const stunden = ref(days.map(() => Array(times.length).fill('')));
+const stunden = ref(days.map(() => Array(times.length).fill("")));
 async function reload() {
-	const response = await fetch('http://localhost:8080/Backend/unterricht', {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			"Authorization": userData.token,
+	const response = await fetch(
+		"http://localhost:8080/Backend/stunde/" +
+			startDate.toISOString().substring(0, 10) +
+			"/" +
+			endDate.toISOString().substring(0, 10),
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: userData.token,
+			},
 		},
-	});
+	);
 	if (!response.ok) {
-		console.log('Error');
+		console.log("Error");
 		return;
 	}
 
-
 	let data = await response.json();
-	console.log(data);
 
-	const temp = ref(days.map(() => Array(times.length).fill('')));
-	for (unterricht of data) {
-		for (var stunde = unterricht.beginstunde; stunde <= unterricht.endstunde; stunde++)
-
-			temp.value[unterricht.tag][stunde] = unterricht;
+	const temp = ref(days.map(() => Array(times.length).fill("")));
+	for (stunde of data) {
+		for (
+			var s = stunde.unterricht.beginstunde;
+			s <= stunde.unterricht.endstunde;
+			s++
+		)
+			temp.value[stunde.unterricht.tag][s] = stunde;
 	}
-	unterrichtData.setUnterricht(temp);
+	stundenData.setStunden(temp);
 
-	console.log(temp.value);
-	for(var unterricht of data) {
-		for (var stunde = unterricht.beginstunde; stunde <= unterricht.endstunde; stunde++)
-			stunden.value[unterricht.tag][stunde] = unterricht.kurs.fach;
+	for (var stunde of data) {
+		for (
+			var s = stunde.unterricht.beginstunde;
+			s <= stunde.unterricht.endstunde;
+			s++
+		)
+			stunden.value[stunde.unterricht.tag][s] = stunde.unterricht.kurs.fach;
 	}
-
 
 	for (var i = 0; i < stunden.value.length; i++) {
 		for (var j = 0; j < stunden.value[i].length; j++) {
-			if (stunden.value[i][j] == '') {
-
+			if (stunden.value[i][j] == "") {
 			}
 		}
 	}
 }
 
-const openUnterricht = (timeIndex, dayIndex) => {
-	if (stunden.value[dayIndex][timeIndex] == '') return;
+const openStunden = (timeIndex, dayIndex) => {
+	if (stunden.value[dayIndex][timeIndex] == "") return;
+	stundenData.setDate(date);
 	router.push({
-		name: 'unterricht',
+		name: "stunde",
 		params: {
 			day: dayIndex,
 			time: timeIndex,
@@ -103,10 +122,7 @@ const openUnterricht = (timeIndex, dayIndex) => {
 };
 
 reload();
-console.log("Done")
-
-
-
+console.log("Done");
 </script>
 
 <style scoped>
@@ -114,8 +130,8 @@ console.log("Done")
 	margin: calc(var(--navbar-margin) * 5);
 	overflow-y: auto;
 	box-shadow:
-		0 0 10px var(--shadow),
-		0 0 10px var(--shadow); 
+		0 0 10px rgba(0, 0, 0, 0.9),
+		0 0 10px rgba(0, 0, 0, 0.9); /* Schatten rechts und unten */
 	width: calc(
 		100% - (var(--navbar-margin) * 10)
 	); /* 100% Breite minus doppelter Rand des äußeren Containers */
@@ -136,11 +152,11 @@ th,
 td {
 	padding: 12px;
 	text-align: center;
-	border-top: 1px solid var(--third-color);
+	border-top: 1px solid #77aca7;
 }
 
 th {
-	background-color: var(--third-color);
+	background-color: var(--second-color);
 	color: #333;
 }
 

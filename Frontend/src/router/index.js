@@ -41,12 +41,26 @@ const router = createRouter({
 			path: "/stundenplan",
 			name: "stundenplan",
 			component: () => import("../views/Stundenplan.vue")
-
+		},
+		{
+			path: "/stundenplan/:day/",
+			name: "dynamic-stundenplan",
+			component: () => import("../views/DynamischerStundenplan.vue")
 		},
 		{
 			path: "/kurs",
 			name: "kurs",
 			component: () => import("../views/CreateKursView.vue")
+		},
+		{
+			path: "/unterricht/:day/:time", 
+			name: "unterricht",
+			component: () => import("../views/UnterrichtView.vue")
+		},
+		{
+			path: "/stunde/:day/:time",
+			name: "stunde",
+			component: () => import("../views/StundeView.vue")
 		}
 
 	],

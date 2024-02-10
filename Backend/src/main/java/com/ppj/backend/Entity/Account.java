@@ -4,6 +4,7 @@
  */
 package com.ppj.backend.Entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -58,16 +59,21 @@ public class Account implements Serializable {
     @Temporal(TemporalType.DATE)
 	private Date geburtsdatum;
 	@Column(name = "PASSWORTHASH")
+	@JsonbTransient
 	private String passworthash;
 	@Column(name = "ISADMIN")
 	private Boolean isadmin;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+	@JsonbTransient
 	private List<Stundeteilnahme> stundeteilnahmeList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+	@JsonbTransient
 	private List<Stundebewertung> stundebewertungList;
 	@OneToMany(mappedBy = "leiter")
+	@JsonbTransient
 	private List<Kurs> kursList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+	@JsonbTransient
 	private List<Kursteilnahme> kursteilnahmeList;
 
 	public Account() {

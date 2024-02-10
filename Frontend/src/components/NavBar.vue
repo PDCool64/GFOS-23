@@ -3,6 +3,7 @@
 		<ul>
 			<li><RouterLink to="/">Home</RouterLink></li>
 			<li><RouterLink to="/stundenplan">Stundenplan</RouterLink></li>
+			<li><button @click="goToStundenplan">aktueller Stundenplan</button></li>
 		</ul>
 		<div class="left">
 			<button @click="logOut">Log out</button>
@@ -29,10 +30,17 @@ function clickImage() {
 	router.push("/profile");
 }
 
+const goToStundenplan = () => {
+	const now = new Date();
+    const day = now.getDay();
+    const diff = now.getDate() - day + (day == 0 ? -6:1); // adjust when day is Sunday
+    const thisWeekMonday = new Date(now.setDate(diff));
+	router.push("/stundenplan/" + thisWeekMonday.toISOString().substring(0, 10));
+};
+
 const logOut = () => {
 	userData.reset();
 	router.push("/login");
-	showList.value = false;
 };
 </script>
 
@@ -88,6 +96,7 @@ const logOut = () => {
 	width: 40px;
 	height: 40px;
 	cursor: pointer;
+	margin-left: 20px;
 }
 
 .left {
@@ -100,7 +109,7 @@ const logOut = () => {
 	color: var(--color-text);
 	border: none;
 	border-radius: 5px;
-	padding: 10px 20px;
+	padding: 3px;
 	cursor: pointer;
 	text-wrap: nowrap;
 	font-weight: bold;
