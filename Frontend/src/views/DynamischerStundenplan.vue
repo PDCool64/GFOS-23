@@ -126,45 +126,5 @@ console.log("Done");
 </script>
 
 <style scoped>
-.table-container {
-	margin: calc(var(--navbar-margin) * 5);
-	overflow-y: auto;
-	box-shadow:
-		0 0 10px rgba(0, 0, 0, 0.9),
-		0 0 10px rgba(0, 0, 0, 0.9); /* Schatten rechts und unten */
-	width: calc(
-		100% - (var(--navbar-margin) * 10)
-	); /* 100% Breite minus doppelter Rand des äußeren Containers */
-	padding-bottom: 1cm;
-	height: auto;
-	padding: 10px;
-	border-radius: 10px;
-}
-table {
-	width: 100%;
-	border-collapse: collapse;
-	border-radius: 10px; /* Runde Ecken hinzufügen */
-	overflow: hidden;
-	table-layout: fixed;
-}
-
-th,
-td {
-	padding: 12px;
-	text-align: center;
-	border-top: 1px solid #77aca7;
-}
-
-th {
-	background-color: var(--second-color);
-	color: #333;
-}
-
-tr:nth-child(even) {
-	background-color: transparent;
-}
-
-.data-cell {
-	cursor: pointer;
-}
+@import "../assets/shared_styles/stundenplan.css";
 </style>

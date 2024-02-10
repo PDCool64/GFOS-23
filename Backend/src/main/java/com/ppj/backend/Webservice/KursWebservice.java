@@ -6,16 +6,18 @@ package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
+import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.KursFacade;
 import com.ppj.backend.Facades.PermissionFacade;
 import com.ppj.backend.Service.ResponseService;
-
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
+import jakarta.json.*;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbException;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -27,6 +29,8 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 /**
  *
@@ -48,6 +52,19 @@ public class KursWebservice {
 	@EJB
 	private ResponseService responseFacade;
 
+	@EJB
+	private AccountFacade accountFacade;
+
+	private JsonObjectBuilder copyJsonObject(JsonObject jsonObject) {
+		JsonObjectBuilder builder = Json.createObjectBuilder();
+
+		for (String key : jsonObject.keySet()) {
+			builder.add(key, jsonObject.get(key));
+		}
+
+		return builder;
+	}
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -59,14 +76,35 @@ public class KursWebservice {
 			"Token ist ungültig"
 		);
 		try {
-			Kurs k = jsonb.fromJson(json, Kurs.class);
+			JsonReader jsonReader = Json.createReader(new StringReader(json));
+			JsonObject jsonObject = jsonReader.readObject();
+			String email = jsonObject.getString("leiter");
+			Account leiter = accountFacade.getAccountByEmail(email);
+			if (leiter == null) {
+				return responseFacade.ok(
+					"Leiter konnte nicht gefunden werden."
+				);
+			}
+
+			Kurs k = new Kurs();
+			k.setLeiter(leiter);
+			k.setArt(jsonObject.getString("art"));
+			k.setFach(jsonObject.getString("fach"));
+			k.setNummer(jsonObject.getInt("nummer"));
+			k.setStufe(jsonObject.getInt("stufe"));
+			System.out.println(k.getFach());
+
 			Kurs kursAusDatenbank = kursFacade.createKurs(k);
 			if (kursAusDatenbank == null) {
-				return responseFacade.ok("Kurs konnte nicht erstellt werden.");
+				return responseFacade.status(
+					422,
+					"Kurs konnte nicht erstellt werden."
+				);
 			} else {
 				return responseFacade.ok(jsonb.toJson(kursAusDatenbank));
 			}
 		} catch (JsonbException e) {
+			e.printStackTrace();
 			return responseFacade.ok("Json konnte nicht geparst werden.");
 		}
 	}

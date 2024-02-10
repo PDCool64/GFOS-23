@@ -14,6 +14,9 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -132,6 +135,36 @@ public class StundeFacade {
 			return stunden;
 		} catch (Exception e) {
 			return null;
+		}
+	}
+
+	private String generateCheckincode() {
+		String code = "";
+		for (int j = 0; j < 6; j++) {
+			code += (int) (Math.random() * 10);
+		}
+		return code;
+	}
+
+	public void createStunden(
+		Unterricht unterrichtInDatenbank,
+		String startDate,
+		String endDate
+	) {
+		LocalDate start = LocalDate.parse(startDate);
+		LocalDate end = LocalDate.parse(endDate);
+		LocalDate current = start.with(
+			TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY)
+		);
+		current = current.plusDays(unterrichtInDatenbank.getTag());
+
+		while (!current.isAfter(end)) {
+			Stunde stunde = new Stunde();
+			stunde.setDatum(java.sql.Date.valueOf(current));
+			stunde.setUnterricht(unterrichtInDatenbank);
+			stunde.setCheckincode(generateCheckincode());
+			this.createStunde(stunde);
+			current = current.plusDays(7);
 		}
 	}
 }

@@ -7,7 +7,6 @@ package com.ppj.backend.Facades;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.ws.rs.client.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
