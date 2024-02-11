@@ -23,8 +23,8 @@ const router = createRouter({
 			component: () => import("../views/LoginView.vue"),
 		},
 		{
-			path: "/registration",
-			name: "registration",
+			path: "/register",
+			name: "register",
 			component: () => import("../views/RegistrationView.vue"),
 		},
 		{
@@ -38,10 +38,39 @@ const router = createRouter({
 			component: () => import("../views/PasswortView.vue"),
 		},
 		{
-			path: "/Stundenplan",
-			name: "/Stundenplan",
-			component: () => import("../views/Stundenplan.vue")
-
+			path: "/stundenplan",
+			name: "stundenplan",
+			component: () => import("../views/Stundenplan.vue"),
+		},
+		{
+			path: "/stundenplan/:day/",
+			name: "dynamic-stundenplan",
+			component: () => import("../views/DynamischerStundenplan.vue"),
+		},
+		{
+			path: "/kurs/create",
+			name: "create-kurs",
+			component: () => import("../views/CreateKursView.vue"),
+		},
+		{
+			path:"/kurs/choose",
+			name: "choose-kurs",
+			component: () => import("../views/ChooseKursView.vue"),
+		},
+		{
+			path: "/unterricht/:day/:time",
+			name: "unterricht",
+			component: () => import("../views/UnterrichtView.vue"),
+		},
+		{
+			path: "/stunde/:day/:time",
+			name: "stunde",
+			component: () => import("../views/StundeView.vue"),
+		},
+		{
+			path: "/unterricht/create/:kurs", 
+			name: "create-unterricht",
+			component: () => import("../views/CreateUnterrichtView.vue"),
 		}
 	],
 });

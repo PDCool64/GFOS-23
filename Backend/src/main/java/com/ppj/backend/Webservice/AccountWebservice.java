@@ -4,8 +4,6 @@
  */
 package com.ppj.backend.Webservice;
 
-import java.io.StringReader;
-
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.PermissionFacade;
@@ -31,6 +29,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.io.StringReader;
 
 /**
  *
@@ -66,10 +65,23 @@ public class AccountWebservice {
 		@HeaderParam("password") String password,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.status(
-			401,
-			"{\"error\": \"Token ist ungültig\"}"
-		);
+		if (!permissionFacade.isAdmin(token)) {
+			Account a = permissionFacade.getAccountByToken(token);
+			if (a == null) {
+				return responseFacade.status(
+					401,
+					"{\"error\": \"Token ist ungültig\"}"
+				);
+			}
+			return responseFacade.status(
+				201,
+				"{\"error\": \"Account" +
+				a.getEmail() +
+				" ist kein Admin " +
+				a.getIsadmin() +
+				"\"}"
+			);
+		}
 		try {
 			Account a = jsonb.fromJson(json, Account.class);
 			if (accountFacade.getAccountByEmail(a.getEmail()) != null) {
@@ -101,15 +113,17 @@ public class AccountWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.status(
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.status(
 			401,
 			"{\"error\": \"Token ist ungültig\"}"
 		);
 		Account a = accountFacade.getAccountById(id);
 		if (a == null) {
 			return responseFacade.status(
-				401,
-				"{\"error\": \"Token ist ungültig\"}"
+				400,
+				"{\"error\": \"Kein Account mit der id " + id + " gefunden.\"}"
 			);
 		} else {
 			return responseFacade.ok(jsonb.toJson(a));
@@ -123,7 +137,9 @@ public class AccountWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.status(
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.status(
 			401,
 			"{\"error\": \"Token ist ungültig\"}"
 		);
@@ -150,7 +166,9 @@ public class AccountWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.status(
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.status(
 			401,
 			"{\"error\": \"Token ist ungültig\"}"
 		);
@@ -163,8 +181,14 @@ public class AccountWebservice {
 
 			Account a = permissionFacade.getAccountByToken(token);
 
-			if(a.getPassworthash().equals(hashingService.convertStringToHash(oldPassword))) {
-				a.setPassworthash(hashingService.convertStringToHash(newPassword));
+			if (
+				a
+					.getPassworthash()
+					.equals(hashingService.convertStringToHash(oldPassword))
+			) {
+				a.setPassworthash(
+					hashingService.convertStringToHash(newPassword)
+				);
 				accountFacade.updateAccount(a);
 			} else {
 				return responseFacade.status(
@@ -172,7 +196,9 @@ public class AccountWebservice {
 					"{\"error\": \"Altes Passwort ist falsch.\"}"
 				);
 			}
-			return responseFacade.ok("{\"success\": \"Passwort wurde erfolgreich geändert.\"}");
+			return responseFacade.ok(
+				"{\"success\": \"Passwort wurde erfolgreich geändert.\"}"
+			);
 		} catch (Exception e) {
 			return responseFacade.status(
 				422,
@@ -183,5 +209,24 @@ public class AccountWebservice {
 				"\"}"
 			);
 		}
+	}
+
+	@GET
+	@Path("/isleiter/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getIsLeiter(@HeaderParam("Authorization") String token) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.status(
+			401,
+			"{\"error\": \"Token ist ungültig\"}"
+		);
+		Account a = permissionFacade.getAccountByToken(token);
+		boolean isLeiter = a.getKursList().size() > 0;
+		JsonObject json = Json
+			.createObjectBuilder()
+			.add("isLeiter", isLeiter)
+			.build();
+		return responseFacade.ok(json.toString());
 	}
 }

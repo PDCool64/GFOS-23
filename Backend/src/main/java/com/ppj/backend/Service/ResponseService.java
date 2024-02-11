@@ -42,4 +42,11 @@ public class ResponseService {
 			.entity(data)
 			.build();
 	}
+
+	public Response unauthorized() {
+		return Response
+			.status(401)
+			.entity("{\"error\": \"Unauthorized\"}")
+			.build();
+	}
 }

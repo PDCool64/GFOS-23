@@ -14,13 +14,13 @@
 					<td class="time-cell">{{ time }}</td>
 					<td
 						v-bind:class="{
-							filled: stunden[dayIndex][timeIndex] != '',
+							'filled': stunden[dayIndex][timeIndex] != '',
 							'data-cell': true,
 						}"
 						v-for="(day, dayIndex) in days"
 						:key="dayIndex"
 						:id="`cell-${timeIndex}-${dayIndex}`"
-						@click="openUnterricht(timeIndex, dayIndex)"
+						@click="openStunden(timeIndex, dayIndex)"
 					>
 						{{ stunden[dayIndex][timeIndex] }}
 					</td>
@@ -33,11 +33,19 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
-import { useUnterrichtStore } from "@/stores/unterricht";
+import { useStundenStore } from "@/stores/stunden";
 import router from "@/router";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const date = route.params.day;
+
+const startDate = new Date(date);
+const endDate = new Date(date);
+endDate.setDate(endDate.getDate() + 6);
 
 const userData = useUserStore();
-const unterrichtData = useUnterrichtStore();
+const stundenData = useStundenStore();
 
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
 const times = [
@@ -54,40 +62,45 @@ const times = [
 
 const stunden = ref(days.map(() => Array(times.length).fill("")));
 async function reload() {
-	const response = await fetch("http://localhost:8080/Backend/unterricht", {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: userData.token,
+	const response = await fetch(
+		"http://localhost:8080/Backend/stunde/" +
+			startDate.toISOString().substring(0, 10) +
+			"/" +
+			endDate.toISOString().substring(0, 10),
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: userData.token,
+			},
 		},
-	});
+	);
 	if (!response.ok) {
 		console.log("Error");
 		return;
 	}
 
 	let data = await response.json();
-	console.log(data);
 
 	const temp = ref(days.map(() => Array(times.length).fill("")));
-	for (unterricht of data) {
+	for (stunde of data) {
 		for (
-			var stunde = unterricht.beginstunde;
-			stunde <= unterricht.endstunde;
-			stunde++
+			var s = stunde.unterricht.beginstunde;
+			s <= stunde.unterricht.endstunde;
+			s++
 		)
-			temp.value[unterricht.tag][stunde] = unterricht;
+			temp.value[stunde.unterricht.tag][s] = stunde;
 	}
-	unterrichtData.setUnterricht(temp);
+	stundenData.setStunden(temp);
 
-	console.log(temp.value);
-	for (var unterricht of data) {
+	for (var stunde of data) {
 		for (
-			var stunde = unterricht.beginstunde;
-			stunde <= unterricht.endstunde;
-			stunde++
+			var s = stunde.unterricht.beginstunde;
+			s <= stunde.unterricht.endstunde;
+			s++
 		)
-			stunden.value[unterricht.tag][stunde] = unterricht.kurs.fach;
+			stunden.value[stunde.unterricht.tag][s] =
+				stunde.unterricht.kurs.fach;
 	}
 
 	for (var i = 0; i < stunden.value.length; i++) {
@@ -98,10 +111,11 @@ async function reload() {
 	}
 }
 
-const openUnterricht = (timeIndex, dayIndex) => {
+const openStunden = (timeIndex, dayIndex) => {
 	if (stunden.value[dayIndex][timeIndex] == "") return;
+	stundenData.setDate(date);
 	router.push({
-		name: "unterricht",
+		name: "stunde",
 		params: {
 			day: dayIndex,
 			time: timeIndex,

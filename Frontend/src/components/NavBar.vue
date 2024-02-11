@@ -1,134 +1,126 @@
 <template>
-	<nav>
-		<ul class="große-liste">
-			<li class="große-liste"><router-link to="/">Home</router-link></li>
-			<li class="große-liste">
-				<router-link to="/stundenplan">Calendar</router-link>
+	<nav class="navbar">
+		<ul>
+			<li><RouterLink to="/">Home</RouterLink></li>
+			<li><RouterLink to="/stundenplan">Stundenplan</RouterLink></li>
+			<li>
+				<button @click="goToStundenplan">aktueller Stundenplan</button>
 			</li>
+			<li>
+				<RouterLink to="/kurs/choose">Unterricht erstellen</RouterLink>
+			</li>
+			<li><RouterLink to="/kurs/create" v-if="userData.user.isAdmin">Kurs erstellen</RouterLink></li>
 		</ul>
-		<div
-			class="klickbarer-bereich"
-			@click="listeSichtbar = !listeSichtbar"
-		>
+		<div class="left">
+			<button @click="logOut">Log out</button>
 			<img
 				src="../assets/pictures/unnamed.png"
-				alt="Bild kann nicht geladen werden"
-				style="width: 40px; height: 40px"
+				alt="Ende der Navbar"
+				class="navbar-image"
+				@click="clickImage()"
 			/>
-			<ul v-if="listeSichtbar" class="kleine-liste">
-				<li><router-link to="/"> Home</router-link></li>
-				<li><router-link to="/profile"> Profile</router-link></li>
-			</ul>
 		</div>
 	</nav>
+	<p></p>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import router from "@/router";
+import { RouterLink } from "vue-router";
+import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
 
-const listeSichtbar = ref(false);
+const userData = useUserStore();
 
-const closeListe = (event) => {
-  if (event.target.closest('.klickbarer-bereich')) return;
-  listeSichtbar.value = false;
+function clickImage() {
+	router.push("/profile");
+}
+
+const goToStundenplan = () => {
+	const now = new Date();
+	const day = now.getDay();
+	const diff = now.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is Sunday
+	const thisWeekMonday = new Date(now.setDate(diff));
+	router.push(
+		"/stundenplan/" + thisWeekMonday.toISOString().substring(0, 10),
+	);
 };
 
-onMounted(() => {
-  window.addEventListener('click', closeListe);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('click', closeListe);
-});
+const logOut = () => {
+	userData.reset();
+	router.push("/login");
+};
 </script>
 
 <style scoped>
-nav {
-	background-image: url("../assets/pictures/blauer Hintergrund.jpg");
-	background-size: 100% 100%;
-	padding: 10px;
-	color: #6b8c83;
-	display: flex;
-	justify-content: center;
-	box-shadow: 0px 10px 10px var(--shadow);
-	margin: 10px;
+.navbar {
+	background-image: linear-gradient(
+		to right,
+		var(--fivth-color),
+		var(--third-color)
+	);
+	height: 6.25vp;
 	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
 	align-items: center;
+	justify-content: space-between;
+	padding: 12px 20px;
+	text-align: center;
 }
-.große-liste {
-	list-style-type: none;
+
+.navbar ul {
+	list-style: none;
+	display: flex;
 	margin: 0;
 	padding: 0;
-	display: flex;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
-.große-liste li {
-	margin: 0 5px;
-	flex-grow: 1;
-	text-align: center;
-	display: inline-block; /* Listeneinträge nebeneinander */
-	margin-right: 20px; /* Abstand zwischen den Listeneinträgen */
-	color: white;
-	position: relative;
+.navbar ul li {
+	flex: 1;
+	margin: 0 50px;
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
 }
-.große-liste li::after {
-	content: "";
-	position: absolute;
-	right: 0;
-	top: 50%; /* Move the top edge of the line to the vertical center of the list item */
-	width: 1px; /* Width of the line */
-	height: 80%; /* Height of the line */
-	background-color: rgba(0, 0, 0, 0.5); /* Color of the line with 50% opacity */
-	transform: translateY(-50%); /* Shift the line up by half its height */
-}
-a {
-	color: #000000;
+
+.navbar ul li a {
 	text-decoration: none;
-	display: block;
-	width: 100%;
-	height: 100%;
-	border-radius: 5px;
+	color: var(--color-text);
+	font-weight: bold;
+	cursor: pointer;
 }
-.klickbarer-bereich {
+
+.main-content {
+	margin-top: 12.5vh;
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	width: 50px;
-	height: 38px;
-	position: relative;
+	justify-content: center;
+	height: 87.5vh;
+}
+.navbar-image {
+	max-height: 100%;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	margin-left: 20px;
 }
 
-.kleine-liste {
-	background-color: var(--drop-down-color); /* Hintergrundfarbe in Grauton */
-	border: 1px solid #ccc;
+.left {
+	display: flex;
+	align-items: center;
+}
+
+.navbar button {
+	background-color: transparent;
+	color: var(--color-text);
+	border: none;
 	border-radius: 5px;
-	position: absolute;
-	top: 100%;
-	box-shadow: 0 2px 5px var(--shadow); 
-	box-sizing: border-box;
-	padding: 0;
-	margin-top: 5px;
-}
-
-.kleine-liste li:last-child {
-	border-bottom: none; /* Entfernt die untere Grenze des letzten Elements */
-}
-
-.kleine-liste li:hover {
-	background-color: #ddd; /* Hintergrundfarbe beim Hovern für bessere Sichtbarkeit */
-}
-.kleine-liste li {
-	display: block;
-	padding: 5px;
-	color: #cfcfcf;
-	text-align: center;
-}
-
-.klickbarer-bereich {
+	padding: 3px;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: var(--text-size);
 }
 </style>

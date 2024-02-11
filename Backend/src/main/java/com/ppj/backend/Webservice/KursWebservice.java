@@ -4,15 +4,19 @@
  */
 package com.ppj.backend.Webservice;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
+import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.KursFacade;
 import com.ppj.backend.Facades.PermissionFacade;
 import com.ppj.backend.Service.ResponseService;
-
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
+import jakarta.json.*;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbException;
@@ -27,6 +31,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.io.StringReader;
 
 /**
  *
@@ -48,6 +53,9 @@ public class KursWebservice {
 	@EJB
 	private ResponseService responseFacade;
 
+	@EJB
+	private AccountFacade accountFacade;
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -55,18 +63,39 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
-			Kurs k = jsonb.fromJson(json, Kurs.class);
+			JsonReader jsonReader = Json.createReader(new StringReader(json));
+			JsonObject jsonObject = jsonReader.readObject();
+			String email = jsonObject.getString("leiter");
+			Account leiter = accountFacade.getAccountByEmail(email);
+			if (leiter == null) {
+				return responseFacade.ok(
+					"Leiter konnte nicht gefunden werden."
+				);
+			}
+
+			Kurs k = new Kurs();
+			k.setLeiter(leiter);
+			k.setArt(jsonObject.getString("art"));
+			k.setFach(jsonObject.getString("fach"));
+			k.setNummer(jsonObject.getInt("nummer"));
+			k.setStufe(jsonObject.getInt("stufe"));
+			System.out.println(k.getFach());
+
 			Kurs kursAusDatenbank = kursFacade.createKurs(k);
 			if (kursAusDatenbank == null) {
-				return responseFacade.ok("Kurs konnte nicht erstellt werden.");
+				return responseFacade.status(
+					422,
+					"Kurs konnte nicht erstellt werden."
+				);
 			} else {
 				return responseFacade.ok(jsonb.toJson(kursAusDatenbank));
 			}
 		} catch (JsonbException e) {
+			e.printStackTrace();
 			return responseFacade.ok("Json konnte nicht geparst werden.");
 		}
 	}
@@ -74,12 +103,13 @@ public class KursWebservice {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllKurse(@HeaderParam("Authorization") String token) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
 			return responseFacade.ok(jsonb.toJson(kursFacade.getAllKurse()));
 		} catch (JsonbException e) {
+			e.printStackTrace();
 			return responseFacade.ok("Kurse konnten nicht geladen werden.");
 		}
 	}
@@ -90,7 +120,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -110,7 +140,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("checkincode") String checkincode
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -130,7 +160,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -151,7 +181,7 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -174,7 +204,7 @@ public class KursWebservice {
 		@PathParam("kursId") int kursId,
 		String json
 	) {
-		if (!permissionFacade.isActive(token)) return responseFacade.ok(
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
 		try {
@@ -190,4 +220,35 @@ public class KursWebservice {
 			return responseFacade.ok("Json konnte nicht geparst werden.");
 		}
 	}
+
+	@GET
+	@Path("/teilnehmer/{accountId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTeilnehmer(
+		@HeaderParam("Authorization") String token,
+		@PathParam("accountId") int accountId 
+	) {
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
+			"Token ist ungültig"
+		);
+		return responseFacade.ok(jsonb.toJson(kursFacade.getKurseByAccountId(accountId)));
+	}
+
+	@GET
+	@Path("/leiter")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public Response getLeiterKurse(
+		@HeaderParam("Authorization") String token,
+		@PathParam("accountId") int accountId
+	)
+	{
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
+			"Token ist ungültig"
+		);
+		List<Kurs> kurse = new LinkedList<Kurs>();
+		Account a = permissionFacade.getAccountByToken(token);
+		kurse = kursFacade.getKurseByLeiter(a);
+		return responseFacade.ok(jsonb.toJson(kurse));
+	}
+	
 }

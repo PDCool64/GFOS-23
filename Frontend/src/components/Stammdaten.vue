@@ -24,13 +24,10 @@
 
 <script setup>
 import { ref, onMounted, VueElement } from "vue";
-import { useAccountIdStore } from "@/stores/accountId";
-import { useTokenStore } from "@/stores/token";
+import { useUserStore } from "@/stores/user";
 import router from "@/router";
-import { useToasted } from "vue-toasted";
 
-const accountIdStore = useAccountIdStore();
-const tokenStore = useTokenStore();
+const userData = useUserStore();
 
 let account = ref({});
 
@@ -40,18 +37,18 @@ const cancel = () => {
 
 onMounted(async () => {
 	const response = await fetch(
-		"http://localhost:8080/Backend/account/" +
-			sessionStorage.getItem("accountId"),
+		"http://localhost:8080/Backend/account/" + userData.user.id,
 		{
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: sessionStorage.getItem("token"),
+				"Authorization": userData.token,
 			},
 		},
 	);
 	if (!response.ok) {
 		router.push("/login");
+		userData.reset();
 	}
 	account.value = await response.json();
 	account.value.geburtsdatum = account.value.geburtsdatum.substring(0, 10);
@@ -66,11 +63,20 @@ async function updateAccount() {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
+			"Authorization": userData.token,
 		},
 		body: JSON.stringify(temp),
 	});
-
+	console.log({
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": userData.token,
+		},
+		body: JSON.stringify(temp),
+	});
 	if (!response.ok) {
+		userData.reset();
 	} else {
 		alert("Account erfolgreich geändert");
 	}
@@ -83,5 +89,5 @@ async function updateAccount() {
 </script>
 
 <style scoped>
-@import '../assets/shared_styles/data_form.css'
+@import "../assets/shared_styles/data_form.css";
 </style>
