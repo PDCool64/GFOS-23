@@ -24,7 +24,7 @@ th,
 td {
 	padding: 12px;
 	text-align: center;
-	border-top: 1px solid var(--third-color);
+	border-top: 2px solid var(--third-color);
 }
 
 th {
@@ -36,6 +36,10 @@ tr:nth-child(even) {
 	background-color: transparent;
 }
 
-.data-cell {
+.filled {
 	cursor: pointer;
+}
+
+.data-cell{
+	border-left: solid 1px var(--third-color);
 }

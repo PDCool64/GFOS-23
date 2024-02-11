@@ -5,8 +5,10 @@
 package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Entity.Unterricht;
 import com.ppj.backend.Facades.AccountFacade;
+import com.ppj.backend.Facades.KursFacade;
 import com.ppj.backend.Facades.PermissionFacade;
 import com.ppj.backend.Facades.StundeFacade;
 import com.ppj.backend.Facades.UnterrichtFacade;
@@ -15,6 +17,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
@@ -54,6 +57,9 @@ public class UnterrichtWebservice {
 	@EJB
 	AccountFacade accountFacade;
 
+	@EJB
+	private KursFacade kursFacade;
+
 	private final Jsonb jsonb = JsonbBuilder.create();
 
 	@GET
@@ -91,15 +97,25 @@ public class UnterrichtWebservice {
 		String json
 	) {
 		try {
+			System.out.println(json);
 			JsonReader jsonReader = Json.createReader(new StringReader(json));
-			String unterrichtString = jsonReader
-				.readObject()
-				.getString("unterricht");
-			String startDate = jsonReader.readObject().getString("startDate");
-			String endDate = jsonReader.readObject().getString("endDate");
-			Unterricht unterricht = jsonb.fromJson(
-				unterrichtString,
-				Unterricht.class
+			JsonObject jsonObject = jsonReader.readObject();
+			JsonObject unterrichtJson = jsonObject.getJsonObject("unterricht");
+			String startDate, endDate;
+			startDate = jsonObject.getString("startDate");
+			endDate = jsonObject.getString("endDate");
+			Unterricht unterricht = new Unterricht();
+			Kurs k = kursFacade.getKursById(unterrichtJson.getInt("id"));
+			if (k == null) return responseService.status(
+				404,
+				"Kurs nicht gefunden"
+			);
+			unterricht.setKurs(k);
+			unterricht.setBeginstunde(unterrichtJson.getInt("beginStunde"));
+			unterricht.setEndstunde(unterrichtJson.getInt("endStunde"));
+			unterricht.setTag(unterrichtJson.getInt("tag"));
+			System.out.println(
+				unterricht.getBeginstunde() + " " + unterricht.getBeginstunde()
 			);
 			Unterricht unterrichtInDatenbank = unterrichtFacade.createUnterricht(
 				unterricht
@@ -111,6 +127,7 @@ public class UnterrichtWebservice {
 			);
 			return responseService.ok("Unterricht erstellt");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return responseService.status(
 				400,
 				"Fehler beim Erstellen des Unterrichts"

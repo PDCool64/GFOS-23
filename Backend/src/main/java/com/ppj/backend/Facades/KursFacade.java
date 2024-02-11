@@ -3,7 +3,6 @@ package com.ppj.backend.Facades;
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Entity.Kursteilnahme;
-import com.ppj.backend.Entity.Stunde;
 import com.ppj.backend.Entity.Unterricht;
 
 import jakarta.ejb.LocalBean;
@@ -24,6 +23,7 @@ public class KursFacade {
 			em.persist(k);
 			em.flush();
 			Kurs kursMitId = this.getKursById(k.getId());
+			
 			return kursMitId;
 		} catch (Exception e) {
 			return null;
@@ -180,70 +180,5 @@ public class KursFacade {
 			return false;
 		}
 	}
-
-
-	public Stunde createStunde(Stunde s) {
-		try {
-			em.persist(s);
-			em.flush();
-			Stunde stundeInDatenbank = getStundeById(s.getId());
-			return stundeInDatenbank;
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public Stunde getStundeById(int id) {
-		try {
-			return em.find(Stunde.class, id);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public List<Stunde> getAllStunden() {
-		try {
-			return em
-				.createNamedQuery("Stunde.findAll", Stunde.class)
-				.getResultList();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public List<Stunde> getAllActiveStunden() {
-		try {
-			return em
-				.createNamedQuery("Stunde.findAllActive", Stunde.class)
-				.setParameter("now", java.time.LocalDateTime.now())
-				.getResultList();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public boolean updateStunde(Stunde s) {
-		try {
-			Stunde stundeInDatenbank = getStundeById(s.getId());
-
-			stundeInDatenbank.setUnterricht(s.getUnterricht());
-			stundeInDatenbank.setStundebewertungList(s.getStundebewertungList());
-			stundeInDatenbank.setStundeteilnahmeList(s.getStundeteilnahmeList());
-
-			em.merge(stundeInDatenbank);
-
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public boolean deleteStunde(Stunde s) {
-		try {
-			em.remove(s);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
+	
 }

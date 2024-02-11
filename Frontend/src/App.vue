@@ -21,8 +21,8 @@ if(!isLoggedIn.value){
 
 <template>
 	<div class="app">
-		<NavBar v-if="isLoggedIn" class="navbar" />
-		<RouterView class="view"/>
+		<NavBar v-if="isLoggedIn"/>
+		<RouterView />
 	</div>
 </template>
 

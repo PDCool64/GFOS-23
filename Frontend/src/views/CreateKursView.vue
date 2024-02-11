@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="registration form">
-			<h1>erstelle neuen kurs</h1>
+			<h1>Erstelle einen Kurs</h1>
 			<form @submit.prevent="submitForm">
                 <input
                     v-model="leiter"

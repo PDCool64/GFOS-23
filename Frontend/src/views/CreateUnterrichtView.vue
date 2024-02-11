@@ -1,0 +1,138 @@
+<template>
+	<div class="wrapper">
+		<h1>Erstelle einen Unterricht</h1>
+		<form @submit.prevent="submitForm" class="form">
+			<label for="startDate">Kursanfang</label>
+			<input
+				type="date"
+				v-model="startDate"
+				id="startDate"
+				name="startDate"
+				required
+			/>
+			<label for="endDate">Kursende</label>
+			<input
+				type="date"
+				v-model="endDate"
+				id="endDate"
+				name="endDate"
+				required
+			/>
+			<label for="beginStunde">Stunden</label>
+			<input
+				v-model="beginStunde"
+				type="number"
+				id="beginStunde"
+				name="beginStunde"
+				placeholder="Von"
+				required
+			/>
+			<label for="endStunde">Stunden</label>
+			<input
+				v-model="endStunde"
+				type="number"
+				id="endStunde"
+				name="endStunde"
+				placeholder="Bis"
+				required
+			/>
+			<div class="input-group">
+				<label for="tag">Day of the week</label>
+				<select v-model="tag" id="tag" name="tag" required>
+					<option value="0">Monday</option>
+					<option value="1">Tuesday</option>
+					<option value="2">Wednesday</option>
+					<option value="3">Thursday</option>
+					<option value="4">Friday</option>
+				</select>
+			</div>
+
+			<button type="submit">Erstellen</button>
+		</form>
+	</div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const kursId = route.params.kurs;
+
+const userData = useUserStore();
+
+const startDate = ref("");
+const endDate = ref("");
+const beginStunde = ref();
+const endStunde = ref();
+const tag = ref(0);
+
+async function submitForm() {
+	const response = await fetch("http://localhost:8080/Backend/unterricht", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: userData.token,
+		},
+		body: JSON.stringify({
+			startDate: startDate.value,
+			endDate: endDate.value,
+			unterricht: {
+				beginStunde: parseInt(beginStunde.value) - 1,
+				endStunde: parseInt(endStunde.value) - 1,
+				id: parseInt(kursId),
+				tag: parseInt(tag.value),
+			},
+		}),
+	});
+}
+</script>
+
+<style scoped>
+@import "../assets/shared_styles/form.css";
+input {
+	padding: auto;
+}
+form button {
+	width: 100%;
+	padding: 10px;
+	background-color: var(--button-blue);
+	color: white;
+	border: none;
+	border-radius: 5px;
+}
+.wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+}
+
+.input-group label {
+	margin-bottom: 5px;
+}
+
+.input-group select {
+	padding: 5px;
+	font-size: var(--text-size);
+
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.input-group select:focus {
+	outline: 0;
+	box-shadow:
+		inset 0 1px 1px rgba(0, 0, 0, 0.075),
+		0 0 8px rgba(102, 175, 233, 0.6);
+}
+</style>

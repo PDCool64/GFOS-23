@@ -40,6 +40,7 @@ public class StundeFacade {
 			em.persist(stunde);
 			em.flush();
 			Stunde stundeMitId = this.getStundeById(stunde.getId());
+			stundeMitId.getUnterricht().getStundeList().add(stundeMitId);
 			return stundeMitId;
 		} catch (Exception e) {
 			return null;
@@ -122,7 +123,9 @@ public class StundeFacade {
 			Date end = new SimpleDateFormat("yyyy-MM-dd").parse(enddate);
 			for (Kursteilnahme kt : account.getKursteilnahmeList()) {
 				for (Unterricht u : kt.getKurs().getUnterrichtList()) {
+					System.out.println(u.getId());
 					for (Stunde s : u.getStundeList()) {
+						System.out.println(s);
 						if (
 							start.compareTo(s.getDatum()) <= 0 &&
 							end.compareTo(s.getDatum()) >= 0
@@ -140,7 +143,7 @@ public class StundeFacade {
 
 	private String generateCheckincode() {
 		String code = "";
-		for (int j = 0; j < 6; j++) {
+		for (int j = 0; j < 5; j++) {
 			code += (int) (Math.random() * 10);
 		}
 		return code;
@@ -166,5 +169,6 @@ public class StundeFacade {
 			this.createStunde(stunde);
 			current = current.plusDays(7);
 		}
+		em.flush();
 	}
 }

@@ -51,6 +51,7 @@ public class UnterrichtFacade {
             em.persist(unterricht);
             em.flush();
             Unterricht unterrichtMitId = this.getUnterrichtById(unterricht.getId());
+            unterricht.getKurs().getUnterrichtList().add(unterricht);
             return unterrichtMitId;
         } catch (Exception e) {
             return null;

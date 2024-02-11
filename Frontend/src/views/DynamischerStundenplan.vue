@@ -14,7 +14,8 @@
 					<td class="time-cell">{{ time }}</td>
 					<td
 						v-bind:class="{
-							'data-cell': stunden[dayIndex][timeIndex] != '',
+							'filled': stunden[dayIndex][timeIndex] != '',
+							'data-cell': true,
 						}"
 						v-for="(day, dayIndex) in days"
 						:key="dayIndex"
@@ -98,7 +99,8 @@ async function reload() {
 			s <= stunde.unterricht.endstunde;
 			s++
 		)
-			stunden.value[stunde.unterricht.tag][s] = stunde.unterricht.kurs.fach;
+			stunden.value[stunde.unterricht.tag][s] =
+				stunde.unterricht.kurs.fach;
 	}
 
 	for (var i = 0; i < stunden.value.length; i++) {
