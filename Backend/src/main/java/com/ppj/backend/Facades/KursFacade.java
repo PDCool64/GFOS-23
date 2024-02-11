@@ -5,10 +5,13 @@ import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Entity.Kursteilnahme;
 import com.ppj.backend.Entity.Unterricht;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+
+import java.util.LinkedList;
 import java.util.List;
 
 @Stateless
@@ -18,12 +21,16 @@ public class KursFacade {
 	@PersistenceContext
 	private EntityManager em;
 
+	@EJB
+	private AccountFacade accountFacade;
+	
 	public Kurs createKurs(Kurs k) {
 		try {
 			em.persist(k);
 			em.flush();
 			Kurs kursMitId = this.getKursById(k.getId());
-			
+			k.getLeiter().getKursList().add(kursMitId);
+			addTeilnehmer(k.getId(), k.getLeiter());	
 			return kursMitId;
 		} catch (Exception e) {
 			return null;
@@ -94,6 +101,7 @@ public class KursFacade {
 				.setParameter("id", kursId)
 				.getSingleResult();
 			k.getKursteilnahmeList().add(new Kursteilnahme(a, k));
+			a.getKursteilnahmeList().add(new Kursteilnahme(a, k));
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -181,4 +189,17 @@ public class KursFacade {
 		}
 	}
 	
+	public List<Kurs> getKurseByAccountId(int accountId) {
+		List<Kurs> kurse = new LinkedList<Kurs>();
+		List<Kursteilnahme> kursteilnahmen = accountFacade.getAccountById(accountId).getKursteilnahmeList();
+		for (Kursteilnahme k : kursteilnahmen) {
+			kurse.add(k.getKurs());
+		}	
+		return kurse;
+	}
+
+	public List<Kurs> getKurseByLeiter(Account accountById) {
+		Account a = accountFacade.getAccountById(accountById.getId());
+		return a.getKursList();
+	}
 }

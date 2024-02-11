@@ -49,8 +49,13 @@ const router = createRouter({
 		},
 		{
 			path: "/kurs/create",
-			name: "kurs",
+			name: "create-kurs",
 			component: () => import("../views/CreateKursView.vue"),
+		},
+		{
+			path:"/kurs/choose",
+			name: "choose-kurs",
+			component: () => import("../views/ChooseKursView.vue"),
 		},
 		{
 			path: "/unterricht/:day/:time",

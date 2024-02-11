@@ -4,6 +4,9 @@
  */
 package com.ppj.backend.Webservice;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Facades.AccountFacade;
@@ -17,7 +20,6 @@ import jakarta.json.*;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbException;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -30,7 +32,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.StringReader;
-import java.io.StringWriter;
 
 /**
  *
@@ -54,16 +55,6 @@ public class KursWebservice {
 
 	@EJB
 	private AccountFacade accountFacade;
-
-	private JsonObjectBuilder copyJsonObject(JsonObject jsonObject) {
-		JsonObjectBuilder builder = Json.createObjectBuilder();
-
-		for (String key : jsonObject.keySet()) {
-			builder.add(key, jsonObject.get(key));
-		}
-
-		return builder;
-	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -229,4 +220,35 @@ public class KursWebservice {
 			return responseFacade.ok("Json konnte nicht geparst werden.");
 		}
 	}
+
+	@GET
+	@Path("/teilnehmer/{accountId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTeilnehmer(
+		@HeaderParam("Authorization") String token,
+		@PathParam("accountId") int accountId 
+	) {
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
+			"Token ist ungültig"
+		);
+		return responseFacade.ok(jsonb.toJson(kursFacade.getKurseByAccountId(accountId)));
+	}
+
+	@GET
+	@Path("/leiter")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public Response getLeiterKurse(
+		@HeaderParam("Authorization") String token,
+		@PathParam("accountId") int accountId
+	)
+	{
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
+			"Token ist ungültig"
+		);
+		List<Kurs> kurse = new LinkedList<Kurs>();
+		Account a = permissionFacade.getAccountByToken(token);
+		kurse = kursFacade.getKurseByLeiter(a);
+		return responseFacade.ok(jsonb.toJson(kurse));
+	}
+	
 }

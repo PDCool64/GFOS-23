@@ -3,17 +3,23 @@
 		<ul>
 			<li><RouterLink to="/">Home</RouterLink></li>
 			<li><RouterLink to="/stundenplan">Stundenplan</RouterLink></li>
-			<li><button @click="goToStundenplan">aktueller Stundenplan</button></li>
+			<li>
+				<button @click="goToStundenplan">aktueller Stundenplan</button>
+			</li>
+			<li>
+				<RouterLink to="/kurs/choose">Unterricht erstellen</RouterLink>
+			</li>
+			<li><RouterLink to="/kurs/create" v-if="userData.user.isAdmin">Kurs erstellen</RouterLink></li>
 		</ul>
 		<div class="left">
 			<button @click="logOut">Log out</button>
 			<img
-			src="../assets/pictures/unnamed.png"
-			alt="Ende der Navbar"
-			class="navbar-image"
-			@click="clickImage()"
-		/>
-	</div>
+				src="../assets/pictures/unnamed.png"
+				alt="Ende der Navbar"
+				class="navbar-image"
+				@click="clickImage()"
+			/>
+		</div>
 	</nav>
 	<p></p>
 </template>
@@ -32,10 +38,12 @@ function clickImage() {
 
 const goToStundenplan = () => {
 	const now = new Date();
-    const day = now.getDay();
-    const diff = now.getDate() - day + (day == 0 ? -6:1); // adjust when day is Sunday
-    const thisWeekMonday = new Date(now.setDate(diff));
-	router.push("/stundenplan/" + thisWeekMonday.toISOString().substring(0, 10));
+	const day = now.getDay();
+	const diff = now.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is Sunday
+	const thisWeekMonday = new Date(now.setDate(diff));
+	router.push(
+		"/stundenplan/" + thisWeekMonday.toISOString().substring(0, 10),
+	);
 };
 
 const logOut = () => {
@@ -51,48 +59,49 @@ const logOut = () => {
 		var(--fivth-color),
 		var(--third-color)
 	);
-	height: 6.25vp; 
-	width: 100%; 
-	position: fixed; 
-	top: 0; 
-	left: 0; 
+	height: 6.25vp;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
 	display: flex;
 	align-items: center;
-	justify-content: space-between; 
-	padding: 12px 20px; 
-	text-align: center; 
+	justify-content: space-between;
+	padding: 12px 20px;
+	text-align: center;
 }
 
 .navbar ul {
 	list-style: none;
 	display: flex;
-	margin: 0; 
-	padding: 0; 
+	margin: 0;
+	padding: 0;
 }
 
 .navbar ul li {
-	flex: 1; 
-	margin: 0 50px; 
+	flex: 1;
+	margin: 0 50px;
 	display: flex;
 	align-items: center;
+	white-space: nowrap;
 }
 
 .navbar ul li a {
 	text-decoration: none;
-	color: var(--color-text); 
+	color: var(--color-text);
 	font-weight: bold;
 	cursor: pointer;
 }
 
 .main-content {
-	margin-top: 12.5vh; 
+	margin-top: 12.5vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 87.5vh; 
+	height: 87.5vh;
 }
 .navbar-image {
-	max-height: 100%; 
+	max-height: 100%;
 	width: 40px;
 	height: 40px;
 	cursor: pointer;
@@ -111,7 +120,6 @@ const logOut = () => {
 	border-radius: 5px;
 	padding: 3px;
 	cursor: pointer;
-	text-wrap: nowrap;
 	font-weight: bold;
 	font-size: var(--text-size);
 }

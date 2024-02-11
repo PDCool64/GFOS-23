@@ -68,9 +68,19 @@ public class AccountWebservice {
 		if (!permissionFacade.isAdmin(token)) {
 			Account a = permissionFacade.getAccountByToken(token);
 			if (a == null) {
-				return responseFacade.status(401, "{\"error\": \"Token ist ungültig\"}");
+				return responseFacade.status(
+					401,
+					"{\"error\": \"Token ist ungültig\"}"
+				);
 			}
-			return responseFacade.status(201, "{\"error\": \"Account" + a.getEmail() + " ist kein Admin " + a.getIsadmin() + "\"}");
+			return responseFacade.status(
+				201,
+				"{\"error\": \"Account" +
+				a.getEmail() +
+				" ist kein Admin " +
+				a.getIsadmin() +
+				"\"}"
+			);
 		}
 		try {
 			Account a = jsonb.fromJson(json, Account.class);
@@ -103,7 +113,9 @@ public class AccountWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.status(
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.status(
 			401,
 			"{\"error\": \"Token ist ungültig\"}"
 		);
@@ -125,7 +137,9 @@ public class AccountWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.status(
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.status(
 			401,
 			"{\"error\": \"Token ist ungültig\"}"
 		);
@@ -144,6 +158,7 @@ public class AccountWebservice {
 			);
 		}
 	}
+
 	@PUT
 	@Path("/password")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -151,7 +166,9 @@ public class AccountWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.status(
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.status(
 			401,
 			"{\"error\": \"Token ist ungültig\"}"
 		);
@@ -192,5 +209,24 @@ public class AccountWebservice {
 				"\"}"
 			);
 		}
+	}
+
+	@GET
+	@Path("/isleiter/")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getIsLeiter(@HeaderParam("Authorization") String token) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.status(
+			401,
+			"{\"error\": \"Token ist ungültig\"}"
+		);
+		Account a = permissionFacade.getAccountByToken(token);
+		boolean isLeiter = a.getKursList().size() > 0;
+		JsonObject json = Json
+			.createObjectBuilder()
+			.add("isLeiter", isLeiter)
+			.build();
+		return responseFacade.ok(json.toString());
 	}
 }

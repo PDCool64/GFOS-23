@@ -4,6 +4,8 @@
  */
 package com.ppj.backend.Webservice;
 
+import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.PermissionFacade;
 import com.ppj.backend.Facades.PermissionFacade.TokenID;
 import com.ppj.backend.Service.ResponseService;
@@ -12,7 +14,10 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonReader;
+import jakarta.json.bind.Jsonb;
+import jakarta.json.bind.JsonbBuilder;
 import jakarta.persistence.NoResultException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -32,11 +37,16 @@ import java.io.StringReader;
 @Path("/login")
 public class PermissionWebservice {
 
+	private final Jsonb jsonb = JsonbBuilder.create();
+
 	@EJB
 	private PermissionFacade permissionFacade;
 
 	@EJB
 	private ResponseService responseService;
+
+	@EJB
+	private AccountFacade accountFacade;
 
 	@GET
 	public Response test() {
@@ -65,13 +75,12 @@ public class PermissionWebservice {
 		if (tokenID == null) {
 			return responseService.status(401, "Login fehlgeschlagen");
 		} else {
-			return responseService.ok(
-				"{\"token\": \"" +
-				tokenID.token +
-				"\", \"id\": \"" +
-				tokenID.id +
-				"\"}"
-			);
+			Account a = accountFacade.getAccountById(tokenID.id);
+			JsonObject json = Json.createObjectBuilder()
+				.add("token", tokenID.token)
+				.add("account", jsonb.toJson(a))
+				.build();
+			return responseService.ok(json.toString());
 		}
 	}
 }
