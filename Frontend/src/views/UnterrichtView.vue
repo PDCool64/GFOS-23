@@ -5,10 +5,9 @@
     <h2 class="unterricht__title">Unterricht Details</h2>
 
     <div class="unterricht__card">
-      <h3 class="unterricht__card-title">{{ content.kurs.fach }} ({{ content.kurs.art }})</h3>
+      <h3 class="unterricht__card-title">{{ content.kurs.fach }} ({{ content.kurs.art }}{{ content.kurs.nummer }})</h3>
       <p class="unterricht__card-text">Leiter: {{ content.kurs.leiter.name }}, {{ content.kurs.leiter.vorname }}</p>
       <p class="unterricht__card-text">Stufe: {{ content.kurs.stufe }}</p>
-      <p class="unterricht__card-text">Nummer: {{ content.kurs.nummer }}</p>
     </div>
   </div></div>
 </template>

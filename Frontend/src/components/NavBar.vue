@@ -6,10 +6,12 @@
 			<li>
 				<button @click="goToStundenplan">aktueller Stundenplan</button>
 			</li>
-			<li>
+			<li v-if="userData.user.isLeiter">
 				<RouterLink to="/kurs/choose">Unterricht erstellen</RouterLink>
 			</li>
-			<li><RouterLink to="/kurs/create" v-if="userData.user.isAdmin">Kurs erstellen</RouterLink></li>
+			<li v-if="userData.user.isAdmin">
+				<RouterLink to="/kurs/create">Kurs erstellen</RouterLink>
+			</li>
 		</ul>
 		<div class="left">
 			<button @click="logOut">Log out</button>
@@ -61,9 +63,6 @@ const logOut = () => {
 	);
 	height: 6.25vp;
 	width: 100%;
-	position: fixed;
-	top: 0;
-	left: 0;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

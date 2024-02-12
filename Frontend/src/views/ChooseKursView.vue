@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="wrapper">
 		<div
 			v-for="kurs in kurse"
 			:key="kurs.id"
@@ -58,5 +58,14 @@ getKurse();
 .kurs-item:hover {
     background-color: var(--fourth-color);
     transition: ease-in-out 0.3s;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-grow: 1;
 }
 </style>

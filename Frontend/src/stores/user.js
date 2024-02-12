@@ -5,8 +5,10 @@ export const useUserStore = defineStore("user", {
 		user: {
 			id: 0,
 			name: "",
+			vorname: "",
 			email: "",
 			isAdmin: false,
+			isLeiter: false,
 		},
 		token: "",
 	}),
@@ -24,6 +26,17 @@ export const useUserStore = defineStore("user", {
 		reset() {
             this.setToken("");
             this.setUserId(0);
+		},
+		setData(data){
+			this.token = data.token;
+			this.user.email = data.account.email
+			this.user.id = data.account.id;
+			this.user.name = data.account.name;
+			this.user.vorname = data.account.vorname
+			this.user.isAdmin = data.account.isadmin;
+		},
+		setIsLeiter(isLeiter) {
+			this.user.isLeiter = isLeiter;
 		},
 	},
 	persist: {
