@@ -1,5 +1,11 @@
 <template>
 	<div class="table-container">
+		<div class="options">
+			<RouterLink to="/stundenplan"> Plan </RouterLink>
+			<RouterLink :to="'/stundenplan/' + stundenData.date">
+				Aktuell
+			</RouterLink>
+		</div>
 		<table>
 			<thead>
 				<tr>
@@ -34,10 +40,12 @@
 import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useUnterrichtStore } from "@/stores/unterricht";
+import { useStundenStore } from "@/stores/stunden";
 import router from "@/router";
 
 const userData = useUserStore();
 const unterrichtData = useUnterrichtStore();
+const stundenData = useStundenStore();
 
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
 const times = [

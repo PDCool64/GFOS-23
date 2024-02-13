@@ -1,5 +1,9 @@
 <template>
 	<div class="table-container">
+		<div class="options">
+			<RouterLink to="/stundenplan"> Plan </RouterLink>
+			<RouterLink :to="'/stundenplan/' + date"> Aktuell </RouterLink>
+		</div>
 		<table>
 			<thead>
 				<tr>
@@ -14,7 +18,7 @@
 					<td class="time-cell">{{ time }}</td>
 					<td
 						v-bind:class="{
-							'filled': stunden[dayIndex][timeIndex] != '',
+							filled: stunden[dayIndex][timeIndex] != '',
 							'data-cell': true,
 						}"
 						v-for="(day, dayIndex) in days"
@@ -31,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, useSSRContext } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useStundenStore } from "@/stores/stunden";
 import router from "@/router";
@@ -46,6 +50,8 @@ endDate.setDate(endDate.getDate() + 6);
 
 const userData = useUserStore();
 const stundenData = useStundenStore();
+
+stundenData.setDate(date);
 
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
 const times = [
@@ -125,6 +131,10 @@ const openStunden = (timeIndex, dayIndex) => {
 
 reload();
 console.log("Done");
+
+const goToStundenplan = () => {
+	console.log(stundenData.date);
+}
 </script>
 
 <style scoped>
