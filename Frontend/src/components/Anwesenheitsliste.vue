@@ -11,38 +11,25 @@
             <th style="width: 100px;">Note</th>
             <th style="width: 300px;">Anwesend</th>
           </tr>
-          <tr>
-            <td>Max Mustermann</td>
-            <td>1-</td>
+          <tr v-for="student in students" :key="student.name">
+            <td>{{ student.name }}</td>
+            <td>{{ student.grade }}</td>
             <td>
               <img
-			        src="../assets/pictures/richtig.png"
-			        alt="Ende der Navbar"
-			        class="anwesend-image"
-              @click="changeImageBackground"
-		          />
+                v-if="student.present"
+                src="../assets/pictures/richtig.png"
+                alt="Present"
+                class="anwesend-image"
+                @click="changeImageBackground"
+              />
               <img
-			        src="../assets/pictures/falsch.png"
-			        alt="Ende der Navbar"
-			        class="anwesend-image"
-              @click="changeImageBackground"
-		          />
+                v-else
+                src="../assets/pictures/falsch.png"
+                alt="Absent"
+                class="anwesend-image"
+                @click="changeImageBackground"
+              />
             </td>
-          </tr>
-          <tr>
-            <td>Ben Neßler</td>
-            <td>1+</td>
-            <td>Ja</td>
-          </tr>
-          <tr>
-            <td>Phillip Trutz</td>
-            <td>6</td>
-            <td>ja</td>
-          </tr>
-          <tr>
-            <td>Phillip Trutz</td>
-            <td>6</td>
-            <td>ja</td>
           </tr>
         </table>
       </div>
@@ -58,13 +45,12 @@
 export default {
   data() {
     return {
-      backgroundColor: 'white',
-      imageBackgroundColor: 'transparent'
-    };
-  },
-  methods: {
-    changeImageBackground() {
-      this.imageBackgroundColor = 'lightblue'; // Ändern Sie hier die gewünschte Hintergrundfarbe des Bildcontainers
+      students: [
+        { name: 'Max Mustermann', grade: '1-', present: 'ja' },
+        { name: 'Ben Neßler', grade: '1+', present: 'ja' },
+        { name: 'Phillip Trutz', grade: '6', present: 'ja' },
+        // Add more students as needed
+      ]
     }
   }
 }
