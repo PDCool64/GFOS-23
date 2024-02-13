@@ -6,6 +6,7 @@ export const useUserStore = defineStore("user", {
 			id: 0,
 			name: "",
 			email: "",
+			isAdmin: false,
 		},
 		token: "",
 	}),
@@ -13,15 +14,16 @@ export const useUserStore = defineStore("user", {
 	actions: {
 		setToken(token) {
 			this.token = token;
-			console.log(this.token);
 		},
 		setUserId(id) {
 			this.user.id = id;
 		},
+		setIsAdmin(isAdmin) {
+			this.user.isAdmin = isAdmin;
+		},
 		reset() {
             this.setToken("");
             this.setUserId(0);
-            console.log('reset');
 		},
 	},
 	persist: {

@@ -3,13 +3,15 @@ package com.ppj.backend.Facades;
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Entity.Kursteilnahme;
-import com.ppj.backend.Entity.Stunde;
 import com.ppj.backend.Entity.Unterricht;
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+
+import java.util.LinkedList;
 import java.util.List;
 
 @Stateless
@@ -19,11 +21,16 @@ public class KursFacade {
 	@PersistenceContext
 	private EntityManager em;
 
+	@EJB
+	private AccountFacade accountFacade;
+	
 	public Kurs createKurs(Kurs k) {
 		try {
 			em.persist(k);
 			em.flush();
 			Kurs kursMitId = this.getKursById(k.getId());
+			k.getLeiter().getKursList().add(kursMitId);
+			addTeilnehmer(k.getId(), k.getLeiter());	
 			return kursMitId;
 		} catch (Exception e) {
 			return null;
@@ -65,7 +72,8 @@ public class KursFacade {
 
 			kursInDatenbank.setFach(k.getFach());
 			kursInDatenbank.setLeiter(k.getLeiter());
-			kursInDatenbank.setName(k.getName());
+			kursInDatenbank.setArt(k.getArt());
+			kursInDatenbank.setNummer(k.getNummer());
 			kursInDatenbank.setStufe(k.getStufe());
 
 			em.merge(kursInDatenbank);
@@ -93,6 +101,7 @@ public class KursFacade {
 				.setParameter("id", kursId)
 				.getSingleResult();
 			k.getKursteilnahmeList().add(new Kursteilnahme(a, k));
+			a.getKursteilnahmeList().add(new Kursteilnahme(a, k));
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -158,8 +167,8 @@ public class KursFacade {
 		try {
 			Unterricht unterrichtInDatenbank = getUnterrichtById(u.getId());
 
-			unterrichtInDatenbank.setBeginzeit(u.getBeginzeit());
-			unterrichtInDatenbank.setEndzeit(u.getEndzeit());
+			unterrichtInDatenbank.setBeginstunde(u.getBeginstunde());
+			unterrichtInDatenbank.setEndstunde(u.getEndstunde());
 			unterrichtInDatenbank.setKurs(u.getKurs());
 			unterrichtInDatenbank.setStundeList(u.getStundeList());
 
@@ -179,72 +188,18 @@ public class KursFacade {
 			return false;
 		}
 	}
-
-
-	public Stunde createStunde(Stunde s) {
-		try {
-			em.persist(s);
-			em.flush();
-			Stunde stundeInDatenbank = getStundeById(s.getId());
-			return stundeInDatenbank;
-		} catch (Exception e) {
-			return null;
-		}
+	
+	public List<Kurs> getKurseByAccountId(int accountId) {
+		List<Kurs> kurse = new LinkedList<Kurs>();
+		List<Kursteilnahme> kursteilnahmen = accountFacade.getAccountById(accountId).getKursteilnahmeList();
+		for (Kursteilnahme k : kursteilnahmen) {
+			kurse.add(k.getKurs());
+		}	
+		return kurse;
 	}
 
-	public Stunde getStundeById(int id) {
-		try {
-			return em.find(Stunde.class, id);
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public List<Stunde> getAllStunden() {
-		try {
-			return em
-				.createNamedQuery("Stunde.findAll", Stunde.class)
-				.getResultList();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public List<Stunde> getAllActiveStunden() {
-		try {
-			return em
-				.createNamedQuery("Stunde.findAllActive", Stunde.class)
-				.setParameter("now", java.time.LocalDateTime.now())
-				.getResultList();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public boolean updateStunde(Stunde s) {
-		try {
-			Stunde stundeInDatenbank = getStundeById(s.getId());
-
-			stundeInDatenbank.setUnterricht(s.getUnterricht());
-			stundeInDatenbank.setStundebewertungList(s.getStundebewertungList());
-			stundeInDatenbank.setStundeteilnahmeList(s.getStundeteilnahmeList());
-			stundeInDatenbank.setVorstundeList(s.getVorstundeList());
-			stundeInDatenbank.setVorstundeList1(s.getVorstundeList1());
-
-			em.merge(stundeInDatenbank);
-
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	public boolean deleteStunde(Stunde s) {
-		try {
-			em.remove(s);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+	public List<Kurs> getKurseByLeiter(Account accountById) {
+		Account a = accountFacade.getAccountById(accountById.getId());
+		return a.getKursList();
 	}
 }

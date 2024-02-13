@@ -21,8 +21,8 @@ if(!isLoggedIn.value){
 
 <template>
 	<div class="app">
-		<NavBar v-if="isLoggedIn" class="navbar" />
-		<RouterView class="view"/>
+		<NavBar v-if="isLoggedIn"/>
+		<RouterView />
 	</div>
 </template>
 
@@ -42,7 +42,6 @@ if(!isLoggedIn.value){
   height: var(--navbar-height);
   width: calc(100% - 2*var(--navbar-margin));
   margin:  var(--navbar-margin);
-  background-color: #333;
   color: #fff;
   border-radius: 10px;
 }

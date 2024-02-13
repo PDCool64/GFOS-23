@@ -29,6 +29,7 @@ import java.util.Date;
 @NamedQueries({
 	@NamedQuery(name = "Stundeteilnahme.findAll", query = "SELECT s FROM Stundeteilnahme s"),
 	@NamedQuery(name = "Stundeteilnahme.findById", query = "SELECT s FROM Stundeteilnahme s WHERE s.id = :id"),
+	@NamedQuery(name = "Stundeteilnahme.findByAnwesend", query = "SELECT s FROM Stundeteilnahme s WHERE s.anwesend = :anwesend"),
 	@NamedQuery(name = "Stundeteilnahme.findByBegintimestamp", query = "SELECT s FROM Stundeteilnahme s WHERE s.begintimestamp = :begintimestamp"),
 	@NamedQuery(name = "Stundeteilnahme.findByEndtimestamp", query = "SELECT s FROM Stundeteilnahme s WHERE s.endtimestamp = :endtimestamp"),
 	@NamedQuery(name = "Stundeteilnahme.findByNote", query = "SELECT s FROM Stundeteilnahme s WHERE s.note = :note")})
@@ -40,6 +41,8 @@ public class Stundeteilnahme implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
 	private Integer id;
+	@Column(name = "ANWESEND")
+	private Boolean anwesend;
 	@Basic(optional = false)
     @Column(name = "BEGINTIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
@@ -74,6 +77,14 @@ public class Stundeteilnahme implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Boolean getAnwesend() {
+		return anwesend;
+	}
+
+	public void setAnwesend(Boolean anwesend) {
+		this.anwesend = anwesend;
 	}
 
 	public Date getBegintimestamp() {

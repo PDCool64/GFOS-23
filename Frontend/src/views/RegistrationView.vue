@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
+
+const userData = useUserStore();
 
 const vorname = ref("");
 const nachname = ref("");
@@ -12,11 +15,13 @@ const error = ref(false);
 
 const errorMessage = ref("");
 
+
 const submitForm = async () => {
 	const response = await fetch("http://localhost:8080/Backend/account", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
+			"Authorization": userData.token,
 			password: password.value,
 		},
 		body: JSON.stringify({

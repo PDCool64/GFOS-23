@@ -4,6 +4,7 @@
  */
 package com.ppj.backend.Entity;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,54 +30,63 @@ import java.util.List;
  */
 @Entity
 @Table(name = "STUNDE")
-@NamedQueries({
-	@NamedQuery(name = "Stunde.findAll", query = "SELECT s FROM Stunde s"),
-	@NamedQuery(name = "Stunde.findById", query = "SELECT s FROM Stunde s WHERE s.id = :id"),
-	@NamedQuery(name = "Stunde.findByBegintimestamp", query = "SELECT s FROM Stunde s WHERE s.begintimestamp = :begintimestamp"),
-	@NamedQuery(name = "Stunde.findByEndtimestamp", query = "SELECT s FROM Stunde s WHERE s.endtimestamp = :endtimestamp"),
-	@NamedQuery(name = "Stunde.findByCheckincode", query = "SELECT s FROM Stunde s WHERE s.checkincode = :checkincode")})
+@NamedQueries(
+	{
+		@NamedQuery(name = "Stunde.findAll", query = "SELECT s FROM Stunde s"),
+		@NamedQuery(
+			name = "Stunde.findById",
+			query = "SELECT s FROM Stunde s WHERE s.id = :id"
+		),
+		@NamedQuery(
+			name = "Stunde.findByDatum",
+			query = "SELECT s FROM Stunde s WHERE s.datum = :datum"
+		),
+		@NamedQuery(
+			name = "Stunde.findByCheckincode",
+			query = "SELECT s FROM Stunde s WHERE s.checkincode = :checkincode"
+		),
+	}
+)
 public class Stunde implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
-	private Integer id;
-	@Basic(optional = false)
-    @Column(name = "BEGINTIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
-	private Date begintimestamp;
-	@Basic(optional = false)
-    @Column(name = "ENDTIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
-	private Date endtimestamp;
-	@Basic(optional = false)
-    @Column(name = "CHECKINCODE")
-	private String checkincode;
-	@JoinColumn(name = "UNTERRICHT", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-	private Unterricht unterricht;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
-	private List<Stundeteilnahme> stundeteilnahmeList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
-	private List<Stundebewertung> stundebewertungList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vorstunde")
-	private List<Vorstunde> vorstundeList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
-	private List<Vorstunde> vorstundeList1;
 
-	public Stunde() {
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
+	private Integer id;
+
+	@Basic(optional = false)
+	@Column(name = "DATUM")
+	@Temporal(TemporalType.DATE)
+	private Date datum;
+
+	@Basic(optional = false)
+	@Column(name = "CHECKINCODE")
+	private String checkincode;
+
+	@JoinColumn(name = "UNTERRICHT", referencedColumnName = "ID")
+	@ManyToOne(optional = false)
+	private Unterricht unterricht;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
+	@JsonbTransient
+	private List<Stundeteilnahme> stundeteilnahmeList;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
+	@JsonbTransient
+	private List<Stundebewertung> stundebewertungList;
+
+	public Stunde() {}
 
 	public Stunde(Integer id) {
 		this.id = id;
 	}
 
-	public Stunde(Integer id, Date begintimestamp, Date endtimestamp, String checkincode) {
+	public Stunde(Integer id, Date datum, String checkincode) {
 		this.id = id;
-		this.begintimestamp = begintimestamp;
-		this.endtimestamp = endtimestamp;
+		this.datum = datum;
 		this.checkincode = checkincode;
 	}
 
@@ -88,20 +98,12 @@ public class Stunde implements Serializable {
 		this.id = id;
 	}
 
-	public Date getBegintimestamp() {
-		return begintimestamp;
+	public Date getDatum() {
+		return datum;
 	}
 
-	public void setBegintimestamp(Date begintimestamp) {
-		this.begintimestamp = begintimestamp;
-	}
-
-	public Date getEndtimestamp() {
-		return endtimestamp;
-	}
-
-	public void setEndtimestamp(Date endtimestamp) {
-		this.endtimestamp = endtimestamp;
+	public void setDatum(Date datum) {
+		this.datum = datum;
 	}
 
 	public String getCheckincode() {
@@ -124,7 +126,9 @@ public class Stunde implements Serializable {
 		return stundeteilnahmeList;
 	}
 
-	public void setStundeteilnahmeList(List<Stundeteilnahme> stundeteilnahmeList) {
+	public void setStundeteilnahmeList(
+		List<Stundeteilnahme> stundeteilnahmeList
+	) {
 		this.stundeteilnahmeList = stundeteilnahmeList;
 	}
 
@@ -132,24 +136,10 @@ public class Stunde implements Serializable {
 		return stundebewertungList;
 	}
 
-	public void setStundebewertungList(List<Stundebewertung> stundebewertungList) {
+	public void setStundebewertungList(
+		List<Stundebewertung> stundebewertungList
+	) {
 		this.stundebewertungList = stundebewertungList;
-	}
-
-	public List<Vorstunde> getVorstundeList() {
-		return vorstundeList;
-	}
-
-	public void setVorstundeList(List<Vorstunde> vorstundeList) {
-		this.vorstundeList = vorstundeList;
-	}
-
-	public List<Vorstunde> getVorstundeList1() {
-		return vorstundeList1;
-	}
-
-	public void setVorstundeList1(List<Vorstunde> vorstundeList1) {
-		this.vorstundeList1 = vorstundeList1;
 	}
 
 	@Override
@@ -166,7 +156,10 @@ public class Stunde implements Serializable {
 			return false;
 		}
 		Stunde other = (Stunde) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (
+			(this.id == null && other.id != null) ||
+			(this.id != null && !this.id.equals(other.id))
+		) {
 			return false;
 		}
 		return true;
@@ -176,5 +169,4 @@ public class Stunde implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Stunde[ id=" + id + " ]";
 	}
-	
 }

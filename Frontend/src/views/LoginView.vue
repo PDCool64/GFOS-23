@@ -8,6 +8,7 @@ const password = ref("");
 const error = ref(false);
 const errorMessage = ref("");
 
+
 const userData = useUserStore();
 
 const submitForm = async () => {
@@ -29,50 +30,57 @@ const submitForm = async () => {
 		const data = await response.json();
 		errorMessage.value = "Login erfolgreich.";
 		error.value = false;
-		userData.setUserId(data.id);
+		const account = JSON.parse(data.account);
+		userData.setUserId(data.account.id);
 		userData.setToken(data.token);
-		router.push("/profile");
+		userData.setIsAdmin(account.isadmin);
+		router.push("/");
 	}
 };
 </script>
 
 <template>
-  <div class="wrapper">
-	<div class="login form">
-		<h1>Login</h1>
-		<form method="post" @submit.prevent="submitForm">
-			<input
-				v-model="email"
-				type="text"
-				id="email"
-				name="email"
-				placeholder="Email"
-				required
-			/>
-			<input
-				v-model="password"
-				type="password"
-				id="password"
-				name="password"
-				placeholder="Password"
-				required
-			/>
-			<button type="submit">Login</button>
-			<p :class="{ 'error-message': error, 'success-message': !error }">
-				{{ errorMessage }}
-			</p>
-		</form>
+	<div class="wrapper">
+		<div class="login form">
+			<h1>Login</h1>
+			<form method="post" @submit.prevent="submitForm">
+				<input
+					v-model="email"
+					type="text"
+					id="email"
+					name="email"
+					placeholder="Email"
+					required
+				/>
+				<input
+					v-model="password"
+					type="password"
+					id="password"
+					name="password"
+					placeholder="Password"
+					required
+				/>
+				<button type="submit">Login</button>
+				<p
+					:class="{
+						'error-message': error,
+						'success-message': !error,
+					}"
+				>
+					{{ errorMessage }}
+				</p>
+			</form>
+		</div>
 	</div>
-  </div>
 </template>
 
 <style scoped>
 @import "../assets/shared_styles/form.css";
 
 .wrapper {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 </style>
