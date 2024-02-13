@@ -8,7 +8,7 @@
                     type="email"
                     id="leiter"
                     name="leiter"
-                    placeholder="leiter"
+                    placeholder="Leiter"
                     required
                 />
 				<input
@@ -16,7 +16,7 @@
 					type="text"
 					id="fach"
 					name="fach"
-					placeholder="fach"
+					placeholder="Fach"
 					required
 				/>
 				<input
@@ -24,7 +24,7 @@
 					type="text"
 					id="art"
 					name="art"
-					placeholder="art"
+					placeholder="Art"
 					required
 				/>
 				<input
@@ -32,7 +32,7 @@
 					type="number"
 					id="nummer"
 					name="nummer"
-					placeholder="nummer"
+					placeholder="Nummer"
 					required
 				/>
                 <input
@@ -40,7 +40,7 @@
                     type="number"
                     id="stufe"
                     name="stufe"
-                    placeholder="stufe"
+                    placeholder="Stufe"
                     required
                 />
 				<button type="submit">Erstellen</button>
