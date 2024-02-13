@@ -6,7 +6,7 @@
 				<button @click="goToStundenplan">Stundenplan</button>
 			</li>
 			<li v-if="userData.user.isLeiter">
-				<RouterLink to="/kurs/choose">Unterricht erstellen</RouterLink>
+				<RouterLink to="/kurs/choose">Kursverwaltung</RouterLink>
 			</li>
 			<li v-if="userData.user.isAdmin">
 				<RouterLink to="/kurs/create">Kurs erstellen</RouterLink>
