@@ -2,9 +2,8 @@
 	<nav class="navbar">
 		<ul>
 			<li><RouterLink to="/">Home</RouterLink></li>
-			<li><RouterLink to="/stundenplan">Stundenplan</RouterLink></li>
 			<li>
-				<button @click="goToStundenplan">aktueller Stundenplan</button>
+				<button @click="goToStundenplan">Stundenplan</button>
 			</li>
 			<li v-if="userData.user.isLeiter">
 				<RouterLink to="/kurs/choose">Unterricht erstellen</RouterLink>
