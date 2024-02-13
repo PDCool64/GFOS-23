@@ -26,41 +26,72 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "STUNDETEILNAHME")
-@NamedQueries({
-	@NamedQuery(name = "Stundeteilnahme.findAll", query = "SELECT s FROM Stundeteilnahme s"),
-	@NamedQuery(name = "Stundeteilnahme.findById", query = "SELECT s FROM Stundeteilnahme s WHERE s.id = :id"),
-	@NamedQuery(name = "Stundeteilnahme.findByAnwesend", query = "SELECT s FROM Stundeteilnahme s WHERE s.anwesend = :anwesend"),
-	@NamedQuery(name = "Stundeteilnahme.findByBegintimestamp", query = "SELECT s FROM Stundeteilnahme s WHERE s.begintimestamp = :begintimestamp"),
-	@NamedQuery(name = "Stundeteilnahme.findByEndtimestamp", query = "SELECT s FROM Stundeteilnahme s WHERE s.endtimestamp = :endtimestamp"),
-	@NamedQuery(name = "Stundeteilnahme.findByNote", query = "SELECT s FROM Stundeteilnahme s WHERE s.note = :note")})
+@NamedQueries(
+	{
+		@NamedQuery(
+			name = "Stundeteilnahme.findAll",
+			query = "SELECT s FROM Stundeteilnahme s"
+		),
+		@NamedQuery(
+			name = "Stundeteilnahme.findById",
+			query = "SELECT s FROM Stundeteilnahme s WHERE s.id = :id"
+		),
+		@NamedQuery(
+			name = "Stundeteilnahme.findByAnwesend",
+			query = "SELECT s FROM Stundeteilnahme s WHERE s.anwesend = :anwesend"
+		),
+		@NamedQuery(
+			name = "Stundeteilnahme.findByBegintimestamp",
+			query = "SELECT s FROM Stundeteilnahme s WHERE s.begintimestamp = :begintimestamp"
+		),
+		@NamedQuery(
+			name = "Stundeteilnahme.findByEndtimestamp",
+			query = "SELECT s FROM Stundeteilnahme s WHERE s.endtimestamp = :endtimestamp"
+		),
+		@NamedQuery(
+			name = "Stundeteilnahme.findByNote",
+			query = "SELECT s FROM Stundeteilnahme s WHERE s.note = :note"
+		),
+		@NamedQuery(
+			name = "Stundeteilnahme.findByStunde",
+			query = "SELECT s FROM Stundeteilnahme s WHERE s.stunde = :stunde"
+		),
+	}
+)
 public class Stundeteilnahme implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "ID")
 	private Integer id;
+
 	@Column(name = "ANWESEND")
 	private Boolean anwesend;
+
 	@Basic(optional = false)
-    @Column(name = "BEGINTIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "BEGINTIMESTAMP")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date begintimestamp;
+
 	@Column(name = "ENDTIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date endtimestamp;
+
 	@Column(name = "NOTE")
 	private Integer note;
+
 	@JoinColumn(name = "ACCOUNT", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Account account;
+
 	@JoinColumn(name = "STUNDE", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Stunde stunde;
 
-	public Stundeteilnahme() {
-	}
+	public Stundeteilnahme() {}
 
 	public Stundeteilnahme(Integer id) {
 		this.id = id;
@@ -141,7 +172,10 @@ public class Stundeteilnahme implements Serializable {
 			return false;
 		}
 		Stundeteilnahme other = (Stundeteilnahme) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+		if (
+			(this.id == null && other.id != null) ||
+			(this.id != null && !this.id.equals(other.id))
+		) {
 			return false;
 		}
 		return true;
@@ -151,5 +185,4 @@ public class Stundeteilnahme implements Serializable {
 	public String toString() {
 		return "com.ppj.backend.Entity.Stundeteilnahme[ id=" + id + " ]";
 	}
-	
 }

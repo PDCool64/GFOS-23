@@ -7,6 +7,7 @@ package com.ppj.backend.Facades;
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kursteilnahme;
 import com.ppj.backend.Entity.Stunde;
+import com.ppj.backend.Entity.Stundeteilnahme;
 import com.ppj.backend.Entity.Unterricht;
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
@@ -171,4 +172,13 @@ public class StundeFacade {
 		}
 		em.flush();
 	}
+
+    public List<Stundeteilnahme> getTeilnahmenByStundeId(int id) {
+		try {
+			Stunde s = getStundeById(id);
+			return s.getStundeteilnahmeList();
+		} catch (Exception e) {
+			return null;
+		}
+    }
 }

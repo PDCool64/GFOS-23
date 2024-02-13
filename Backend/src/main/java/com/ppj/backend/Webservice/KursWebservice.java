@@ -4,9 +4,6 @@
  */
 package com.ppj.backend.Webservice;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Facades.AccountFacade;
@@ -32,6 +29,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -226,22 +225,23 @@ public class KursWebservice {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTeilnehmer(
 		@HeaderParam("Authorization") String token,
-		@PathParam("accountId") int accountId 
+		@PathParam("accountId") int accountId
 	) {
 		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
-		return responseFacade.ok(jsonb.toJson(kursFacade.getKurseByAccountId(accountId)));
+		return responseFacade.ok(
+			jsonb.toJson(kursFacade.getKurseByAccountId(accountId))
+		);
 	}
 
 	@GET
 	@Path("/leiter")
-	@Produces(MediaType.APPLICATION_JSON)	
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getLeiterKurse(
 		@HeaderParam("Authorization") String token,
 		@PathParam("accountId") int accountId
-	)
-	{
+	) {
 		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
 			"Token ist ungültig"
 		);
@@ -250,5 +250,19 @@ public class KursWebservice {
 		kurse = kursFacade.getKurseByLeiter(a);
 		return responseFacade.ok(jsonb.toJson(kurse));
 	}
-	
+
+	@GET
+	@Path("/teilnahmen/{kursId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTeilnahmen(
+		@HeaderParam("Authorization") String token,
+		@PathParam("kursId") int kursId
+	) {
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
+			"Token ist ungültig"
+		);
+		return responseFacade.ok(
+			jsonb.toJson(kursFacade.getTeilnahmen(kursId))
+		);
+	}
 }

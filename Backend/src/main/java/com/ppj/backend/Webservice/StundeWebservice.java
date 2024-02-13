@@ -35,39 +35,74 @@ public class StundeWebservice {
 
 	@EJB
 	private StundeFacade stundeFacade;
+
 	@EJB
 	private PermissionFacade permissionFacade;
+
 	@EJB
 	private ResponseService responseService;
+
 	@EJB
 	private AccountFacade accountFacade;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{startdate}/{enddate}")
-	public Response getStunden(@HeaderParam("Authorization") String token, @PathParam("startdate") String startdate, @PathParam("enddate") String enddate) {
+	public Response getStunden(
+		@HeaderParam("Authorization") String token,
+		@PathParam("startdate") String startdate,
+		@PathParam("enddate") String enddate
+	) {
 		if (
 			permissionFacade.isActive(token) == ""
 		) return responseService.unauthorized();
 		Account account = permissionFacade.getAccountByToken(token);
 		return responseService.ok(
-			jsonb.toJson(stundeFacade.getStundenByAccountAndDate(account, startdate, enddate))
+			jsonb.toJson(
+				stundeFacade.getStundenByAccountAndDate(
+					account,
+					startdate,
+					enddate
+				)
+			)
 		);
 	}
 
 	@GET
-	@Path("/{id}/{startdate}/{enddate}")
+	@Path("/{accountId}/{startdate}/{enddate}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getStundeById(
 		@HeaderParam("Authorization") String token,
-		@PathParam("id") int id,
+		@PathParam("accoutId") int id,
 		@PathParam("startdate") String startdate,
 		@PathParam("enddate") String enddate
 	) {
 		Account account = accountFacade.getAccountById(id);
 		return responseService.ok(
-			jsonb.toJson(stundeFacade.getStundenByAccountAndDate(account, startdate, enddate))
+			jsonb.toJson(
+				stundeFacade.getStundenByAccountAndDate(
+					account,
+					startdate,
+					enddate
+				)
+			)
 		);
 	}
 
+	@GET
+	@Path("/teilnahme/{stundeId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTeilnahmenByStundeId(
+		@HeaderParam("Authorization") String token,
+		@PathParam("stundeId") int id
+	) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseService.unauthorized();
+		return responseService.ok(
+			jsonb.toJson(stundeFacade.getTeilnahmenByStundeId(id))
+		);
+	}
+
+	
 }

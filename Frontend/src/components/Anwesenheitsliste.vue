@@ -1,131 +1,235 @@
 <template>
-  <div class="container">
-    <div class="header">
-      <h1>Bsp: Mathe LK 1</h1>
-    </div>
-    <div class="custom-table-text-container">
-      <div class="custom-table-container">
-        <table class="custom-table">
-          <tr>
-            <th style="width: 500px;">Name</th>
-            <th style="width: 100px;">Note</th>
-            <th style="width: 300px;">Anwesend</th>
-          </tr>
-          <tr v-for="student in students" :key="student.name">
-            <td>{{ student.name }}</td>
-            <td>{{ student.grade }}</td>
-            <td>
-              <img
-                v-if="student.present"
-                src="../assets/pictures/richtig.png"
-                alt="Present"
-                class="anwesend-image"
-                @click="changeImageBackground"
-              />
-              <img
-                v-else
-                src="../assets/pictures/falsch.png"
-                alt="Absent"
-                class="anwesend-image"
-                @click="changeImageBackground"
-              />
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="text-container">
-        <p>Thema:</p>
-        <p>Zeit:</p>
-      </div>
-    </div>
-  </div>
+	<div class="wrapper">
+		<table class="custom-table">
+			<tr class="table-header">
+				<th>Name</th>
+				<th>Vorname</th>
+				<th>Anwesend</th>
+				<th>Note</th>
+			</tr>
+			<tr v-for="(data, index) in sampleData" :key="index">
+				<td>{{ data.account.name }}</td>
+				<td>{{ data.account.vorname }}</td>
+				<td @click="changeAnwesend(index)" class="center-image">
+					<img
+						v-if="data.anwesend"
+						class="anwesend-image clickable"
+						src="@/assets/pictures/haekchen.png"
+						alt="Anwesend"
+					/>
+					<img
+						v-else
+						class="anwesend-image clickable"
+						src="@/assets/pictures/kreuz.png"
+						alt="Nicht Anwesend"
+					/>
+				</td>
+				<td>
+					<input
+						type="text"
+						placeholder="Note"
+						v-model="data.note"
+						:disabled="!data.anwesend"
+					/>
+				</td>
+			</tr>
+		</table>
+	</div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      students: [
-        { name: 'Max Mustermann', grade: '1-', present: 'ja' },
-        { name: 'Ben Neßler', grade: '1+', present: 'ja' },
-        { name: 'Phillip Trutz', grade: '6', present: 'ja' },
-        // Add more students as needed
-      ]
-    }
-  }
+<script setup>
+import { ref } from "vue";
+const sampleData = ref([
+	{
+		id: 1,
+		stunde: {
+			id: 1,
+			date: "2022-01-01",
+			checkincode: "12345",
+			unterricht: {
+				id: 1,
+				kurs: {
+					id: 1,
+					fach: "Mathe",
+					art: "GK",
+					nummer: 1,
+					stufe: 12,
+					leiter: {
+						id: 1,
+						name: "Doering",
+						vorname: "Max",
+						email: "maxdoering@web.de",
+						isAdmin: false,
+					},
+				},
+				tag: 1,
+				beginStunde: 1,
+				endStunde: 2,
+			},
+		},
+		account: {
+			name: "Doering",
+			vorname: "Max",
+			id: 1,
+			isAdmin: false,
+			email: "maxdoering@web.de",
+		},
+		note: "-",
+		anwesend: false,
+		beginTimestamp: "2022-01-01T12:00:00Z",
+		endTimeStamp: "2022-01-01T13:00:00Z",
+	},
+	{
+		id: 2,
+		stunde: {
+			id: 2,
+			date: "2022-01-01",
+			checkincode: "12345",
+			unterricht: {
+				id: 1,
+				kurs: {
+					id: 1,
+					fach: "Mathe",
+					art: "GK",
+					nummer: 1,
+					stufe: 12,
+					leiter: {
+						id: 1,
+						name: "Doering",
+						vorname: "Max",
+						email: "maxdoering@web.de",
+						isAdmin: false,
+					},
+				},
+				tag: 1,
+				beginStunde: 1,
+				endStunde: 2,
+			},
+		},
+		account: {
+			name: "Trutz",
+			vorname: "Max",
+			id: 1,
+			isAdmin: false,
+			email: "maxtrutz@web.de",
+		},
+		note: 12,
+		anwesend: true,
+		beginTimestamp: "2022-01-01T12:00:00Z",
+		endTimeStamp: "2022-01-01T13:00:00Z",
+	},
+	{
+		id: 3,
+		stunde: {
+			id: 2,
+			date: "2022-01-01",
+			checkincode: "12345",
+			unterricht: {
+				id: 1,
+				kurs: {
+					id: 1,
+					fach: "Mathe",
+					art: "GK",
+					nummer: 1,
+					stufe: 12,
+					leiter: {
+						id: 1,
+						name: "Doering",
+						vorname: "Max",
+						email: "maxdoering@web.de",
+						isAdmin: false,
+					},
+				},
+				tag: 1,
+				beginStunde: 1,
+				endStunde: 2,
+			},
+		},
+		account: {
+			name: "Goehlert",
+			vorname: "Maximilian",
+			id: 1,
+			isAdmin: false,
+			email: "maxgoehlert@web.de",
+		},
+		note: 5,
+		anwesend: true,
+		beginTimestamp: "2022-01-01T12:00:00Z",
+		endTimeStamp: "2022-01-01T13:00:00Z",
+	},
+]);
+
+function changeAnwesend(index) {
+	sampleData.value[index].anwesend = !sampleData.value[index].anwesend;
+	if (!sampleData.value[index].anwesend) {
+		sampleData.value[index].note = "-";
+	} else {
+		sampleData.value[index].note = "";
+	}
 }
 </script>
 
 <style scoped>
-.container {
-  height: 100vh;
+.wrapper {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
 }
 
-.header {
-  text-align: center;
-  color: var(--black);
-  margin-top: 10vh; /* Abstand nach oben von 20% der Bildschirmhöhe */
+.clickable {
+	cursor: pointer;
 }
 
-.header h1 {
-  margin: 0;
-  background-color: var(--first-color);
-  border-radius: 10px;
+.center-image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.custom-table-container{
-  margin-right: 20px;
+.table-header {
+	background-color: var(--third-color);
+	border-radius: 10px;
+	overflow: hidden;
 }
 
 .custom-table {
-  margin-top: 2vh; /* Abstand nach oben von 20% der Bildschirmhöhe */
-  border-collapse: collapse;
-  width: 100%;
-  border-radius: 10px;
-  background-color: var(--fourth-color);
+	border-collapse: collapse;
+	width: 100%;
 }
 
 .custom-table th {
-  background-color: var(--second-color);
-  color: var(--black);
-  font-weight: bold;
+	color: var(--color-text);
+	font-weight: bold;
 }
 
 .custom-table th,
 .custom-table td {
-  padding: 15px;
-  text-align: center;
-  border: 2.5px solid #000000;
+	padding: 15px;
+	text-align: center;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
 }
 
-.custom-table th:first-child,
-.custom-table td:first-child {
-  border-left: 0;
+input {
+	height: 100%;
+	width: 100%;
+	padding: 5px;
+	outline: none;
+	color: var(--color-text);
+	background-color: var(--fourth-color);
+	text-align: center;
+	border: none;
+	border-radius: 5px;
 }
 
-.custom-table th:last-child,
-.custom-table td:last-child {
-  border-right: 0;
+.anwesend-image {
+	height: 30px;
+	width: 30px;
+	padding: 5px;
+	background-color: var(--second-color);
+	border-radius: 5px;
 }
-
-.text-container {
-  padding: 10px;
-  margin-top: 2vh; /* Abstand nach oben von 20% der Bildschirmhöhe */
-  width: 200px; /* Breite des Textcontainers */
-  margin-left: 0px; /* Hier können Sie den gewünschten Abstand einstellen */
-  background-color: var(--fourth-color);
-  border-radius: 10px;
-}
-.custom-table-text-container{
-  display: flex;
-}
-
-.anwesend-image{
-  height: 30px;
-  width: 30px;
-  background-color: var(--second-color);
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
 </style>

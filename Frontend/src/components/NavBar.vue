@@ -15,7 +15,7 @@
 		<div class="left">
 			<button @click="logOut">Log out</button>
 			<img
-				src="../assets/pictures/unnamed.png"
+				src="../assets/pictures/benutzer.png"
 				alt="Ende der Navbar"
 				class="navbar-image"
 				@click="clickImage()"
@@ -104,6 +104,8 @@ const logOut = () => {
 	height: 40px;
 	cursor: pointer;
 	margin-left: 20px;
+	padding: 5px;
+	opacity: 0.64;
 }
 
 .left {

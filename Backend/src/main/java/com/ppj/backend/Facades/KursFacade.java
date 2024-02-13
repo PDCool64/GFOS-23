@@ -4,13 +4,11 @@ import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Entity.Kursteilnahme;
 import com.ppj.backend.Entity.Unterricht;
-
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,14 +21,14 @@ public class KursFacade {
 
 	@EJB
 	private AccountFacade accountFacade;
-	
+
 	public Kurs createKurs(Kurs k) {
 		try {
 			em.persist(k);
 			em.flush();
 			Kurs kursMitId = this.getKursById(k.getId());
 			k.getLeiter().getKursList().add(kursMitId);
-			addTeilnehmer(k.getId(), k.getLeiter());	
+			addTeilnehmer(k.getId(), k.getLeiter());
 			return kursMitId;
 		} catch (Exception e) {
 			return null;
@@ -93,15 +91,15 @@ public class KursFacade {
 		}
 	}
 
-
 	public boolean addTeilnehmer(int kursId, Account a) {
 		try {
 			Kurs k = em
 				.createNamedQuery("Kurs.findById", Kurs.class)
 				.setParameter("id", kursId)
 				.getSingleResult();
-			k.getKursteilnahmeList().add(new Kursteilnahme(a, k));
-			a.getKursteilnahmeList().add(new Kursteilnahme(a, k));
+			Kursteilnahme kt = new Kursteilnahme(a, k);	
+			k.getKursteilnahmeList().add(kt);
+			a.getKursteilnahmeList().add(kt);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -121,7 +119,10 @@ public class KursFacade {
 		}
 	}
 
-	public boolean setTeilnehmerListe(List<Kursteilnahme> teilnehmerListe, int kursId) {
+	public boolean setTeilnehmerListe(
+		List<Kursteilnahme> teilnehmerListe,
+		int kursId
+	) {
 		try {
 			Kurs k = em
 				.createNamedQuery("Kurs.findById", Kurs.class)
@@ -188,18 +189,29 @@ public class KursFacade {
 			return false;
 		}
 	}
-	
+
 	public List<Kurs> getKurseByAccountId(int accountId) {
 		List<Kurs> kurse = new LinkedList<Kurs>();
-		List<Kursteilnahme> kursteilnahmen = accountFacade.getAccountById(accountId).getKursteilnahmeList();
+		List<Kursteilnahme> kursteilnahmen = accountFacade
+			.getAccountById(accountId)
+			.getKursteilnahmeList();
 		for (Kursteilnahme k : kursteilnahmen) {
 			kurse.add(k.getKurs());
-		}	
+		}
 		return kurse;
 	}
 
 	public List<Kurs> getKurseByLeiter(Account accountById) {
 		Account a = accountFacade.getAccountById(accountById.getId());
 		return a.getKursList();
+	}
+
+	public List<Kursteilnahme> getTeilnahmen(int kursId) {
+		try {
+			Kurs k = getKursById(kursId);
+			return k.getKursteilnahmeList();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
