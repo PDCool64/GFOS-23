@@ -11,6 +11,17 @@ const errorMessage = ref("");
 
 const userData = useUserStore();
 
+const setIsLeiter = async () => {
+	const response = await fetch("http://localhost:8080/Backend/account/isleiter", {
+		method: "GET",
+		headers: {
+			"Authorization": userData.token,
+		},
+	});
+	const data = await response.json();
+	userData.setIsLeiter(data.isLeiter);
+};
+
 const submitForm = async () => {
 	const response = await fetch("http://localhost:8080/Backend/login", {
 		method: "POST",
@@ -31,9 +42,9 @@ const submitForm = async () => {
 		errorMessage.value = "Login erfolgreich.";
 		error.value = false;
 		const account = JSON.parse(data.account);
-		userData.setUserId(data.account.id);
-		userData.setToken(data.token);
-		userData.setIsAdmin(account.isadmin);
+		data.account = account;
+		userData.setData(data);
+		setIsLeiter();
 		router.push("/");
 	}
 };

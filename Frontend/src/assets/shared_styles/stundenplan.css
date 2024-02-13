@@ -1,19 +1,18 @@
 .table-container {
-	margin: calc(var(--navbar-margin) * 5);
 	overflow-y: auto;
+	height: 100%;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+table {
 	box-shadow:
 		0 0 10px var(--shadow),
 		0 0 10px var(--shadow); 
-	width: calc(
-		100% - (var(--navbar-margin) * 10)
-	); /* 100% Breite minus doppelter Rand des äußeren Containers */
-	padding-bottom: 1cm;
-	height: auto;
-	padding: 10px;
-	border-radius: 10px;
-}
-table {
-	width: 100%;
+	width: 80%;
 	border-collapse: collapse;
 	border-radius: 10px; /* Runde Ecken hinzufügen */
 	overflow: hidden;
@@ -42,4 +41,15 @@ tr:nth-child(even) {
 
 .data-cell{
 	border-left: solid 1px var(--third-color);
+}
+.options{
+	display: flex;
+	width: 80%;
+	justify-content: space-evenly;
+	margin: 5px;
+	a {
+		color: var(--text-color);
+		font-size: calc(var(--text-size) * 2);
+		padding: 3px;
+	}
 }
