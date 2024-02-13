@@ -24,7 +24,7 @@ const userData = useUserStore();
 const kurse = ref([]);
 
 function createUnterricht(kursId) {
-    router.push("../unterricht/create/" + kursId);
+    router.push("../kurs/verwalten/" + kursId);
 }
 
 async function getKurse() {
@@ -48,24 +48,5 @@ getKurse();
 </script>
 
 <style scoped>
-.kurs-item {
-    border: 3px solid var(--third-color);
-    border-radius: 10px;
-	padding: 10px;
-	margin-bottom: 10px;
-	cursor: pointer;
-}
-.kurs-item:hover {
-    background-color: var(--fourth-color);
-    transition: ease-in-out 0.3s;
-}
-
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex-grow: 1;
-}
+@import "../assets/shared_styles/chooser.css";
 </style>
