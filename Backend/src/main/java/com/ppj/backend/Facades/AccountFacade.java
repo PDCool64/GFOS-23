@@ -71,7 +71,6 @@ public class AccountFacade {
 			accountInDatenbank.setGeburtsdatum(a.getGeburtsdatum());
 			accountInDatenbank.setIsadmin(a.getIsadmin());
 			accountInDatenbank.setName(a.getName());
-			accountInDatenbank.setPassworthash(a.getPassworthash());
 			accountInDatenbank.setVorname(a.getVorname());
 			em.merge(accountInDatenbank);
 			em.flush();
