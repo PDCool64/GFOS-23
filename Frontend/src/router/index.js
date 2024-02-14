@@ -53,9 +53,14 @@ const router = createRouter({
 			component: () => import("../views/CreateKursView.vue"),
 		},
 		{
-			path:"/kurs/choose",
+			path: "/kurs/choose",
 			name: "choose-kurs",
 			component: () => import("../views/ChooseKursView.vue"),
+		},
+		{
+			path: "/kurs/verwalten/:kurs",
+			name: "kurs-verwalten",
+			component: () => import("../views/KursVerwaltungView.vue"),
 		},
 		{
 			path: "/unterricht/:day/:time",
@@ -63,20 +68,20 @@ const router = createRouter({
 			component: () => import("../views/UnterrichtView.vue"),
 		},
 		{
-			path: "/stunde/:day/:time",
-			name: "stunde",
-			component: () => import("../views/StundeView.vue"),
-		},
-		{
-			path: "/unterricht/create/:kurs", 
+			path: "/unterricht/create/:kurs",
 			name: "create-unterricht",
 			component: () => import("../views/CreateUnterrichtView.vue"),
 		},
 		{
-			path: "/kurs/verwalten/:kurs",
-			name: "kurs-verwalten",
-			component: () => import("../views/KursVerwaltungView.vue"),
-		}
+			path: "/unterricht/delete/:unterricht",
+			name: "delete-unterricht",
+			component: () => import("../views/DeleteUnterrichtView.vue"),
+		},
+		{
+			path: "/stunde/:day/:time",
+			name: "stunde",
+			component: () => import("../views/StundeView.vue"),
+		},
 	],
 });
 

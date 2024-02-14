@@ -35,6 +35,9 @@
 			</tr>
 		</table>
 	</div>
+	<div class="eingabe">
+		<input type="text" placeholder="Emailaddresse">
+	</div>
 </template>
 
 <script setup>
@@ -170,6 +173,15 @@ function changeAnwesend(index) {
 </script>
 
 <style scoped>
+
+.eingabe {
+	position: fixed;
+	bottom: 10%;
+
+	justify-content: center;
+	align-items: center;
+}
+
 .wrapper {
 	display: flex;
 	justify-content: flex-start;
@@ -192,6 +204,10 @@ function changeAnwesend(index) {
 	background-color: var(--third-color);
 	border-radius: 10px;
 	overflow: hidden;
+}
+
+.table-header th :first-child {
+	border-top-left-radius: 10px;
 }
 
 .custom-table {

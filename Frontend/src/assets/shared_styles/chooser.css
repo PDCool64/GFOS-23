@@ -6,7 +6,7 @@
 	cursor: pointer;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     justify-content: flex-start;
     align-items: center;
@@ -27,6 +27,13 @@
     h2 {
         flex-grow: 1;
         text-align: center;
+    }
+    .one-line{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
     }
 }
 .kurs-item:hover {
