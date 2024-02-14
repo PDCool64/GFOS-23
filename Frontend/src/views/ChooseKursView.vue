@@ -17,7 +17,6 @@
 import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import router from "@/router";
-import backend from "@/stores/backend";
 
 
 const userData = useUserStore();
@@ -30,7 +29,7 @@ function createUnterricht(kursId) {
 }
 
 async function getKurse() {
-    const response = await fetch(backend + "/Backend/kurs/leiter/", {
+    const response = await fetch("http://localhost:8080/Backend/kurs/leiter/", {
         method: "GET",
         headers: {
             Authorization: userData.token,
