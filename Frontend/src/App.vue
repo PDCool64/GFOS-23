@@ -8,7 +8,7 @@ import { computed } from "vue";
 const userData = useUserStore();
 
 const isLoggedIn = computed(() => {
-	return userData.token != "";
+	return userData.token == "";
 });
 
 if (!isLoggedIn.value) {

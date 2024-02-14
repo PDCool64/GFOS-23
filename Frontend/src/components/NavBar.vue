@@ -1,9 +1,15 @@
 <template>
 	<nav class="navbar">
 		<ul>
-			<li><RouterLink to="/">Home</RouterLink></li>
+			<li><RouterLink to="/">
+				<img src="../assets/pictures/home.png" alt="Home" class="navbar-image" />
+			<div class="bold">Home</div>
+			</RouterLink></li>
 			<li>
-				<button @click="goToStundenplan">Stundenplan</button>
+				<button @click="goToStundenplan">
+					<img src="../assets/pictures/stundenplan.png" alt="Stundenplan" class="navbar-image" />
+					<div class="bold">Stundenplan</div>
+				</button>
 			</li>
 			<li v-if="userData.user.isLeiter">
 				<RouterLink to="/kurs/choose">Kursverwaltung</RouterLink>
@@ -13,13 +19,13 @@
 			</li>
 		</ul>
 		<div class="left">
-			<button @click="logOut">Log out</button>
 			<img
 				src="../assets/pictures/benutzer.png"
 				alt="Ende der Navbar"
 				class="navbar-image"
 				@click="clickImage()"
 			/>
+			<img alt="Log out" src="../assets/pictures/exit.png" @click="logOut" class="navbar-image">
 		</div>
 	</nav>
 	<p></p>
@@ -89,6 +95,9 @@ const logOut = () => {
 	color: var(--color-text);
 	font-weight: bold;
 	cursor: pointer;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
 }
 
 .main-content {
@@ -103,7 +112,8 @@ const logOut = () => {
 	width: 40px;
 	height: 40px;
 	cursor: pointer;
-	margin-left: 20px;
+	margin-left: 15px;
+	margin-right: 5px;
 	padding: 5px;
 	opacity: 0.64;
 }
@@ -122,5 +132,12 @@ const logOut = () => {
 	cursor: pointer;
 	font-weight: bold;
 	font-size: var(--text-size);
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+
+.bold {
+	font-weight: bold;
 }
 </style>

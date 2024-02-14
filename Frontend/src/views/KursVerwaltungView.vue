@@ -1,18 +1,27 @@
 <template>
 	<div class="wrapper">
+        <h1>Kursverwaltung</h1>
+        <div class="grid">
 		<div
 			@click="createUnterricht"
 			class="kurs-item"
 		>
+        <img src="../assets/pictures/kreuz.png" alt="" class="rotated"/> 
 			<h2>Unterricht erstellen</h2>
 		</div>
         <div
             @click="deleteUnterricht"
             class="kurs-item"
-        >   
+        >
+        <img src="../assets/pictures/kreuz.png" alt="" />   
             <h2>Unterricht löschen</h2>
         </div>    
+        <div class="kurs-item">
+            <img src="../assets/pictures/users.png" alt="" />
+            <h2>Mitglieder</h2>
+        </div>
 	</div>
+    </div>
 </template>
 
 <script setup>
