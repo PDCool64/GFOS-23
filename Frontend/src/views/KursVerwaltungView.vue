@@ -20,6 +20,10 @@
             <img src="../assets/pictures/users.png" alt="" />
             <h2>Mitglieder</h2>
         </div>
+        <div class="kurs-item">
+            <img src="../assets/pictures/stats.png" alt="" />
+            <h2>Statistiken</h2>
+        </div>
 	</div>
     </div>
 </template>

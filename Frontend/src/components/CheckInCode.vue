@@ -52,7 +52,7 @@ const submitCode = () => {
 
 <template>
   <div class="check-in-code">
-    <h1>Gib deinen CheckInCode ein</h1>
+    <h1>Gib deinen CheckIn-Code ein</h1>
     <form @submit.prevent="submitCode">
       <div class="input-container">
         <input v-for="(item, index) in Array.from({ length: 5 })" :key="index" type="digit" maxlength="1"

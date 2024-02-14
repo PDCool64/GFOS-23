@@ -8,7 +8,7 @@ const userData = useUserStore();
 
 <template>
 	<main>
-		<h1 class="header">Hallo, {{ userData.user.vorname }} {{ userData.user.name }}</h1>
+		<h1 class="header">Hallo, {{ userData.user.vorname }} {{ userData.user.name }}!</h1>
 		<CheckInCode class="check-in-code" />
 		<div></div>
 	</main>
