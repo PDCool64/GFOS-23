@@ -6,14 +6,14 @@
 			@click="createUnterricht"
 			class="kurs-item"
 		>
-        <img src="../assets/pictures/kreuz.png" alt="" class="rotated"/> 
+        <img src="../assets/pictures/zeit-add.png" alt="" /> 
 			<h2>Unterricht erstellen</h2>
 		</div>
         <div
             @click="deleteUnterricht"
             class="kurs-item"
         >
-        <img src="../assets/pictures/kreuz.png" alt="" />   
+        <img src="../assets/pictures/mull.png" alt="" />   
             <h2>Unterricht löschen</h2>
         </div>    
         <div class="kurs-item">

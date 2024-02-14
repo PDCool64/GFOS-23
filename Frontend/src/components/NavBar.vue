@@ -12,11 +12,17 @@
 				</button>
 			</li>
 			<li v-if="userData.user.isLeiter">
-				<RouterLink to="/kurs/choose">Kursverwaltung</RouterLink>
+				<RouterLink to="/kurs/choose">
+				<img src="../assets/pictures/verwalten.png" alt="Verwalten" class="navbar-image" />
+			<div class="bold">Kursverwaltung</div>
+			</RouterLink>
 			</li>
+			
 			<li v-if="userData.user.isAdmin">
-				<RouterLink to="/kurs/create">Kurs erstellen</RouterLink>
-			</li>
+				<RouterLink to="/kurs/create">
+				<img src="../assets/pictures/hinzufuegen.png" alt="Home" class="navbar-image" />
+			<div class="bold">Kurs erstellen</div>
+			</RouterLink></li>
 		</ul>
 		<div class="left">
 			<img
@@ -109,8 +115,8 @@ const logOut = () => {
 }
 .navbar-image {
 	max-height: 100%;
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 	cursor: pointer;
 	margin-left: 15px;
 	margin-right: 5px;
