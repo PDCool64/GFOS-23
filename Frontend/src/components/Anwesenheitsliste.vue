@@ -35,132 +35,13 @@
 			</tr>
 		</table>
 	</div>
-	<div class="eingabe">
-		<input type="text" placeholder="Emailaddresse">
-	</div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-const sampleData = ref([
-	{
-		id: 1,
-		stunde: {
-			id: 1,
-			date: "2022-01-01",
-			checkincode: "12345",
-			unterricht: {
-				id: 1,
-				kurs: {
-					id: 1,
-					fach: "Mathe",
-					art: "GK",
-					nummer: 1,
-					stufe: 12,
-					leiter: {
-						id: 1,
-						name: "Doering",
-						vorname: "Max",
-						email: "maxdoering@web.de",
-						isAdmin: false,
-					},
-				},
-				tag: 1,
-				beginStunde: 1,
-				endStunde: 2,
-			},
-		},
-		account: {
-			name: "Doering",
-			vorname: "Max",
-			id: 1,
-			isAdmin: false,
-			email: "maxdoering@web.de",
-		},
-		note: "-",
-		anwesend: false,
-		beginTimestamp: "2022-01-01T12:00:00Z",
-		endTimeStamp: "2022-01-01T13:00:00Z",
-	},
-	{
-		id: 2,
-		stunde: {
-			id: 2,
-			date: "2022-01-01",
-			checkincode: "12345",
-			unterricht: {
-				id: 1,
-				kurs: {
-					id: 1,
-					fach: "Mathe",
-					art: "GK",
-					nummer: 1,
-					stufe: 12,
-					leiter: {
-						id: 1,
-						name: "Doering",
-						vorname: "Max",
-						email: "maxdoering@web.de",
-						isAdmin: false,
-					},
-				},
-				tag: 1,
-				beginStunde: 1,
-				endStunde: 2,
-			},
-		},
-		account: {
-			name: "Trutz",
-			vorname: "Max",
-			id: 1,
-			isAdmin: false,
-			email: "maxtrutz@web.de",
-		},
-		note: 12,
-		anwesend: true,
-		beginTimestamp: "2022-01-01T12:00:00Z",
-		endTimeStamp: "2022-01-01T13:00:00Z",
-	},
-	{
-		id: 3,
-		stunde: {
-			id: 2,
-			date: "2022-01-01",
-			checkincode: "12345",
-			unterricht: {
-				id: 1,
-				kurs: {
-					id: 1,
-					fach: "Mathe",
-					art: "GK",
-					nummer: 1,
-					stufe: 12,
-					leiter: {
-						id: 1,
-						name: "Doering",
-						vorname: "Max",
-						email: "maxdoering@web.de",
-						isAdmin: false,
-					},
-				},
-				tag: 1,
-				beginStunde: 1,
-				endStunde: 2,
-			},
-		},
-		account: {
-			name: "Goehlert",
-			vorname: "Maximilian",
-			id: 1,
-			isAdmin: false,
-			email: "maxgoehlert@web.de",
-		},
-		note: 5,
-		anwesend: true,
-		beginTimestamp: "2022-01-01T12:00:00Z",
-		endTimeStamp: "2022-01-01T13:00:00Z",
-	},
-]);
+import data from "@/assets/test_data/anwesenheit.json";
+
+const sampleData = ref(data);
 
 function changeAnwesend(index) {
 	sampleData.value[index].anwesend = !sampleData.value[index].anwesend;
@@ -170,17 +51,10 @@ function changeAnwesend(index) {
 		sampleData.value[index].note = "";
 	}
 }
+
 </script>
 
 <style scoped>
-
-.eingabe {
-	position: fixed;
-	bottom: 10%;
-
-	justify-content: center;
-	align-items: center;
-}
 
 .wrapper {
 	display: flex;

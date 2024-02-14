@@ -20,6 +20,12 @@
 					<h2>Mitglieder</h2>
 				</div>
 			</div>
+			<div class="kurs-item">
+				<div class="one-line">
+					<img src="../assets/pictures/stats.png" alt="" />
+					<h2>Statistiken</h2>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
