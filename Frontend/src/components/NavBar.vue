@@ -52,7 +52,7 @@ function clickImage() {
 const goToStundenplan = () => {
 	const now = new Date();
 	const day = now.getDay();
-	const diff = now.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is Sunday
+	const diff = now.getDate() - day + (day == 0 ? -6 : 1); 
 	const thisWeekMonday = new Date(now.setDate(diff));
 	router.push(
 		"/stundenplan/" + thisWeekMonday.toISOString().substring(0, 10),
@@ -145,5 +145,16 @@ const logOut = () => {
 
 .bold {
 	font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+	.navbar ul li {
+		margin: 0 20px;
+	}
+
+	.bold {
+		display: none;
+	}
+	
 }
 </style>

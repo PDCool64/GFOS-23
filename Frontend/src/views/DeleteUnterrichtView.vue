@@ -22,4 +22,6 @@ const userData = useUserStore();
 </script>
 
 <style scoped>
+
+
 </style>
