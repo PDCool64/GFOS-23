@@ -229,7 +229,7 @@ public class KursWebservice {
 	@GET
 	@Path("/teilnehmer/{accountId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getTeilnehmer(
+	public Response getTeilnahmenByAccount(
 		@HeaderParam("Authorization") String token,
 		@PathParam("accountId") int accountId
 	) {
@@ -260,7 +260,7 @@ public class KursWebservice {
 	@GET
 	@Path("/teilnahmen/{kursId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getTeilnahmen(
+	public Response getTeilnahmenByKurs(
 		@HeaderParam("Authorization") String token,
 		@PathParam("kursId") int kursId
 	) {
@@ -268,7 +268,7 @@ public class KursWebservice {
 			"Token ist ungültig"
 		);
 		return responseFacade.ok(
-			jsonb.toJson(kursFacade.getTeilnahmen(kursId))
+			jsonb.toJson(kursFacade.getTeilnahmenByKurs(kursId))
 		);
 	}
 }

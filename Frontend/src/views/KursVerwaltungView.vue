@@ -14,7 +14,7 @@
 					<h2>Unterricht löschen</h2>
 				</div>
 			</div>
-			<div class="kurs-item">
+			<div @click="seeMemberList" class="kurs-item">
 				<div class="one-line">
 					<img src="../assets/pictures/users.png" alt="" />
 					<h2>Mitglieder</h2>
@@ -49,6 +49,10 @@ function deleteUnterricht() {
 
 function createUnterricht() {
 	router.push("/unterricht/create/" + kursId);
+}
+
+function seeMemberList() {
+	router.push("/kurs/" + kursId + "/members");
 }
 </script>
 

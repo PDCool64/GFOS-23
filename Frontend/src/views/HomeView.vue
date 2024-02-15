@@ -24,9 +24,4 @@ main {
 	grid-template-rows: 1fr 1fr 1fr;
 }
 
-.header{
-}
-
-.check-in-code {
-}
 </style>

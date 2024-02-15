@@ -97,7 +97,7 @@ public class KursFacade {
 				.createNamedQuery("Kurs.findById", Kurs.class)
 				.setParameter("id", kursId)
 				.getSingleResult();
-			Kursteilnahme kt = new Kursteilnahme(a, k);	
+			Kursteilnahme kt = new Kursteilnahme(a, k);
 			k.getKursteilnahmeList().add(kt);
 			a.getKursteilnahmeList().add(kt);
 			return true;
@@ -206,7 +206,7 @@ public class KursFacade {
 		return a.getKursList();
 	}
 
-	public List<Kursteilnahme> getTeilnahmen(int kursId) {
+	public List<Kursteilnahme> getTeilnahmenByKurs(int kursId) {
 		try {
 			Kurs k = getKursById(kursId);
 			return k.getKursteilnahmeList();
