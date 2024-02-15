@@ -2,7 +2,7 @@
     <div class="wrapper">
   <div class="unterricht">
      <button class="unterricht__close" @click="goToStundenplan">X</button>
-    <h2 class="unterricht__title">Unterricht Details</h2>
+    <h2 class="unterricht__title">Details</h2>
 
     <div class="unterricht__card">
       <h3 class="unterricht__card-title">{{ content.kurs.fach }} ({{ content.kurs.art }}{{ content.kurs.nummer }})</h3>

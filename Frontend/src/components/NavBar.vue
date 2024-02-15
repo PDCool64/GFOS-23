@@ -45,7 +45,7 @@
 			<li v-if="userData.user.isAdmin">
 				<RouterLink to="/register">
 					<img
-						src="../assets/pictures/benutzer.png"
+						src="../assets/pictures/add_user.png"
 						alt="Home"
 						class="navbar-image"
 					/>

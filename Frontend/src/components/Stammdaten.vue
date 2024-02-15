@@ -3,7 +3,6 @@
 		<form @submit.prevent="updateAccount">
 			<label for="vorname">Vorname:</label>
 			<input id="vorname" v-model="account.vorname" />
-
 			<label for="name">Name:</label>
 			<input id="name" v-model="account.name" />
 
@@ -37,7 +36,7 @@ const cancel = () => {
 
 onMounted(async () => {
 	const response = await fetch(
-		"http://localhost:8080/Backend/account/" + userData.user.id,
+		"/Backend/account/" + userData.user.id,
 		{
 			method: "GET",
 			headers: {

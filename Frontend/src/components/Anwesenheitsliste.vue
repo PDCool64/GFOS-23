@@ -55,5 +55,6 @@ function changeAnwesend(index) {
 </script>
 
 <style scoped>
-@import "@/assets/shares_styles/account_list.css";
+@import "@/assets/shared_styles/account_list.css";
+
 </style>
