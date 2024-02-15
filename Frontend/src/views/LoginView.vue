@@ -8,21 +8,26 @@ const password = ref("");
 const error = ref(false);
 const errorMessage = ref("");
 
+const isButtonDisabled = ref(false);
 
 const userData = useUserStore();
 
 const setIsLeiter = async () => {
-	const response = await fetch("http://localhost:8080/Backend/account/isleiter", {
-		method: "GET",
-		headers: {
-			"Authorization": userData.token,
+	const response = await fetch(
+		"http://localhost:8080/Backend/account/isleiter",
+		{
+			method: "GET",
+			headers: {
+				Authorization: userData.token,
+			},
 		},
-	});
+	);
 	const data = await response.json();
 	userData.setIsLeiter(data.isLeiter);
 };
 
 const submitForm = async () => {
+	isButtonDisabled.value = true;
 	const response = await fetch("http://localhost:8080/Backend/login", {
 		method: "POST",
 		headers: {
@@ -37,6 +42,7 @@ const submitForm = async () => {
 	if (!response.ok) {
 		errorMessage.value = "Die Email oder das Passwort ist falsch.";
 		error.value = true;
+		isButtonDisabled.value = false;
 	} else {
 		const data = await response.json();
 		errorMessage.value = "Login erfolgreich.";
@@ -71,7 +77,13 @@ const submitForm = async () => {
 					placeholder="Password"
 					required
 				/>
-				<button type="submit">Login</button>
+				<button
+					type="submit"
+					class="button"
+					:disabled="isButtonDisabled"
+				>
+					Login
+				</button>
 				<p
 					:class="{
 						'error-message': error,
@@ -87,6 +99,11 @@ const submitForm = async () => {
 
 <style scoped>
 @import "../assets/shared_styles/form.css";
+
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
 
 .wrapper {
 	min-height: 100vh;

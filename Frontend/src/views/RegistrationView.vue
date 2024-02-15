@@ -14,8 +14,10 @@ const isadmin = ref(false);
 const error = ref(false);
 
 const errorMessage = ref("");
+const isButtonDisabled = ref(false);
 
 const submitForm = async () => {
+	isButtonDisabled.value = true;
 	const response = await fetch("http://localhost:8080/Backend/account", {
 		method: "POST",
 		headers: {
@@ -35,14 +37,17 @@ const submitForm = async () => {
 	if (response.status === 400) {
 		errorMessage.value = "Ein Account mit dieser Email existiert bereits.";
 		error.value = true;
+		isButtonDisabled.value = false;
 	}
 	if (!response.ok) {
 		errorMessage.value = "Etwas anderes ist schief gelaufen";
+		isButtonDisabled.value = false;
 	} else {
 		const data = await response.json();
 		console.log(data);
 		errorMessage.value = "Registrierung erfolgreich.";
 		error.value = false;
+		isButtonDisabled.value = true;
 	}
 };
 </script>
@@ -102,7 +107,9 @@ const submitForm = async () => {
 						v-model="isadmin"
 					/>
 				</div>
-				<button type="submit">Register</button>
+				<button type="submit" :disabled="isButtonDisabled">
+					Register
+				</button>
 				<p
 					:class="{
 						'error-message': error,
@@ -134,5 +141,10 @@ const submitForm = async () => {
 		margin: 0;
 		width: auto;
 	}
+}
+
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
 }
 </style>

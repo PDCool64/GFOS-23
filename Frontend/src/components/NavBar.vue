@@ -181,7 +181,7 @@ const logOut = () => {
 	font-weight: bold;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1440px) {
 	.navbar ul li {
 		margin: 0 20px;
 	}

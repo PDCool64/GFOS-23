@@ -82,7 +82,6 @@ public class KursWebservice {
 			k.setFach(jsonObject.getString("fach"));
 			k.setNummer(jsonObject.getInt("nummer"));
 			k.setStufe(jsonObject.getInt("stufe"));
-			System.out.println(k.getFach());
 
 			Kurs kursAusDatenbank = kursFacade.createKurs(k);
 			if (kursAusDatenbank == null) {
@@ -196,12 +195,12 @@ public class KursWebservice {
 	}
 
 	@POST
-	@Path("/teilnehmer/{kursId}/{accountId}") // http://localhost:8080/Backend/kurs/teilnehmer/1/1 -> POST
+	@Path("/teilnehmer/{kursId}/{email}") // http://localhost:8080/Backend/kurs/teilnehmer/1/1 -> POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addTeilnehmer(
 		@HeaderParam("Authorization") String token,
 		@PathParam("kursId") int kursId,
-		@PathParam("accountId") int accountId,
+		@PathParam("email") String accountId,
 		String json
 	) {
 		if (
@@ -217,7 +216,7 @@ public class KursWebservice {
 			401,
 			"{\"error\": \"Sie sind nicht berechtigt, Teilnehmer hinzuzufügen.\"}"
 		);
-		Account teilnehmer = accountFacade.getAccountById(accountId);
+		Account teilnehmer = accountFacade.getAccountByEmail(accountId);
 		if (teilnehmer == null) return responseFacade.status(
 			422,
 			"{\"error\": \"Teilnehmer konnte nicht gefunden werden.\"}"

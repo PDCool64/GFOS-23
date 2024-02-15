@@ -97,7 +97,6 @@ public class UnterrichtWebservice {
 		String json
 	) {
 		try {
-			System.out.println(json);
 			JsonReader jsonReader = Json.createReader(new StringReader(json));
 			JsonObject jsonObject = jsonReader.readObject();
 			JsonObject unterrichtJson = jsonObject.getJsonObject("unterricht");
@@ -114,9 +113,6 @@ public class UnterrichtWebservice {
 			unterricht.setBeginstunde(unterrichtJson.getInt("beginStunde"));
 			unterricht.setEndstunde(unterrichtJson.getInt("endStunde"));
 			unterricht.setTag(unterrichtJson.getInt("tag"));
-			System.out.println(
-				unterricht.getBeginstunde() + " " + unterricht.getBeginstunde()
-			);
 			Unterricht unterrichtInDatenbank = unterrichtFacade.createUnterricht(
 				unterricht
 			);

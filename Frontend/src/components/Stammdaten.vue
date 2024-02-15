@@ -36,12 +36,12 @@ const cancel = () => {
 
 onMounted(async () => {
 	const response = await fetch(
-		"/Backend/account/" + userData.user.id,
+		"http://localhost:8080/Backend/account/" + userData.user.id,
 		{
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				"Authorization": userData.token,
+				Authorization: userData.token,
 			},
 		},
 	);
@@ -62,15 +62,7 @@ async function updateAccount() {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": userData.token,
-		},
-		body: JSON.stringify(temp),
-	});
-	console.log({
-		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-			"Authorization": userData.token,
+			Authorization: userData.token,
 		},
 		body: JSON.stringify(temp),
 	});
