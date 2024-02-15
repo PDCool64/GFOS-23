@@ -38,6 +38,12 @@ export const useUserStore = defineStore("user", {
 		setIsLeiter(isLeiter) {
 			this.user.isLeiter = isLeiter;
 		},
+		setStammdaten(data){
+			this.user.email = data.email
+			this.user.id = data.id;
+			this.user.name = data.name;
+			this.user.vorname = data.vorname
+		}
 	},
 	persist: {
 		storage: sessionStorage,

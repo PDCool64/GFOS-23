@@ -1,28 +1,57 @@
 <template>
 	<nav class="navbar">
 		<ul>
-			<li><RouterLink to="/">
-				<img src="../assets/pictures/home.png" alt="Home" class="navbar-image" />
-			<div class="bold">Home</div>
-			</RouterLink></li>
+			<li>
+				<RouterLink to="/">
+					<img
+						src="../assets/pictures/home.png"
+						alt="Home"
+						class="navbar-image"
+					/>
+					<div class="bold">Home</div>
+				</RouterLink>
+			</li>
 			<li>
 				<button @click="goToStundenplan">
-					<img src="../assets/pictures/stundenplan.png" alt="Stundenplan" class="navbar-image" />
+					<img
+						src="../assets/pictures/stundenplan.png"
+						alt="Stundenplan"
+						class="navbar-image"
+					/>
 					<div class="bold">Stundenplan</div>
 				</button>
 			</li>
 			<li v-if="userData.user.isLeiter">
 				<RouterLink to="/kurs/choose">
-				<img src="../assets/pictures/verwalten.png" alt="Verwalten" class="navbar-image" />
-			<div class="bold">Kursverwaltung</div>
-			</RouterLink>
+					<img
+						src="../assets/pictures/verwalten.png"
+						alt="Verwalten"
+						class="navbar-image"
+					/>
+					<div class="bold">Kursverwaltung</div>
+				</RouterLink>
 			</li>
-			
+
 			<li v-if="userData.user.isAdmin">
 				<RouterLink to="/kurs/create">
-				<img src="../assets/pictures/hinzufuegen.png" alt="Home" class="navbar-image" />
-			<div class="bold">Kurs erstellen</div>
-			</RouterLink></li>
+					<img
+						src="../assets/pictures/hinzufuegen.png"
+						alt="Home"
+						class="navbar-image"
+					/>
+					<div class="bold">Kurs erstellen</div>
+				</RouterLink>
+			</li>
+			<li v-if="userData.user.isAdmin">
+				<RouterLink to="/register">
+					<img
+						src="../assets/pictures/benutzer.png"
+						alt="Home"
+						class="navbar-image"
+					/>
+					<div class="bold">Benutzer erstellen</div>
+				</RouterLink>	
+			</li>
 		</ul>
 		<div class="left">
 			<img
@@ -31,7 +60,12 @@
 				class="navbar-image"
 				@click="clickImage()"
 			/>
-			<img alt="Log out" src="../assets/pictures/exit.png" @click="logOut" class="navbar-image">
+			<img
+				alt="Log out"
+				src="../assets/pictures/exit.png"
+				@click="logOut"
+				class="navbar-image"
+			/>
 		</div>
 	</nav>
 	<p></p>
@@ -52,7 +86,7 @@ function clickImage() {
 const goToStundenplan = () => {
 	const now = new Date();
 	const day = now.getDay();
-	const diff = now.getDate() - day + (day == 0 ? -6 : 1); 
+	const diff = now.getDate() - day + (day == 0 ? -6 : 1);
 	const thisWeekMonday = new Date(now.setDate(diff));
 	router.push(
 		"/stundenplan/" + thisWeekMonday.toISOString().substring(0, 10),
@@ -155,6 +189,5 @@ const logOut = () => {
 	.bold {
 		display: none;
 	}
-	
 }
 </style>

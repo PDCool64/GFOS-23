@@ -196,28 +196,34 @@ public class KursWebservice {
 	}
 
 	@POST
-	@Path("/teilnehmer/{kursId}")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/teilnehmer/{kursId}/{accountId}") // http://localhost:8080/Backend/kurs/teilnehmer/1/1 -> POST
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response addTeilnehmer(
 		@HeaderParam("Authorization") String token,
 		@PathParam("kursId") int kursId,
+		@PathParam("accountId") int accountId,
 		String json
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
+		Account a = permissionFacade.getAccountByToken(token);
+		Kurs k = kursFacade.getKursById(kursId);
+		if (k == null) return responseFacade.status(
+			422,
+			"Kurs konnte nicht gefunden werden."
 		);
-		try {
-			Account k = jsonb.fromJson(json, Account.class);
-			boolean kursInDatenbank = kursFacade.addTeilnehmer(kursId, k);
-			if (!kursInDatenbank) {
-				return responseFacade.ok("Teilnehmer wurde hinzugefügt.");
-			}
-			return responseFacade.ok(
-				"Teilnehmer konnte nicht hinzugefügt werden."
-			);
-		} catch (JsonbException e) {
-			return responseFacade.ok("Json konnte nicht geparst werden.");
-		}
+		if (k.getLeiter() != a) return responseFacade.status(
+			401,
+			"{\"error\": \"Sie sind nicht berechtigt, Teilnehmer hinzuzufügen.\"}"
+		);
+		Account teilnehmer = accountFacade.getAccountById(accountId);
+		if (teilnehmer == null) return responseFacade.status(
+			422,
+			"{\"error\": \"Teilnehmer konnte nicht gefunden werden.\"}"
+		);
+		kursFacade.addTeilnehmer(kursId, teilnehmer);
+		return responseFacade.ok("{\"success\": \"Teilnehmer hinzugefügt.\"}");
 	}
 
 	@GET

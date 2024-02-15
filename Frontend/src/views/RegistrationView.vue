@@ -15,13 +15,12 @@ const error = ref(false);
 
 const errorMessage = ref("");
 
-
 const submitForm = async () => {
 	const response = await fetch("http://localhost:8080/Backend/account", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": userData.token,
+			Authorization: userData.token,
 			password: password.value,
 		},
 		body: JSON.stringify({
@@ -36,6 +35,9 @@ const submitForm = async () => {
 	if (response.status === 400) {
 		errorMessage.value = "Ein Account mit dieser Email existiert bereits.";
 		error.value = true;
+	}
+	if (!response.ok) {
+		errorMessage.value = "Etwas anderes ist schief gelaufen";
 	} else {
 		const data = await response.json();
 		console.log(data);
@@ -91,7 +93,7 @@ const submitForm = async () => {
 					required
 				/>
 				<div class="checkbox-wrapper">
-                    <p>Admin</p>
+					<p>Admin</p>
 					<input
 						type="checkbox"
 						class="checkbox"
@@ -101,9 +103,14 @@ const submitForm = async () => {
 					/>
 				</div>
 				<button type="submit">Register</button>
-                <p :class="{ 'error-message': error, 'success-message': !error }">
-                    {{ errorMessage }}
-                </p>
+				<p
+					:class="{
+						'error-message': error,
+						'success-message': !error,
+					}"
+				>
+					{{ errorMessage }}
+				</p>
 			</form>
 		</div>
 	</div>
@@ -118,15 +125,14 @@ const submitForm = async () => {
 	justify-content: center;
 }
 .checkbox-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
 
-    input{
-        margin: 0;
-        width: auto;
-    }
+	input {
+		margin: 0;
+		width: auto;
+	}
 }
-
 </style>

@@ -57,6 +57,20 @@ public class AccountWebservice {
 	@PersistenceContext
 	private EntityManager em;
 
+	/*
+	 * CREATE -> POST
+	 * READ -> GET
+	 * UPDATE -> PUT
+	 * DELETE -> DELETE
+	 *
+	 * JSON:
+	 * {
+	 *	"email": "email",
+	 *	"passworthash": "passworthash",
+	 * }
+	 *
+	 */
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
