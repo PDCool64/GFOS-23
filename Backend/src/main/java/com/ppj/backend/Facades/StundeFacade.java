@@ -40,7 +40,7 @@ public class StundeFacade {
 	private String[] stundenplan = {
 		"07:55:00",
 		"08:45:00",
-		"09:30:00",
+		"09:50:00",
 		"10:35:00",
 		"11:25:00",
 		"12:25:00",

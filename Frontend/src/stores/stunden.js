@@ -4,6 +4,7 @@ export const useStundenStore = defineStore('stunden', {
  state: () => ({
    stunden: [], 
    date: "",
+   aktuelleStunde: {},
  }),
  getters: {},
  actions: {
@@ -13,8 +14,13 @@ export const useStundenStore = defineStore('stunden', {
     setDate(date) {
         this.date = date
     },
+    setAktuelleStunde(aktuelleStunde) {
+        this.aktuelleStunde = aktuelleStunde;
+    },
     reset() {
         this.setStunden([])
+        this.date = ""
+        this.aktuelleStunde = {}
     },
  },
 })

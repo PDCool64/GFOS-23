@@ -5,22 +5,6 @@ import { useUserStore } from "@/stores/user";
 const userData = useUserStore();
 
 const fetch_data = async () => {
-	const response = await fetch(
-		"http://localhost:8080/Backend/stunde/aktuell",
-		{
-			method: "GET",
-			headers: {
-				"Authorization": userData.token,
-			},
-		},
-	);
-	if (!response.ok) {
-		console.log("Error fetching data");
-	}
-	else {
-		const data = await response.json();
-		console.log(data);
-	}
 };
 
 fetch_data();
