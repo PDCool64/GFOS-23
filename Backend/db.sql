@@ -58,7 +58,7 @@ CREATE TABLE StundeTeilnahme (
     account INT NOT NULL,
     stunde INT NOT NULL,
     anwesend BOOLEAN,
-    beginTimestamp TIMESTAMP NOT NULL,
+    beginTimestamp TIMESTAMP,
     endTimestamp TIMESTAMP,
     note INT,
     FOREIGN KEY (account) REFERENCES Account(id),

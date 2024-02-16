@@ -71,7 +71,6 @@ public class Stundeteilnahme implements Serializable {
 	@Column(name = "ANWESEND")
 	private Boolean anwesend;
 
-	@Basic(optional = false)
 	@Column(name = "BEGINTIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date begintimestamp;

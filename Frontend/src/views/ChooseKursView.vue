@@ -15,13 +15,17 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
 import router from "@/router";
 
 const userData = useUserStore();
 
 const kurse = ref([]);
+
+onMounted(() => {
+	getKurse();
+});
 
 function createUnterricht(kursId) {
 	router.push("/kurs/verwalten/" + kursId);
@@ -42,15 +46,6 @@ async function getKurse() {
 		console.log("Error fetching data");
 	}
 }
-
-const response = await fetch("http://localhost:8080/Backend/stunde/aktuell", {
-	method: "GET",
-	headers: {
-		Authorization: userData.token,
-	},
-});
-
-getKurse();
 </script>
 
 <style scoped>
