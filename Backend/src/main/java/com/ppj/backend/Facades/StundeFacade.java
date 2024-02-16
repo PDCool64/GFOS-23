@@ -14,6 +14,7 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -35,6 +36,74 @@ public class StundeFacade {
 
 	@EJB
 	private UnterrichtFacade unterrichtFacade;
+
+	private String[] stundenplan = {
+		"07:55:00",
+		"08:45:00",
+		"09:30:00",
+		"10:35:00",
+		"11:25:00",
+		"12:25:00",
+		"13:15:00",
+		"14:15:00",
+		"15:05:00",
+		"15:55:00",
+		"16:45:00",
+		"17:30:00",
+		"18:20:00",
+	};
+
+	private int currentStundenplanIndex = 0;
+
+	private boolean isValidStundenplanIndex(int currentStundenplanIndex2) {
+		Date current = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		try {
+			Date stundenplanTime = sdf.parse(
+				stundenplan[currentStundenplanIndex2]
+			);
+			long differenceInMinutes =
+				(current.getTime() - stundenplanTime.getTime()) / 1000 / 60;
+			if (differenceInMinutes > 0 && differenceInMinutes <= 45) {
+				return true;
+			}
+			return false;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	private int updateStundenplanIndex() {
+		if (isValidStundenplanIndex(currentStundenplanIndex)) {
+			return currentStundenplanIndex;
+		}
+		Date current = new Date();
+		current.setTime(0);
+		current.setHours(7);
+		current.setMinutes(57);
+		current.setSeconds(0);
+		currentStundenplanIndex = -1;
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		for (int i = 0; i < stundenplan.length; i++) {
+			try {
+				Date stundenplanTime = sdf.parse(stundenplan[i]);
+				long differenceInMinutes =
+					(current.getTime() - stundenplanTime.getTime()) / 1000 / 60;
+				System.out.println(
+					"Difference in minutes: " + differenceInMinutes
+				);
+				if (differenceInMinutes > 0 && differenceInMinutes <= 45) {
+					currentStundenplanIndex = i;
+					break;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(currentStundenplanIndex);
+		return currentStundenplanIndex;
+	}
 
 	public Stunde createStunde(Stunde stunde) {
 		try {
@@ -173,12 +242,54 @@ public class StundeFacade {
 		em.flush();
 	}
 
-    public List<Stundeteilnahme> getTeilnahmenByStundeId(int id) {
+	public List<Stundeteilnahme> getTeilnahmenByStundeId(int id) {
 		try {
 			Stunde s = getStundeById(id);
 			return s.getStundeteilnahmeList();
 		} catch (Exception e) {
 			return null;
 		}
-    }
+	}
+
+	private boolean isActive(Stunde s) {
+		// truncate the time from the date
+		// and check whether the date is today
+		try {
+			SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+			Date currentDateWithoutTime = ymd.parse(ymd.format(new Date()));
+			Date sDateWithoutTime = ymd.parse(ymd.format(s.getDatum()));
+			if (sDateWithoutTime.compareTo(currentDateWithoutTime) != 0) {
+				return false;
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return false;
+		}
+		// update the index of the current stunde
+		updateStundenplanIndex();
+		if (currentStundenplanIndex == -1) {
+			return false;
+		}
+		return (
+			s.getUnterricht().getBeginstunde() <= currentStundenplanIndex &&
+			s.getUnterricht().getEndstunde() >= currentStundenplanIndex
+		);
+	}
+
+	public Stunde getAktuelleStunde(Account a) {
+		try {
+			for (Kursteilnahme kt : a.getKursteilnahmeList()) {
+				for (Unterricht u : kt.getKurs().getUnterrichtList()) {
+					for (Stunde s : u.getStundeList()) {
+						if (isActive(s)) {
+							return s;
+						}
+					}
+				}
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return null;
+	}
 }

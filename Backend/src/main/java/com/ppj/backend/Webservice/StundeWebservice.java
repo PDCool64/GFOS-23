@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB40/StatelessEjbClass.java to edit this template
@@ -104,5 +105,19 @@ public class StundeWebservice {
 		);
 	}
 
-	
+	@GET
+	@Path("/aktuell")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAktuelleStunde(
+		@HeaderParam("Authorization") String token
+	) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseService.unauthorized();
+		Account a = permissionFacade.getAccountByToken(token);
+		System.out.println(a.getId());
+		return responseService.ok(
+			jsonb.toJson(stundeFacade.getAktuelleStunde(a))
+		);
+	}	
 }
