@@ -1,7 +1,12 @@
 <template>
     <div class="wrapper">
   <div class="unterricht">
-     <button class="unterricht__close" @click="goToStundenplan">X</button>
+    <img
+				class="unterricht__close"
+				@click="goToStundenplan"
+				src="../assets/pictures/kreuz.png"
+				alt="X"
+			/>
     <h2 class="unterricht__title">Details</h2>
 
     <div class="unterricht__card">
@@ -75,13 +80,17 @@ const goToStundenplan = () => {
   margin-bottom: 10px;
 }
 .unterricht__close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: none;
+	border: none;
+	font-size: 1.5em;
+	cursor: pointer;
+	filter: invert(1);
+	width: 25px;
+	height: 25px;
+	opacity: 0.64;
 
 }
 </style>
