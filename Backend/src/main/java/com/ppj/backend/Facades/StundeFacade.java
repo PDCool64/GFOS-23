@@ -111,9 +111,23 @@ public class StundeFacade {
 			em.flush();
 			Stunde stundeMitId = this.getStundeById(stunde.getId());
 			stundeMitId.getUnterricht().getStundeList().add(stundeMitId);
+			createStundenteilnahmen(stundeMitId);
 			return stundeMitId;
 		} catch (Exception e) {
 			return null;
+		}
+	}
+
+	private void createStundenteilnahmen(Stunde stundeMitId) {
+		for (Kursteilnahme kt : stundeMitId.getUnterricht().getKurs().getKursteilnahmeList()) { // for(int i = 0;...) kt = ...[i]
+			Stundeteilnahme st = new Stundeteilnahme();
+			em.persist(st);
+			st.setStunde(stundeMitId);
+			st.setAnwesend(false);
+			st.setAccount(kt.getAccount());
+			kt.getAccount().getStundeteilnahmeList().add(st);
+			stundeMitId.getStundeteilnahmeList().add(st);
+			em.flush();
 		}
 	}
 
