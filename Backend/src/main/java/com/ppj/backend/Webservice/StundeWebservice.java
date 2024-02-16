@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB40/StatelessEjbClass.java to edit this template
@@ -6,6 +5,7 @@
 package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Entity.Stunde;
 import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.PermissionFacade;
 import com.ppj.backend.Facades.StundeFacade;
@@ -13,15 +13,23 @@ import com.ppj.backend.Service.ResponseService;
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.io.StringReader;
+import javax.print.DocFlavor.READER;
 
 /**
  *
@@ -119,5 +127,40 @@ public class StundeWebservice {
 		return responseService.ok(
 			jsonb.toJson(stundeFacade.getAktuelleStunde(a))
 		);
-	}	
+	}
+
+	@POST
+	@Path("/checkin/{stundeId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response checkin(
+		@HeaderParam("Authorization") String token,
+		@PathParam("stundeId") int id,
+		String json
+	) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseService.unauthorized();
+		JsonReader reader = Json.createReader(new StringReader(json));
+		JsonObject jsonObject = reader.readObject();
+		jsonObject.getString("code");
+		Account account = permissionFacade.getAccountByToken(token);
+		Stunde s = stundeFacade.getStundeById(id);
+		if (s == null) {
+			return responseService.status(404, "{\"message\": \"Stunde nicht gefunden\"}");
+		}
+		if (!s.getCheckincode().equals(jsonObject.getString("code"))) {
+			System.out.println(s.getCheckincode() + " " + jsonObject.getString("code"));
+			return responseService.status(421, "{\"message\": \"Checkin fehlgeschlagen\"}");
+		}
+
+		if (stundeFacade.checkin(account, s)) {
+			return responseService.ok("{\"message\": \"Checkin erfolgreich\"}");
+		} else {
+			return responseService.status(
+				422,
+				"{\"message\": \"Checkin fehlgeschlagen\"}"
+			);
+		}
+	}
 }

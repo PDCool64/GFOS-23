@@ -24,6 +24,7 @@
 import { ref, onMounted, nextTick } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useStundenStore } from "@/stores/stunden";
+import router from "@/router";
 
 const userData = useUserStore();
 const stundenData = useStundenStore();
@@ -92,8 +93,24 @@ const handleDelete = () => {
 	});
 };
 
-const submitCode = () => {
-	console.log(code.value.join(""));
+const submitCode = async () => {
+	const response = await fetch("http://localhost:8080/Backend/stunde/checkin/" + stundenData.aktuelleStunde.id, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: userData.token,
+		},
+		body: JSON.stringify({
+			code: code.value.join(""),
+		}),
+	});
+	if (response.ok) {
+		console.log("Success");
+		let data = await response.json();
+		console.log(data);
+	} else {
+		console.log("Error");
+	}
 };
 </script>
 

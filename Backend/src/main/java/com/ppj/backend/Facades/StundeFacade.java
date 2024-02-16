@@ -5,6 +5,7 @@
 package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Account;
+import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Entity.Kursteilnahme;
 import com.ppj.backend.Entity.Stunde;
 import com.ppj.backend.Entity.Stundeteilnahme;
@@ -305,5 +306,45 @@ public class StundeFacade {
 			return null;
 		}
 		return null;
+	}
+
+	public void createStunden(Kurs k, Account a) {
+		for (Unterricht u : k.getUnterrichtList()) {
+			createStunden(u, a);
+		}
+	}
+
+	public void createStunden(Unterricht u, Account a) {
+		for (Stunde s : u.getStundeList()) {
+			Stundeteilnahme st = new Stundeteilnahme();
+			st.setAccount(a);
+			st.setStunde(s);
+			st.setAnwesend(false);
+			em.persist(st);
+			s.getStundeteilnahmeList().add(st);
+			a.getStundeteilnahmeList().add(st);
+		}
+		em.flush();
+	}
+
+	public boolean checkin(Account account, Stunde s) {
+		if (!isActive(s)) {
+			System.out.println("Stunde ist nicht aktiv");
+			return false;
+		}
+		System.out.println(s);
+		for (Stundeteilnahme st : s.getStundeteilnahmeList()) {
+			System.out.println(st);
+			System.out.println(st.getAccount().getId() + " " + account.getId());
+			if (st.getAccount().getId() == account.getId()) {
+				st.setAnwesend(true);
+				st.setBegintimestamp(new Date());
+				em.merge(st);
+				em.flush();
+				return true;
+			}
+		}
+		System.out.println("Account ist nicht in der Stunde");
+		return false;
 	}
 }

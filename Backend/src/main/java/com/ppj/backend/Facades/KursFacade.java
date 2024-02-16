@@ -22,6 +22,9 @@ public class KursFacade {
 	@EJB
 	private AccountFacade accountFacade;
 
+	@EJB
+	private StundeFacade stundenFacade;
+
 	public Kurs createKurs(Kurs k) {
 		try {
 			em.persist(k);
@@ -100,6 +103,7 @@ public class KursFacade {
 			Kursteilnahme kt = new Kursteilnahme(a, k);
 			k.getKursteilnahmeList().add(kt);
 			a.getKursteilnahmeList().add(kt);
+			stundenFacade.createStunden(k, a);
 			return true;
 		} catch (Exception e) {
 			return false;
