@@ -28,14 +28,11 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.StringReader;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import javax.print.DocFlavor.READER;
 
 /**
  *

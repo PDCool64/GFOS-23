@@ -1,9 +1,9 @@
 <template>
 	<div class="check-in-code">
-		<h1>Gib deinen CheckIn-Code ein</h1>
+		<h1 v-if="!eingeloggt" >Gib deinen CheckIn-Code ein</h1>
 		<h2 v-if="stunde != undefined">Du hast gerade {{ stunde.unterricht.kurs.fach }}</h2>
 		<form @submit.prevent="submitCode">
-			<div class="input-container">
+			<div v-if="!eingeloggt" class="input-container">
 				<input
 					v-for="(item, index) in Array.from({ length: 5 })"
 					:key="index"
@@ -16,7 +16,9 @@
 					:id="`input-${index}`"
 				/>
 			</div>
+			<img class="success_image" v-if="showSuccessMessage" src="../assets/pictures/success.png" alt="eingeloggt">
 		</form>
+		<button class="checkout_button" v-if="showCheckOutButton && !showSuccessMessage">Check Out</button>
 	</div>
 </template>
 
@@ -32,6 +34,9 @@ const stundenData = useStundenStore();
 const code = ref(Array.from({ length: 8 }, () => ""));
 const inputs = ref([]);
 const stunde = ref(undefined);
+const eingeloggt = ref(false);
+const showSuccessMessage = ref(false);
+const showCheckOutButton = ref(false);
 
 onMounted(() => {
 	inputs.value = Array.from({ length: 5 }, (_, i) =>
@@ -106,8 +111,14 @@ const submitCode = async () => {
 	});
 	if (response.ok) {
 		console.log("Success");
+		eingeloggt.value = true;
+		showSuccessMessage.value = true;
 		let data = await response.json();
 		console.log(data);
+		setTimeout(() => {
+			showSuccessMessage.value = false;
+		}, 2000);
+		showCheckOutButton.value = true;
 	} else {
 		console.log("Error");
 	}
@@ -127,11 +138,34 @@ h2 {
 	text-align: center;
 }
 
+.success_image {
+	width: 80px;
+	height: 80px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+
 .input-container {
 	display: flex;
 	justify-content: center;
 	padding: 10px;
 	border-radius: 10px;
+}
+
+.checkout_button {
+	width: 100%;
+	height: 50px;
+	background-color: #cc4321a8;
+	color: var(--color-text);
+	border: none;
+	border-radius: 10px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+.checkout_button:hover {
+	background-color: #642211;
 }
 
 input {
@@ -160,5 +194,5 @@ button {
 	background-color: transparent;
 	border: none;
 	color: var(--color-text);
-}
+	cursor: pointer;}
 </style>

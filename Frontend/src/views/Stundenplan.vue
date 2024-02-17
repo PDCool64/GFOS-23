@@ -1,10 +1,9 @@
 <template>
 	<div class="table-container">
 		<div class="options">
-			<RouterLink to="/stundenplan"> Plan </RouterLink>
-			<RouterLink :to="'/stundenplan/' + stundenData.date">
-				Aktuell
-			</RouterLink>
+			<img class="pfeil" @click="previousWeek" src="../assets/pictures/links.png" alt="dkp">
+			<img class="pfeil" @click="currentWeek" src="../assets/pictures/reload.png" alt="cdu">
+			<img class="pfeil" @click="nextWeek" src="../assets/pictures/rechts.png" alt="afd">
 		</div>
 		<table>
 			<thead>
@@ -26,7 +25,7 @@
 						v-for="(day, dayIndex) in days"
 						:key="dayIndex"
 						:id="`cell-${timeIndex}-${dayIndex}`"
-						@click="openUnterricht(timeIndex, dayIndex)"
+						@click="openStunden(timeIndex, dayIndex)"
 					>
 						{{ stunden[dayIndex][timeIndex] }}
 					</td>
@@ -34,18 +33,34 @@
 			</tbody>
 		</table>
 	</div>
-</template>  
+</template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, useSSRContext, computed } from "vue";
 import { useUserStore } from "@/stores/user";
-import { useUnterrichtStore } from "@/stores/unterricht";
 import { useStundenStore } from "@/stores/stunden";
 import router from "@/router";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const date = ref(route.params.day);
+
+const startDate = ref(new Date(date.value));
+const endDate = ref(new Date(date.value));
+endDate.value.setDate(endDate.value.getDate() + 6);
+
+function reload_dates() {
+	date.value = route.params.day;
+	startDate.value = new Date(date.value);
+	endDate.value = new Date(date.value);
+	endDate.value.setDate(endDate.value.getDate() + 6);
+}
+
 
 const userData = useUserStore();
-const unterrichtData = useUnterrichtStore();
 const stundenData = useStundenStore();
+
+stundenData.setDate(date);
 
 const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"];
 const times = [
@@ -62,40 +77,47 @@ const times = [
 
 const stunden = ref(days.map(() => Array(times.length).fill("")));
 async function reload() {
-	const response = await fetch("http://localhost:8080/Backend/unterricht", {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: userData.token,
+	stunden.value = days.map(() => Array(times.length).fill(""));
+	const response = await fetch(
+		"http://localhost:8080/Backend/stunde/" +
+			startDate.value.toISOString().substring(0, 10) +
+			"/" +
+			endDate.value.toISOString().substring(0, 10),
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: userData.token,
+			},
 		},
-	});
+	);
+
 	if (!response.ok) {
 		console.log("Error");
 		return;
 	}
 
 	let data = await response.json();
-	console.log(data);
 
 	const temp = ref(days.map(() => Array(times.length).fill("")));
-	for (unterricht of data) {
+	for (stunde of data) {
 		for (
-			var stunde = unterricht.beginstunde;
-			stunde <= unterricht.endstunde;
-			stunde++
+			var s = stunde.unterricht.beginstunde;
+			s <= stunde.unterricht.endstunde;
+			s++
 		)
-			temp.value[unterricht.tag][stunde] = unterricht;
+			temp.value[stunde.unterricht.tag][s] = stunde;
 	}
-	unterrichtData.setUnterricht(temp);
+	stundenData.setStunden(temp);
 
-	console.log(temp.value);
-	for (var unterricht of data) {
+	for (var stunde of data) {
 		for (
-			var stunde = unterricht.beginstunde;
-			stunde <= unterricht.endstunde;
-			stunde++
+			var s = stunde.unterricht.beginstunde;
+			s <= stunde.unterricht.endstunde;
+			s++
 		)
-			stunden.value[unterricht.tag][stunde] = unterricht.kurs.fach;
+			stunden.value[stunde.unterricht.tag][s] =
+				stunde.unterricht.kurs.fach;
 	}
 
 	for (var i = 0; i < stunden.value.length; i++) {
@@ -106,10 +128,11 @@ async function reload() {
 	}
 }
 
-const openUnterricht = (timeIndex, dayIndex) => {
+const openStunden = (timeIndex, dayIndex) => {
 	if (stunden.value[dayIndex][timeIndex] == "") return;
+	stundenData.setDate(date);
 	router.push({
-		name: "unterricht",
+		name: "stunde",
 		params: {
 			day: dayIndex,
 			time: timeIndex,
@@ -119,8 +142,47 @@ const openUnterricht = (timeIndex, dayIndex) => {
 
 reload();
 console.log("Done");
+
+const nextWeek = async () => {
+	let date = route.params.day;
+	if (date == undefined) date = new Date();
+	else date = new Date(date);
+	stundenData.setDate(new Date(date.setDate(date.getDate() + 7)));	
+	await router.push("/stundenplan/" + stundenData.date.toISOString().split("T")[0]);
+	reload_dates();
+	await reload();
+};
+
+const previousWeek = async () => {
+	let date = route.params.day;
+	if (date == undefined) date = new Date();
+	else date = new Date(date);
+	stundenData.setDate(new Date(date.setDate(date.getDate() - 7)));
+	await router.push("/stundenplan/" + stundenData.date.toISOString().split("T")[0]);
+	reload_dates();
+	await reload();
+};
+
+const currentWeek = async () => {
+	const now = new Date();
+	const day = now.getDay();
+	const diff = now.getDate() - day + (day == 0 ? -6 : 1);
+	const thisWeekMonday = new Date(now.setDate(diff));
+	await router.push(
+		"/stundenplan/" + thisWeekMonday.toISOString().substring(0, 10),
+	);
+	reload_dates();
+	await reload();
+};
 </script>
 
 <style scoped>
 @import "../assets/shared_styles/stundenplan.css";
+
+.pfeil {
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
 </style>

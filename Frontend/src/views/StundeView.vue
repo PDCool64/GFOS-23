@@ -51,7 +51,7 @@ const goToStundenplan = () => {
 };
 
 const goToAbout = () => {
-	route.push("/stunde/anwesenheit/" + content.value.id);
+	route.push("/stunde/anwesenheit/" + stundenData.stunden[day.value][time.value].id);
 };
 
 const formatDate = (date, tag = 0) => {

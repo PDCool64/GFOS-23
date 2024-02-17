@@ -38,14 +38,9 @@ const router = createRouter({
 			component: () => import("../views/PasswortView.vue"),
 		},
 		{
-			path: "/stundenplan",
+			path: "/stundenplan/:day/",
 			name: "stundenplan",
 			component: () => import("../views/Stundenplan.vue"),
-		},
-		{
-			path: "/stundenplan/:day/",
-			name: "dynamic-stundenplan",
-			component: () => import("../views/DynamischerStundenplan.vue"),
 		},
 		{
 			path: "/kurs/create",
@@ -66,11 +61,6 @@ const router = createRouter({
 			path: "/kurs/:kurs/members",
 			name: "kurs-members",
 			component: () => import("../views/KursMembersView.vue"),
-		},
-		{
-			path: "/unterricht/:day/:time",
-			name: "unterricht",
-			component: () => import("../views/UnterrichtView.vue"),
 		},
 		{
 			path: "/unterricht/create/:kurs",

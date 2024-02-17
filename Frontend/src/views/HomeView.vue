@@ -1,5 +1,4 @@
 <script setup>
-import Stammdaten from "@/components/Stammdaten.vue";
 import CheckInCode from "@/components/CheckInCode.vue";
 import { useUserStore } from "@/stores/user";
 
