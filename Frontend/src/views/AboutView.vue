@@ -12,7 +12,6 @@ fetch_data();
 
 <template>
 	<div class="about">
-		<Anwesenheitsliste />
 	</div>
 </template>
 

@@ -6,6 +6,7 @@ package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Stunde;
+import com.ppj.backend.Entity.Stundeteilnahme;
 import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.PermissionFacade;
 import com.ppj.backend.Facades.StundeFacade;
@@ -14,6 +15,7 @@ import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.json.Json;
+import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import jakarta.json.bind.Jsonb;
@@ -26,9 +28,13 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.StringReader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import javax.print.DocFlavor.READER;
 
 /**
@@ -113,6 +119,31 @@ public class StundeWebservice {
 		);
 	}
 
+	@PUT
+	@Path("/teilnahme/{stundeId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateTeilnahme(
+		@HeaderParam("Authorization") String token,
+		@PathParam("stundeId") int id,
+		String json
+	) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseService.unauthorized();
+		Jsonb jsonb = JsonbBuilder.create();
+		List<Stundeteilnahme> stundenteilnahmenList = jsonb.fromJson(
+			json,
+			new ArrayList<Stundeteilnahme>() {}
+				.getClass()
+				.getGenericSuperclass()
+		);
+		List<Stundeteilnahme> updated = stundeFacade.updateTeilnahmen(
+			stundenteilnahmenList
+		);
+		return responseService.ok(jsonb.toJson(updated));
+	}
+
 	@GET
 	@Path("/aktuell")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -147,11 +178,19 @@ public class StundeWebservice {
 		Account account = permissionFacade.getAccountByToken(token);
 		Stunde s = stundeFacade.getStundeById(id);
 		if (s == null) {
-			return responseService.status(404, "{\"message\": \"Stunde nicht gefunden\"}");
+			return responseService.status(
+				404,
+				"{\"message\": \"Stunde nicht gefunden\"}"
+			);
 		}
 		if (!s.getCheckincode().equals(jsonObject.getString("code"))) {
-			System.out.println(s.getCheckincode() + " " + jsonObject.getString("code"));
-			return responseService.status(421, "{\"message\": \"Checkin fehlgeschlagen\"}");
+			System.out.println(
+				s.getCheckincode() + " " + jsonObject.getString("code")
+			);
+			return responseService.status(
+				421,
+				"{\"message\": \"Checkin fehlgeschlagen\"}"
+			);
 		}
 
 		if (stundeFacade.checkin(account, s)) {

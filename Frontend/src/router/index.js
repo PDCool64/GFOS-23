@@ -87,6 +87,11 @@ const router = createRouter({
 			name: "stunde",
 			component: () => import("../views/StundeView.vue"),
 		},
+		{
+			path: "/stunde/anwesenheit/:id",
+			name: "anwesenheit",
+			component: () => import("../views/AnwesenheitsListView.vue"),
+		}
 	],
 });
 

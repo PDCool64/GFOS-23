@@ -1,0 +1,80 @@
+[
+	{
+		"account": {
+			"email": "philippdoering64@web.de",
+			"geburtsdatum": "2006-11-18T23:00:00Z[UTC]",
+			"id": 5,
+			"isadmin": true,
+			"name": "Doering",
+			"vorname": "Philipp"
+		},
+		"anwesend": false,
+		"begintimestamp": "2024-02-16T22:29:23.568Z[UTC]",
+		"id": 56,
+		"stunde": {
+			"checkincode": "78533",
+			"datum": "2024-02-15T23:00:00Z[UTC]",
+			"id": 885,
+			"unterricht": {
+				"beginstunde": 0,
+				"endstunde": 1,
+				"id": 10,
+				"kurs": {
+					"art": "LK",
+					"fach": "Mathe",
+					"id": 0,
+					"leiter": {
+						"email": "philippdoering64@web.de",
+						"geburtsdatum": "2006-11-18T23:00:00Z[UTC]",
+						"id": 0,
+						"isadmin": true,
+						"name": "Doering",
+						"vorname": "Philipp"
+					},
+					"nummer": 1,
+					"stufe": 11
+				},
+				"tag": 4
+			}
+		},
+		"note": "-"
+	},
+	{
+		"account": {
+			"email": "philipp@trutz.de",
+			"geburtsdatum": "2008-07-14T22:00:00Z[UTC]",
+			"id": 1,
+			"isadmin": false,
+			"name": "Trutz",
+			"vorname": "Philipp"
+		},
+		"anwesend": false,
+		"id": 57,
+		"stunde": {
+			"checkincode": "78533",
+			"datum": "2024-02-15T23:00:00Z[UTC]",
+			"id": 885,
+			"unterricht": {
+				"beginstunde": 0,
+				"endstunde": 1,
+				"id": 10,
+				"kurs": {
+					"art": "LK",
+					"fach": "Mathe",
+					"id": 0,
+					"leiter": {
+						"email": "philippdoering64@web.de",
+						"geburtsdatum": "2006-11-18T23:00:00Z[UTC]",
+						"id": 0,
+						"isadmin": true,
+						"name": "Doering",
+						"vorname": "Philipp"
+					},
+					"nummer": 1,
+					"stufe": 11
+				},
+				"tag": 4
+			}
+		}
+	}
+]

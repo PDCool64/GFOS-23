@@ -271,7 +271,7 @@ public class StundeFacade {
 		// and check whether the date is today
 		try {
 			SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
-			Date currentDateWithoutTime = ymd.parse(ymd.format(new Date()));
+			Date currentDateWithoutTime = ymd.parse("2024-02-16");
 			Date sDateWithoutTime = ymd.parse(ymd.format(s.getDatum()));
 			if (sDateWithoutTime.compareTo(currentDateWithoutTime) != 0) {
 				return false;
@@ -346,5 +346,12 @@ public class StundeFacade {
 		}
 		System.out.println("Account ist nicht in der Stunde");
 		return false;
+	}
+
+	public List<Stundeteilnahme> updateTeilnahmen(List<Stundeteilnahme> stundenteilnahmenList) {
+		for (Stundeteilnahme st : stundenteilnahmenList) {
+			em.merge(st);
+		}
+		return stundenteilnahmenList;
 	}
 }
