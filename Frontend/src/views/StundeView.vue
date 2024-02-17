@@ -23,6 +23,7 @@
 				<p class="unterricht__card-text">
 					Datum: {{ formatDate(stundenData.date, content.tag) }}
 				</p>
+				<button @click="goToAbout">Anwesenheit</button>
 			</div>
 		</div>
 	</div>
@@ -47,6 +48,10 @@ content.value = stundenData.stunden[day.value][time.value].unterricht;
 
 const goToStundenplan = () => {
 	route.push("/stundenplan/" + stundenData.date);
+};
+
+const goToAbout = () => {
+	route.push("/stunde/anwesenheit/" + content.value.id);
 };
 
 const formatDate = (date, tag = 0) => {
@@ -105,5 +110,20 @@ const formatDate = (date, tag = 0) => {
 	width: 25px;
 	height: 25px;
 	opacity: 0.64;
+}
+.button-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+button {
+	padding: 10px;
+	background-color: var(--button-blue);
+	color: var(--color-text);
+	border: none;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-left: auto;
+	cursor: pointer
 }
 </style>
