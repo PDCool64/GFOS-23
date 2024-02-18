@@ -17,7 +17,6 @@ export const setIsLeiter = async () => {
 };
 
 export const login = async (email, password) => {
-    console.log(email, password);
 	const response = await fetch("http://localhost:8080/Backend/login", {
 		method: "POST",
 		headers: {
@@ -33,6 +32,7 @@ export const login = async (email, password) => {
 	data.account = account;
 	userData.setData(data);
 	setIsLeiter();
+	return response.ok;
 };
 
 export const changePassword = async (oldPassword, newPassword) => {
@@ -51,4 +51,17 @@ export const changePassword = async (oldPassword, newPassword) => {
 		},
 	);
     return response.ok;
+};
+
+export const createAccount = async (account, password) => {
+const response = await fetch("http://localhost:8080/Backend/account", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: userData.token,
+			password: password,
+		},
+		body: JSON.stringify(account)
+	})
+	return response.status;
 };

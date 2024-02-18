@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="password">
-			<DataForm
+			<CustomForm
 				:fields="[
 					{
 						id: 'old-password',
@@ -29,7 +29,7 @@
 import { ref } from "vue";
 import router from "@/router";
 import { changePassword } from "@/requests/account";
-import DataForm from "@/components/DataForm.vue";
+import CustomForm from "@/components/CustomForm.vue";
 
 const oldPassword = ref("");
 const newPassword = ref("");

@@ -1,18 +1,22 @@
 <template>
 	<div class="wrapper">
-			<DataForm
-				:fields="[
-					{ id: 'email', label: 'Email:', model: email, type: 'text' },
-					{ id: 'password', label: 'Password:', model: password, type: 'password' }
-				]"
-				buttonText="Login"
-				header="Login"
-				:onSubmit="submitForm"
-				:isButtonDisabled="isButtonDisabled"
-				:error="error"
-				:errorMessage="errorMessage"
+		<CustomForm header="Login" buttonText="Submit" @submit="submitForm">
+			<input
+				id="email"
+				v-model="email"
+				type="text"
+				placeholder="Email"
+				required
 			/>
-		</div>
+			<input
+				id="password"
+				v-model="password"
+				type="password"
+				placeholder="Password"
+				required
+			/>
+		</CustomForm>
+	</div>
 </template>
 
 <script setup>
@@ -20,7 +24,7 @@ import { ref } from "vue";
 import router from "@/router";
 import { useUserStore } from "@/stores/user";
 import { setIsLeiter, login } from "@/requests/account";
-import DataForm from "@/components/DataForm.vue";
+import CustomForm from "@/components/CustomForm.vue";
 
 const email = ref("");
 const password = ref("");
@@ -33,15 +37,14 @@ const isButtonDisabled = ref(false);
 const userData = useUserStore();
 
 const submitForm = async () => {
-	console.log("submitForm");
-	console.log(email.value);
 	isButtonDisabled.value = true;
-	
-	error.value = login(email.value, password.value);
+
+	error.value = !login(email.value, password.value);
 
 	if (error.value) {
 		errorMessage.value = "Die Email oder das Passwort ist falsch.";
 		isButtonDisabled.value = false;
+		console.log("Login failed");
 	} else {
 		errorMessage.value = "Login erfolgreich.";
 		router.push("/");
@@ -50,8 +53,7 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-@import "../assets/shared_styles/form.css";
-
+@import "../assets/shared_styles/form_inputs.css";
 button:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;

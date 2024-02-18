@@ -1,7 +1,11 @@
 <template>
 	<div class="wrapper">
-		<h1>Erstelle einen Unterricht</h1>
-		<form @submit.prevent="createUnterricht(unterricht)" class="form">
+		<CustomForm
+			@submit.prevent="createUnterricht(unterricht)"
+			class="form"
+			button-text="Erstellen"
+			header="Unterricht&nbsp;erstellen"
+		>
 			<label for="startDate">Kursanfang</label>
 			<input
 				type="date"
@@ -46,9 +50,7 @@
 					<option value="4">Friday</option>
 				</select>
 			</div>
-
-			<button type="submit">Erstellen</button>
-		</form>
+		</CustomForm>
 	</div>
 </template>
 
@@ -57,6 +59,7 @@ import { computed, ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useRoute } from "vue-router";
 import { createUnterricht } from "@/requests/unterricht";
+import CustomForm from "@/components/CustomForm.vue";
 
 const route = useRoute();
 const kursId = route.params.kurs;
@@ -80,12 +83,10 @@ const unterricht = computed(() => {
 		},
 	};
 });
-
 </script>
 
 <style scoped>
-@import "../assets/shared_styles/form.css";
-
+@import "../assets/shared_styles/form_inputs.css";
 .wrapper {
 	display: flex;
 	justify-content: center;

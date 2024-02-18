@@ -1,0 +1,16 @@
+input:-webkit-autofill {
+    background-color: var(--fourth-color);
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--fourth-color) !important;
+    color: var(--color-text) !important;
+    outline: none;
+}
+
+

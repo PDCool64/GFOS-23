@@ -1,8 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="registration form">
-			<h1>Erstelle einen Kurs</h1>
-			<form @submit.prevent="createKurs(kurs)">
+			<CustomForm @submit.prevent="createKurs(kurs)" header="Kurs&nbsp;erstellen" button-text="Erstellen">
 				<input
 					v-model="leiter"
 					type="email"
@@ -43,8 +42,7 @@
 					placeholder="Stufe"
 					required
 				/>
-				<button type="submit">Erstellen</button>
-			</form>
+			</CustomForm>
 		</div>
 	</div>
 </template>
@@ -53,6 +51,7 @@
 import { computed, ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import { createKurs } from "@/requests/kurs";
+import CustomForm from "@/components/CustomForm.vue";
 
 const userData = useUserStore();
 
@@ -74,7 +73,7 @@ const kurs = computed(() => {
 </script>
 
 <style scoped>
-@import "../assets/shared_styles/form.css";
+@import "../assets/shared_styles/form_inputs.css";
 input {
 	padding: auto;
 }

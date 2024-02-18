@@ -1,6 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useUserStore } from "@/stores/user";
+import CustomForm from "@/components/CustomForm.vue";
+import { createAccount } from "@/requests/account";
 
 const userData = useUserStore();
 
@@ -16,35 +18,30 @@ const error = ref(false);
 const errorMessage = ref("");
 const isButtonDisabled = ref(false);
 
-const submitForm = async () => {
-	isButtonDisabled.value = true;
-	const response = await fetch("http://localhost:8080/Backend/account", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: userData.token,
-			password: password.value,
-		},
-		body: JSON.stringify({
-			vorname: vorname.value,
-			name: nachname.value,
-			email: email.value,
-			geburtsdatum: geburtstag.value + "T00:00:00Z[UTC]",
-			isadmin: isadmin.value,
-		}),
-	});
+const account = computed(() => {
+	return {
+		vorname: vorname.value,
+		nachname: nachname.value,
+		email: email.value,
+		password: password.value,
+		geburtstag: geburtstag.value,
+		isadmin: isadmin.value,
+	};
+});
 
-	if (response.status === 400) {
+const submitForm = async (account, password) => {
+	isButtonDisabled.value = true;
+	let statuscode = createAccount(account, password);
+	if (statuscode === 400) {
 		errorMessage.value = "Ein Account mit dieser Email existiert bereits.";
 		error.value = true;
 		isButtonDisabled.value = false;
 	}
-	if (!response.ok) {
+	if (!(statuscode >= 200 && statuscode < 300)) {
 		errorMessage.value = "Etwas anderes ist schief gelaufen";
 		isButtonDisabled.value = false;
 	} else {
 		const data = await response.json();
-		console.log(data);
 		errorMessage.value = "Registrierung erfolgreich.";
 		error.value = false;
 		isButtonDisabled.value = true;
@@ -56,7 +53,11 @@ const submitForm = async () => {
 	<div class="wrapper">
 		<div class="registration form">
 			<h1>Registrierung</h1>
-			<form @submit.prevent="submitForm">
+			<CustomForm
+				@submit.prevent="submitForm"
+				button-text="Registrieren"
+				header=""
+			>
 				<input
 					v-model="vorname"
 					type="text"
@@ -107,24 +108,21 @@ const submitForm = async () => {
 						v-model="isadmin"
 					/>
 				</div>
-				<button type="submit" :disabled="isButtonDisabled">
-					Register
-				</button>
-				<p
-					:class="{
-						'error-message': error,
-						'success-message': !error,
-					}"
-				>
-					{{ errorMessage }}
-				</p>
-			</form>
+			</CustomForm>
+			<p
+				:class="{
+					'error-message': error,
+					'success-message': !error,
+				}"
+			>
+				{{ errorMessage }}
+			</p>
 		</div>
 	</div>
 </template>
 
 <style scoped>
-@import "../assets/shared_styles/form.css";
+@import "../assets/shared_styles/form_inputs.css";
 .wrapper {
 	min-height: 100vh;
 	display: flex;
