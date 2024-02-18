@@ -37,7 +37,7 @@
 					</tr>
 				</table>
 			</div>
-			<button @click="pushData">Save</button>
+			<button @click="updateTeilnahmen(toJson, stundenId)">Save</button>
 		</div>
 	</div>
 </template>
@@ -46,6 +46,8 @@
 import { computed, onMounted, ref } from "vue";
 import data from "@/assets/test_data/anwesenheit.json";
 import { useRoute } from "vue-router";
+import { updateTeilnahmen, getTeilnahmen } from "@/requests/stunde";
+
 
 const route = useRoute();
 
@@ -63,41 +65,11 @@ const toJson = computed(() => {
     return JSON.stringify(res);
 });
 
-const getData = async () => {
-	const response = await fetch(
-		"http://localhost:8080/Backend/stunde/teilnahme/" + stundenId,
-	);
-	sampleData.value = await response.json();
-	return sampleData;
-};
-
-const pushData = async () => {
-	console.log({
-		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: toJson.value,
-	});
-	const response = await fetch(
-		"http://localhost:8080/Backend/stunde/teilnahme/" + stundenId,
-		{
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: toJson.value,
-		},
-	);
-
-	let data = await response.json();
-	console.log(data);
-	return data;
-};
 
 const setup = async () => {
-	await getData();
-	pushData();
+	sampleData.value = getTeilnahmen(stundenId).then((res) => {
+		sampleData.value = res;
+	});
 };
 
 onMounted(() => {

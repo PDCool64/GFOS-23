@@ -7,7 +7,7 @@ form {
 	display: grid;
 	grid-template-columns: 1fr auto;
 	gap: 10px;
-
+	
 }
 .link {
 	display: block;
@@ -30,14 +30,14 @@ form {
 input {
 	border-radius: 5px;
 	border: none;
-	background-color: var(--second-color);
+	background-color: var(--fourth-color);
 	flex-grow: 1;
 	width: 100%;
 	outline: none;
 	padding: 3px;
 	text-align: center;
-	color: var(--black);
 	font-weight: bold;
+	color: var(--color-text);
 }
 
 button {
@@ -46,12 +46,11 @@ button {
 	border: none;
 	border-radius: 40px;
 	color: var(--black);
-	background-color: var(--first-color);
+	background-color: var(--third-color);
 	width: 100%;
 	grid-column: span 2;
     margin: 10px 0;
 	font-weight: bold;
-	border: 2px solid black;
 }
 
 button:hover {

@@ -1,7 +1,27 @@
+<template>
+	<div class="wrapper">
+			<DataForm
+				:fields="[
+					{ id: 'email', label: 'Email:', model: email, type: 'text' },
+					{ id: 'password', label: 'Password:', model: password, type: 'password' }
+				]"
+				buttonText="Login"
+				header="Login"
+				:onSubmit="submitForm"
+				:isButtonDisabled="isButtonDisabled"
+				:error="error"
+				:errorMessage="errorMessage"
+			/>
+		</div>
+</template>
+
 <script setup>
 import { ref } from "vue";
 import router from "@/router";
 import { useUserStore } from "@/stores/user";
+import { setIsLeiter, login } from "@/requests/account";
+import DataForm from "@/components/DataForm.vue";
+
 const email = ref("");
 const password = ref("");
 
@@ -12,90 +32,22 @@ const isButtonDisabled = ref(false);
 
 const userData = useUserStore();
 
-const setIsLeiter = async () => {
-	const response = await fetch(
-		"http://localhost:8080/Backend/account/isleiter",
-		{
-			method: "GET",
-			headers: {
-				Authorization: userData.token,
-			},
-		},
-	);
-	const data = await response.json();
-	userData.setIsLeiter(data.isLeiter);
-};
-
 const submitForm = async () => {
+	console.log("submitForm");
+	console.log(email.value);
 	isButtonDisabled.value = true;
-	const response = await fetch("http://localhost:8080/Backend/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			email: email.value,
-			password: password.value,
-		}),
-	});
+	
+	error.value = login(email.value, password.value);
 
-	if (!response.ok) {
+	if (error.value) {
 		errorMessage.value = "Die Email oder das Passwort ist falsch.";
-		error.value = true;
 		isButtonDisabled.value = false;
 	} else {
-		const data = await response.json();
 		errorMessage.value = "Login erfolgreich.";
-		error.value = false;
-		const account = JSON.parse(data.account);
-		data.account = account;
-		userData.setData(data);
-		setIsLeiter();
 		router.push("/");
 	}
 };
 </script>
-
-<template>
-	<div class="wrapper">
-		<div class="login form">
-			<h1>Login</h1>
-			<form method="post" @submit.prevent="submitForm">
-				<input
-					v-model="email"
-					type="text"
-					id="email"
-					name="email"
-					placeholder="Email"
-					required
-				/>
-				<input
-					v-model="password"
-					type="password"
-					id="password"
-					name="password"
-					placeholder="Password"
-					required
-				/>
-				<button
-					type="submit"
-					class="button"
-					:disabled="isButtonDisabled"
-				>
-					Login
-				</button>
-				<p
-					:class="{
-						'error-message': error,
-						'success-message': !error,
-					}"
-				>
-					{{ errorMessage }}
-				</p>
-			</form>
-		</div>
-	</div>
-</template>
 
 <style scoped>
 @import "../assets/shared_styles/form.css";
@@ -110,5 +62,6 @@ button:disabled {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 }
 </style>

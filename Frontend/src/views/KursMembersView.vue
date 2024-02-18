@@ -3,10 +3,13 @@
 		<div class="grid">
 			<div class="neues-mitglied">
 				<form @submit.prevent="submitForm" v-if="isAdding">
-					<input type="text" class="input" placeholder="Email" v-model="email"/>
-					<button class="submit_button" type="submit">
-						OK
-					</button>
+					<input
+						type="text"
+						class="input"
+						placeholder="Email"
+						v-model="email"
+					/>
+					<button class="submit_button" type="submit">OK</button>
 				</form>
 				<img
 					class="image"
@@ -50,9 +53,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useRoute } from "vue-router";
+import { getTeilnahmen, createTeilnehmer } from "@/requests/kurs";
 
 const route = useRoute();
 const userData = useUserStore();
@@ -68,45 +72,19 @@ const formatDate = (date) => {
 	return temp.toLocaleDateString();
 };
 
-const getTeilnahmen = async () => {
-	const response = await fetch(
-		"http://localhost:8080/Backend/kurs/teilnahmen/" + kursId,
-		{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: userData.token,
-			},
-		},
-	);
-	if (!response.ok) {
-		console.log("Error");
-		return;
-	}
-	let data = await response.json();
-	teilnahmen.value = data;
-};
-
 async function submitForm() {
 	isAdding.value = false;
-	const response = await fetch(
-		"http://localhost:8080/Backend/kurs/teilnehmer/" + kursId + "/" + email.value,
-		{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: userData.token,
-			},
-		},
-	);
-	getTeilnahmen();
-
+	let created = await createTeilnehmer(kursId, email.value);
+	email.value = "";
+	teilnahmen.value = await getTeilnahmen(kursId);
 }
 
-
-getTeilnahmen();
+onMounted(() => {
+	getTeilnahmen(kursId).then((data) => {
+		teilnahmen.value = data;
+	});
+});
 </script>
-
 
 <style scoped>
 @import "../assets/shared_styles/account_list.css";
@@ -152,7 +130,7 @@ getTeilnahmen();
 	cursor: pointer;
 }
 
-form{
+form {
 	display: flex;
 	justify-content: flex-end;
 	width: 70%;

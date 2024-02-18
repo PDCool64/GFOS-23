@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<h1>Erstelle einen Unterricht</h1>
-		<form @submit.prevent="submitForm" class="form">
+		<form @submit.prevent="createUnterricht(unterricht)" class="form">
 			<label for="startDate">Kursanfang</label>
 			<input
 				type="date"
@@ -53,9 +53,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useRoute } from "vue-router";
+import { createUnterricht } from "@/requests/unterricht";
 
 const route = useRoute();
 const kursId = route.params.kurs;
@@ -67,41 +68,24 @@ const endDate = ref("");
 const beginStunde = ref();
 const endStunde = ref();
 const tag = ref(0);
-
-async function submitForm() {
-	const response = await fetch("http://localhost:8080/Backend/unterricht", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: userData.token,
+const unterricht = computed(() => {
+	return {
+		startDate: startDate.value,
+		endDate: endDate.value,
+		unterricht: {
+			beginStunde: parseInt(beginStunde.value) - 1,
+			endStunde: parseInt(endStunde.value) - 1,
+			id: parseInt(kursId),
+			tag: parseInt(tag.value),
 		},
-		body: JSON.stringify({
-			startDate: startDate.value,
-			endDate: endDate.value,
-			unterricht: {
-				beginStunde: parseInt(beginStunde.value) - 1,
-				endStunde: parseInt(endStunde.value) - 1,
-				id: parseInt(kursId),
-				tag: parseInt(tag.value),
-			},
-		}),
-	});
-}
+	};
+});
+
 </script>
 
 <style scoped>
 @import "../assets/shared_styles/form.css";
-input {
-	padding: auto;
-}
-form button {
-	width: 100%;
-	padding: 10px;
-	background-color: var(--button-blue);
-	color: white;
-	border: none;
-	border-radius: 5px;
-}
+
 .wrapper {
 	display: flex;
 	justify-content: center;
@@ -127,12 +111,14 @@ form button {
 
 	border-radius: 4px;
 	font-size: 16px;
+	color: var(--color-text);
+
+	background-color: var(--fourth-color);
+	border: none;
+	box-shadow: none;
 }
 
 .input-group select:focus {
 	outline: 0;
-	box-shadow:
-		inset 0 1px 1px rgba(0, 0, 0, 0.075),
-		0 0 8px rgba(102, 175, 233, 0.6);
 }
 </style>

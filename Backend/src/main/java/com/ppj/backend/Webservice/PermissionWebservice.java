@@ -72,7 +72,7 @@ public class PermissionWebservice {
 			return responseService.status(403, "Account nicht gefunden");
 		}
 		if (tokenID == null) {
-			return responseService.status(401, "Login fehlgeschlagen");
+			return responseService.unauthorized("Falsche Anmeldedaten");
 		} else {
 			Account a = accountFacade.getAccountById(tokenID.id);
 			JsonObject json = Json.createObjectBuilder()

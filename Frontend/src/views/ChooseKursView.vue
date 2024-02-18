@@ -18,34 +18,25 @@
 import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
 import router from "@/router";
+import { getLeiterKurse } from "@/requests/kurs";
 
 const userData = useUserStore();
 
 const kurse = ref([]);
 
+const setup = async () => {
+	kurse.value = await getLeiterKurse();
+};
+
 onMounted(() => {
-	getKurse();
+	setup();
 });
 
 function createUnterricht(kursId) {
 	router.push("/kurs/verwalten/" + kursId);
 }
 
-async function getKurse() {
-	const response = await fetch("http://localhost:8080/Backend/kurs/leiter/", {
-		method: "GET",
-		headers: {
-			Authorization: userData.token,
-		},
-	});
 
-	if (response.ok) {
-		const data = await response.json();
-		kurse.value = data;
-	} else {
-		console.log("Error fetching data");
-	}
-}
 </script>
 
 <style scoped>

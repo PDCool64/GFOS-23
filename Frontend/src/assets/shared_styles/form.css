@@ -17,16 +17,20 @@
     margin-bottom: 10px;
     box-sizing: border-box;
     border-radius: 5px;
-    border-left: 5px solid var(--input-border-color);
-    border-right: 5px solid var(--input-border-color);
-    border-top: none;
-    border-bottom: none;
+    border: none;
+    background-color: var(--fourth-color) !important;
+    color: var(--color-text) !important;
+    outline: none;
+}
+
+input:-webkit-autofill {
+    background-color: var(--fourth-color);
 }
 
 .form button {
     width: 100%;
     padding: 10px;
-    background-color: var(--button-blue);
+    background-color: var(--third-color);
     color: white;
     border: none;
     border-radius: 5px;

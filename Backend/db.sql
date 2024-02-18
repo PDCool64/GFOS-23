@@ -133,11 +133,6 @@ VALUES
         13
     );
 
-INSERT INTO
-    APP.STUNDEBEWERTUNG (ACCOUNT, STUNDE, NOTE, KOMMENTAR)
-VALUES
-    (0, 0, 13, 'Guter Unterricht')
-
 INSERT INTO 
     APP.UNTERRICHT (
         KURS,

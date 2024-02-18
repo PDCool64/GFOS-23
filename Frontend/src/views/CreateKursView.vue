@@ -2,15 +2,15 @@
 	<div class="wrapper">
 		<div class="registration form">
 			<h1>Erstelle einen Kurs</h1>
-			<form @submit.prevent="submitForm">
-                <input
-                    v-model="leiter"
-                    type="email"
-                    id="leiter"
-                    name="leiter"
-                    placeholder="Leiter"
-                    required
-                />
+			<form @submit.prevent="createKurs(kurs)">
+				<input
+					v-model="leiter"
+					type="email"
+					id="leiter"
+					name="leiter"
+					placeholder="Leiter"
+					required
+				/>
 				<input
 					v-model="fach"
 					type="text"
@@ -35,14 +35,14 @@
 					placeholder="Nummer"
 					required
 				/>
-                <input
-                    v-model="stufe"
-                    type="number"
-                    id="stufe"
-                    name="stufe"
-                    placeholder="Stufe"
-                    required
-                />
+				<input
+					v-model="stufe"
+					type="number"
+					id="stufe"
+					name="stufe"
+					placeholder="Stufe"
+					required
+				/>
 				<button type="submit">Erstellen</button>
 			</form>
 		</div>
@@ -50,33 +50,27 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useUserStore } from "@/stores/user";
+import { createKurs } from "@/requests/kurs";
 
 const userData = useUserStore();
 
-const leiter =  ref("");
+const leiter = ref("");
 const fach = ref("");
 const art = ref("");
 const nummer = ref("");
 const stufe = ref("");
+const kurs = computed(() => {
+	return {
+		leiter: leiter.value,
+		fach: fach.value,
+		art: art.value,
+		nummer: nummer.value,
+		stufe: stufe.value,
+	};
+});
 
-const submitForm = () => {
-    const response = fetch("http://localhost:8080/Backend/kurs", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": userData.token,
-        },
-        body: JSON.stringify({
-            leiter: leiter.value,
-            fach: fach.value,
-            art: art.value,
-            nummer: nummer.value,
-            stufe: stufe.value,
-       }),
-    });
-};
 </script>
 
 <style scoped>
