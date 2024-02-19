@@ -81,4 +81,9 @@ public class UnterrichtFacade {
             return null;
         }
     }
+
+    public void deleteUnterricht(Unterricht unterricht) {
+        em.remove(unterricht);
+        em.flush();
+    }
 }

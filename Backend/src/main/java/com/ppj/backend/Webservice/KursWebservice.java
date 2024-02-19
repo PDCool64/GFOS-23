@@ -270,4 +270,26 @@ public class KursWebservice {
 			jsonb.toJson(kursFacade.getTeilnahmenByKurs(kursId))
 		);
 	}
+
+	@GET
+	@Path("/test/delete/{kursId}/")
+	public Response testDelete(@PathParam("kursId") int kursId) {
+		kursFacade.deleteKurs(kursFacade.getKursById(kursId));
+		return responseFacade.ok("Kurs wurde gelöscht.");
+	}
+	
+	@GET
+	@Path("/leiter/{kursId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response isLeiter(
+		@HeaderParam("Authorization") String token,
+		@PathParam("kursId") int kursId
+	) {
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
+			"Token ist ungültig"
+		);
+		Account a = permissionFacade.getAccountByToken(token);
+		Kurs k = kursFacade.getKursById(kursId);
+		return responseFacade.ok(jsonb.toJson(k.getLeiter() == a));
+	}
 }

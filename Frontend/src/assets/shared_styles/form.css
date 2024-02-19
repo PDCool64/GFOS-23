@@ -48,3 +48,9 @@
         font-weight: bold;
         margin-top: 10px;
 }
+
+
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

@@ -1,6 +1,11 @@
 <template>
 	<div class="wrapper">
-		<CustomForm header="Login" buttonText="Submit" @submit="submitForm">
+		<CustomForm
+			header="Login"
+			buttonText="Submit"
+			@submit="submitForm"
+			v-model="isButtonDisabled"
+		>
 			<input
 				id="email"
 				v-model="email"
@@ -23,7 +28,7 @@
 import { ref } from "vue";
 import router from "@/router";
 import { useUserStore } from "@/stores/user";
-import { setIsLeiter, login } from "@/requests/account";
+import { login } from "@/requests/account";
 import CustomForm from "@/components/CustomForm.vue";
 
 const email = ref("");
@@ -37,11 +42,14 @@ const isButtonDisabled = ref(false);
 const userData = useUserStore();
 
 const submitForm = async () => {
+	console.log("submitForm");
 	isButtonDisabled.value = true;
 
-	error.value = !login(email.value, password.value);
+	error.value = await login(email.value, password.value);
 
-	if (error.value) {
+	console.log(error.value);
+
+	if (!error.value) {
 		errorMessage.value = "Die Email oder das Passwort ist falsch.";
 		isButtonDisabled.value = false;
 		console.log("Login failed");
@@ -54,10 +62,7 @@ const submitForm = async () => {
 
 <style scoped>
 @import "../assets/shared_styles/form_inputs.css";
-button:disabled {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
+
 
 .wrapper {
 	min-height: 100vh;

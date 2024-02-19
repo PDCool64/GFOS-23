@@ -22,6 +22,7 @@ import jakarta.json.JsonReader;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
@@ -130,4 +131,44 @@ public class UnterrichtWebservice {
 			);
 		}
 	}
+
+	@GET
+	@Path("/kurs/{kursId}")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public Response getUnterrichtByKurs(
+		@HeaderParam("Authorization") String token,
+		@PathParam("kursId") int kursId
+	) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseService.unauthorized();
+		System.out.println("KursId: " + kursId);
+		Kurs k = kursFacade.getKursById(kursId);
+		System.out.println("Kurs: " + k);
+		if (k == null) return responseService.status(404, "Kurs nicht gefunden");
+		return responseService.ok(
+			jsonb.toJson(unterrichtFacade.getUnterrichtByKurs(k))
+		);
+	}
+
+	@DELETE
+	@Path("/{id}")
+	public Response deleteUnterrichtById(
+		@HeaderParam("Authorization") String token,
+		@PathParam("id") int id
+	){
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseService.unauthorized();
+		Unterricht unterricht = unterrichtFacade.getUnterrichtById(id);
+		if (unterricht == null) return responseService.status(
+			404,
+			"Unterricht nicht gefunden"
+		);
+		stundeFacade.deleteStundenByUnterricht(unterricht);
+		unterrichtFacade.deleteUnterricht(unterricht);
+		unterricht.getKurs().getUnterrichtList().remove(unterricht);
+		return responseService.ok("Unterricht gelöscht");
+	}
+
 }
