@@ -1,7 +1,10 @@
 <template>
 	<div class="check-in-code">
-		<h1 v-if="!eingeloggt" >Gib deinen CheckIn-Code ein</h1>
-		<h2 v-if="stunde != undefined">Du hast gerade {{ stunde.unterricht.kurs.fach }}</h2>
+		<h1 v-if="!eingeloggt">Gib deinen CheckIn-Code ein</h1>
+		<h2 v-if="stunde != undefined">
+			Du hast gerade {{ stunde.unterricht.kurs.fach }} ({{ stunde.unterricht.kurs.art }}{{ stunde.unterricht.kurs.nummer }}) 
+		</h2>
+		<p v-if="stunde != undefined">Bei {{ stunde.unterricht.kurs.leiter.vorname }} {{ stunde.unterricht.kurs.leiter.name }}</p>
 		<form @submit.prevent="submitCode">
 			<div v-if="!eingeloggt" class="input-container">
 				<input
@@ -16,9 +19,20 @@
 					:id="`input-${index}`"
 				/>
 			</div>
-			<img class="success_image" v-if="showSuccessMessage" src="../assets/pictures/success.png" alt="eingeloggt">
+			<img
+				class="success_image"
+				v-if="showSuccessMessage"
+				src="../assets/pictures/success.png"
+				alt="eingeloggt"
+			/>
 		</form>
-		<button class="checkout_button" v-if="showCheckOutButton && !showSuccessMessage">Check Out</button>
+		<button
+			class="checkout_button"
+			v-if="showCheckOutButton && !showSuccessMessage"
+			@click="checkOut"
+		>
+			Check Out
+		</button>
 	</div>
 </template>
 
@@ -27,6 +41,7 @@ import { ref, onMounted, nextTick } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useStundenStore } from "@/stores/stunden";
 import router from "@/router";
+import { checkin, checkout } from "@/requests/stunde";
 
 const userData = useUserStore();
 const stundenData = useStundenStore();
@@ -99,26 +114,25 @@ const handleDelete = () => {
 };
 
 const submitCode = async () => {
-	const response = await fetch("http://localhost:8080/Backend/stunde/checkin/" + stundenData.aktuelleStunde.id, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: userData.token,
-		},
-		body: JSON.stringify({
-			code: code.value.join(""),
-		}),
-	});
-	if (response.ok) {
+	let daten = await checkin(stundenData.aktuelleStunde.id, code.value.join(""));
+
+	if (daten === null) {
+		console.log("Error");
+	}
+	eingeloggt.value = true;
+	showSuccessMessage.value = true;
+	setTimeout(() => {
+		showSuccessMessage.value = false;
+	}, 2000);
+	showCheckOutButton.value = true;
+};
+
+const checkOut_ = async () => {
+	let data = await checkout(stundenData.aktuelleStunde.id);
+	if (data !== null) {
 		console.log("Success");
-		eingeloggt.value = true;
-		showSuccessMessage.value = true;
-		let data = await response.json();
-		console.log(data);
-		setTimeout(() => {
-			showSuccessMessage.value = false;
-		}, 2000);
-		showCheckOutButton.value = true;
+		eingeloggt.value = false;
+		showCheckOutButton.value = false;
 	} else {
 		console.log("Error");
 	}
@@ -138,6 +152,12 @@ h2 {
 	text-align: center;
 }
 
+p {
+	color: var(--color-text);
+	font-size: calc(var(--text-size) * 1.2);
+	text-align: center;
+}
+
 .success_image {
 	width: 80px;
 	height: 80px;
@@ -145,7 +165,6 @@ h2 {
 	margin: 0 auto;
 	margin-top: 20px;
 }
-
 
 .input-container {
 	display: flex;
@@ -194,5 +213,6 @@ button {
 	background-color: transparent;
 	border: none;
 	color: var(--color-text);
-	cursor: pointer;}
+	cursor: pointer;
+}
 </style>

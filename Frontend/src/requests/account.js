@@ -30,6 +30,7 @@ export const login = async (email, password) => {
 	const data = await response.json();
 	const account = JSON.parse(data.account);
 	data.account = account;
+	console.log(data);
 	userData.setData(data);
 	setIsLeiter();
 	return response.ok;

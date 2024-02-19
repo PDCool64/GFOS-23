@@ -117,26 +117,48 @@ public class AccountFacade {
 		}
 	}
 
+	/**
+	 * Updates a Stundeteilnahme record in the database.
+	 *
+	 * @param s The Stundeteilnahme object that contains the updated data.
+	 * @return The updated Stundeteilnahme object if the update was successful, null otherwise.
+	 */
 	public Stundeteilnahme updateTeilnahme(Stundeteilnahme s) {
 		try {
+			// Fetch the existing Stundeteilnahme record from the database using the ID from the input object.
 			Stundeteilnahme teilnahmeInDatenbank = this.getTeilnahmeById(s.getId());
+
+			// Update the fields of the fetched Stundeteilnahme record with the data from the input object.
 			teilnahmeInDatenbank.setAccount(s.getAccount());
 			teilnahmeInDatenbank.setBegintimestamp(s.getBegintimestamp());
 			teilnahmeInDatenbank.setEndtimestamp(s.getEndtimestamp());
 			teilnahmeInDatenbank.setNote (s.getNote());
 			teilnahmeInDatenbank.setStunde(s.getStunde());
+
+			// Merge the updated Stundeteilnahme record with the existing one in the database.
 			em.merge(teilnahmeInDatenbank);
+
+			// Return the updated Stundeteilnahme record.
 			return teilnahmeInDatenbank;
 		} catch (Exception e) {
+			// If any exception occurs during the update process, return null.
 			return null;
 		}
 	}
-	
+	/**
+	 * Deletes a Stundeteilnahme record from the database.
+	 *
+	 * @param s The Stundeteilnahme object to be deleted.
+	 * @return true if the deletion was successful, false otherwise.
+	 */
 	public boolean deleteTeilnahme(Stundeteilnahme s) {
 		try {
+			// Remove the Stundeteilnahme record from the database.
 			em.remove(s);
+			// If the removal was successful, return true.
 			return true;
 		} catch (Exception e) {
+			// If any exception occurs during the removal process, return false.
 			return false;
 		}
 	}

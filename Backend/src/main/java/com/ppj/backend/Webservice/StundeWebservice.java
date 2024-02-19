@@ -110,6 +110,14 @@ public class StundeWebservice {
 		if (
 			permissionFacade.isActive(token) == ""
 		) return responseService.unauthorized();
+		Account a = permissionFacade.getAccountByToken(token);
+		Stunde s = stundeFacade.getStundeById(id);
+		if(s == null) {
+			return responseService.status(404, "{\"message\": \"Stunde nicht gefunden\"}");
+		}
+		if (s.getUnterricht().getKurs().getLeiter().getId() != a.getId()) {
+			return responseService.status(403, "{\"message\": \"Keine Berechtigung\"}");
+		}
 		return responseService.ok(
 			jsonb.toJson(stundeFacade.getTeilnahmenByStundeId(id))
 		);

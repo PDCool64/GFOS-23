@@ -1,7 +1,15 @@
 <template>
 	<div class="wrapper">
 		<div class="registration form">
-			<CustomForm @submit="createKurs(kurs)" header="Kurs&nbsp;erstellen" button-text="Erstellen">
+			<CustomForm
+				@submit="
+					createKurs(kurs);
+					isButtonDisabled = true;
+				"
+				header="Kurs&nbsp;erstellen"
+				button-text="Erstellen"
+				v-model="isButtonDisabled"
+			>
 				<input
 					v-model="leiter"
 					type="email"
@@ -71,7 +79,6 @@ const kurs = computed(() => {
 		stufe: stufe.value,
 	};
 });
-
 </script>
 
 <style scoped>
