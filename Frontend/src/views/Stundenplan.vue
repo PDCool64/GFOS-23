@@ -1,9 +1,24 @@
 <template>
 	<div class="table-container">
 		<div class="options">
-			<img class="pfeil" @click="previousWeek" src="../assets/pictures/links.png" alt="dkp">
-			<img class="pfeil" @click="currentWeek" src="../assets/pictures/reload.png" alt="cdu">
-			<img class="pfeil" @click="nextWeek" src="../assets/pictures/rechts.png" alt="afd">
+			<img
+				class="pfeil"
+				@click="previousWeek"
+				src="../assets/pictures/links.png"
+				alt="dkp"
+			/>
+			<img
+				class="pfeil"
+				@click="currentWeek"
+				src="../assets/pictures/reload.png"
+				alt="cdu"
+			/>
+			<img
+				class="pfeil"
+				@click="nextWeek"
+				src="../assets/pictures/rechts.png"
+				alt="afd"
+			/>
 		</div>
 		<table>
 			<thead>
@@ -41,6 +56,7 @@ import { useUserStore } from "@/stores/user";
 import { useStundenStore } from "@/stores/stunden";
 import router from "@/router";
 import { useRoute } from "vue-router";
+import { getStunden } from "@/requests/stunde";
 
 const route = useRoute();
 const date = ref(route.params.day);
@@ -55,7 +71,6 @@ function reload_dates() {
 	endDate.value = new Date(date.value);
 	endDate.value.setDate(endDate.value.getDate() + 6);
 }
-
 
 const userData = useUserStore();
 const stundenData = useStundenStore();
@@ -78,29 +93,19 @@ const times = [
 const stunden = ref(days.map(() => Array(times.length).fill("")));
 async function reload() {
 	stunden.value = days.map(() => Array(times.length).fill(""));
-	const response = await fetch(
-		"http://localhost:8080/Backend/stunde/" +
-			startDate.value.toISOString().substring(0, 10) +
-			"/" +
-			endDate.value.toISOString().substring(0, 10),
-		{
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: userData.token,
-			},
-		},
+
+	let data = await getStunden(
+		startDate.value.toISOString().substring(0, 10),
+		endDate.value.toISOString().substring(0, 10),
 	);
 
-	if (!response.ok) {
+	if (data === null) {
 		console.log("Error");
 		return;
 	}
 
-	let data = await response.json();
-
 	const temp = ref(days.map(() => Array(times.length).fill("")));
-	for (stunde of data) {
+	for (var stunde of data) {
 		for (
 			var s = stunde.unterricht.beginstunde;
 			s <= stunde.unterricht.endstunde;
@@ -118,13 +123,6 @@ async function reload() {
 		)
 			stunden.value[stunde.unterricht.tag][s] =
 				stunde.unterricht.kurs.fach;
-	}
-
-	for (var i = 0; i < stunden.value.length; i++) {
-		for (var j = 0; j < stunden.value[i].length; j++) {
-			if (stunden.value[i][j] == "") {
-			}
-		}
 	}
 }
 
@@ -147,8 +145,10 @@ const nextWeek = async () => {
 	let date = route.params.day;
 	if (date == undefined) date = new Date();
 	else date = new Date(date);
-	stundenData.setDate(new Date(date.setDate(date.getDate() + 7)));	
-	await router.push("/stundenplan/" + stundenData.date.toISOString().split("T")[0]);
+	stundenData.setDate(new Date(date.setDate(date.getDate() + 7)));
+	await router.push(
+		"/stundenplan/" + stundenData.date.toISOString().split("T")[0],
+	);
 	reload_dates();
 	await reload();
 };
@@ -158,7 +158,9 @@ const previousWeek = async () => {
 	if (date == undefined) date = new Date();
 	else date = new Date(date);
 	stundenData.setDate(new Date(date.setDate(date.getDate() - 7)));
-	await router.push("/stundenplan/" + stundenData.date.toISOString().split("T")[0]);
+	await router.push(
+		"/stundenplan/" + stundenData.date.toISOString().split("T")[0],
+	);
 	reload_dates();
 	await reload();
 };

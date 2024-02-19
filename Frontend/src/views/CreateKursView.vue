@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="registration form">
-			<CustomForm @submit.prevent="createKurs(kurs)" header="Kurs&nbsp;erstellen" button-text="Erstellen">
+			<CustomForm @submit="createKurs(kurs)" header="Kurs&nbsp;erstellen" button-text="Erstellen">
 				<input
 					v-model="leiter"
 					type="email"
@@ -54,6 +54,8 @@ import { createKurs } from "@/requests/kurs";
 import CustomForm from "@/components/CustomForm.vue";
 
 const userData = useUserStore();
+
+const isButtonDisabled = ref(false);
 
 const leiter = ref("");
 const fach = ref("");

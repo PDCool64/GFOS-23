@@ -354,4 +354,11 @@ public class StundeFacade {
 		}
 		return stundenteilnahmenList;
 	}
+
+    public void deleteStundenByUnterricht(Unterricht unterricht) {
+		for (Stunde s : unterricht.getStundeList()) {
+			em.remove(s);
+		}
+		unterricht.getStundeList().clear();
+    }
 }

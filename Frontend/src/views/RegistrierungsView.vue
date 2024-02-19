@@ -21,17 +21,20 @@ const isButtonDisabled = ref(false);
 const account = computed(() => {
 	return {
 		vorname: vorname.value,
-		nachname: nachname.value,
+		name: nachname.value,
 		email: email.value,
-		password: password.value,
-		geburtstag: geburtstag.value,
+		geburtsdatum: geburtstag.value,
 		isadmin: isadmin.value,
 	};
 });
 
-const submitForm = async (account, password) => {
+const subbitForm = () => {
+	console.log(account.value);
+};
+
+const submitForm = async () => {
 	isButtonDisabled.value = true;
-	let statuscode = createAccount(account, password);
+	let statuscode = await createAccount(account.value, password.value);
 	if (statuscode === 400) {
 		errorMessage.value = "Ein Account mit dieser Email existiert bereits.";
 		error.value = true;
@@ -41,7 +44,6 @@ const submitForm = async (account, password) => {
 		errorMessage.value = "Etwas anderes ist schief gelaufen";
 		isButtonDisabled.value = false;
 	} else {
-		const data = await response.json();
 		errorMessage.value = "Registrierung erfolgreich.";
 		error.value = false;
 		isButtonDisabled.value = true;
@@ -52,11 +54,11 @@ const submitForm = async (account, password) => {
 <template>
 	<div class="wrapper">
 		<div class="registration form">
-			<h1>Registrierung</h1>
 			<CustomForm
-				@submit.prevent="submitForm"
+				@submit="submitForm()"
 				button-text="Registrieren"
-				header=""
+				header="Registrierung"
+				v-model="isButtonDisabled"
 			>
 				<input
 					v-model="vorname"

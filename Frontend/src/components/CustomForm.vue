@@ -2,7 +2,7 @@
     <form @submit.prevent="submitForm" class="login form">
         <h1>{{ header }}</h1>
         <slot></slot>
-        <button type="submit">{{ buttonText }}</button>
+        <button type="submit" :disabled="isButtonDisabled">{{ buttonText }}</button>
     </form>
 </template>
 
@@ -27,6 +27,7 @@ const props = defineProps({
 const submitForm = async () => {
     await props.onSubmit();
 };
+const isButtonDisabled = defineModel();
 </script>
 
 <style scoped>

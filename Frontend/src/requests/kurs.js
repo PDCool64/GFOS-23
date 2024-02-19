@@ -72,3 +72,16 @@ export async function createTeilnehmer(kursId, email) {
         return false;
 	}
 }
+
+export async function deleteKurs(kursId) {
+	const response = await fetch(
+		"http://localhost:8080/Backend/kurs/" + kursId,
+		{
+			method: "DELETE",
+			headers: {
+				Authorization: userData.token,
+			},
+		},
+	);
+	return response.ok;
+}

@@ -26,6 +26,12 @@
 					<h2>Statistiken</h2>
 				</div>
 			</div>
+			<div class="kurs-item" @click="delete_">
+				<div class="one-line">
+					<img src="../assets/pictures/mull.png" alt="" />
+					<h2>Kurs löschen</h2>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -35,6 +41,7 @@ import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import router from "@/router";
 import { useRoute } from "vue-router";
+import { deleteKurs } from "@/requests/kurs";
 
 const route = useRoute();
 const kursId = route.params.kurs;
@@ -53,6 +60,11 @@ function createUnterricht() {
 
 function seeMemberList() {
 	router.push("/kurs/" + kursId + "/members");
+}
+
+async function delete_() {
+	await deleteKurs(kursId);	
+	router.push("/kurs/choose");
 }
 </script>
 

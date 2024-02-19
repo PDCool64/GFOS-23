@@ -50,18 +50,55 @@ export const changePassword = async (oldPassword, newPassword) => {
 			}),
 		},
 	);
-    return response.ok;
+	return response.ok;
 };
 
 export const createAccount = async (account, password) => {
-const response = await fetch("http://localhost:8080/Backend/account", {
+	account.geburtsdatum = account.geburtsdatum + "T10:00:00.000Z";
+	const response = await fetch("http://localhost:8080/Backend/account", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: userData.token,
 			password: password,
 		},
-		body: JSON.stringify(account)
-	})
+		body: JSON.stringify(account),
+	});
 	return response.status;
+};
+
+export const getAccount = async (id) => {
+	const response = await fetch(
+		`http://localhost:8080/Backend/account/${id}`,
+		{
+			method: "GET",
+			headers: {
+				Authorization: userData.token,
+			},
+		},
+	);
+	if (!response.ok) {
+		return null;
+	}
+	const data = await response.json();
+	return data;
+};
+export const updateAccount = async (account) => {
+	console.log(userData.id);
+	let response;
+	try {
+		response = await fetch("http://localhost:8080/Backend/account/", {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: userData.token,
+			},
+			body: JSON.stringify(account),
+		});
+	} catch (e) {
+	}
+	if (!response.ok) {
+		return null;
+	}
+	return await response.json();
 };

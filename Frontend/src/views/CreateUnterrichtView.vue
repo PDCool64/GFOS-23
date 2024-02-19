@@ -1,10 +1,11 @@
 <template>
 	<div class="wrapper">
 		<CustomForm
-			@submit.prevent="createUnterricht(unterricht)"
+			@submit="createUnterricht(unterricht); isButtonDisabled = true;"
 			class="form"
 			button-text="Erstellen"
 			header="Unterricht&nbsp;erstellen"
+			v-model="isButtonDisabled"
 		>
 			<label for="startDate">Kursanfang</label>
 			<input
@@ -71,6 +72,9 @@ const endDate = ref("");
 const beginStunde = ref();
 const endStunde = ref();
 const tag = ref(0);
+
+const isButtonDisabled = ref(false);
+
 const unterricht = computed(() => {
 	return {
 		startDate: startDate.value,

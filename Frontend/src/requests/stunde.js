@@ -1,3 +1,7 @@
+import { useUserStore } from "@/stores/user";
+
+const userData = useUserStore();
+
 export const updateTeilnahmen = async (toJson, stundenId) => {
 	console.log({
 		method: "PUT",
@@ -34,4 +38,24 @@ export const getTeilnahmen = async (stundenId) => {
 		) + "T00:00:00.000Z";
 	}
 	return sampleData;
+};
+
+export const getStunden = async (startDate, endDate) => {
+	const response = await fetch(
+		"http://localhost:8080/Backend/stunde/" +
+			startDate +
+			"/" +
+			endDate,
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: userData.token,
+			},
+		},
+	);
+	if (!response.ok) {
+		return null;
+	}
+	return await response.json();
 };

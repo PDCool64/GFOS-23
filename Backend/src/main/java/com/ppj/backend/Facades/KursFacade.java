@@ -25,6 +25,9 @@ public class KursFacade {
 	@EJB
 	private StundeFacade stundenFacade;
 
+	@EJB
+	private UnterrichtFacade unterrichtFacade;
+
 	public Kurs createKurs(Kurs k) {
 		try {
 			em.persist(k);
@@ -87,6 +90,14 @@ public class KursFacade {
 
 	public boolean deleteKurs(Kurs k) {
 		try {
+			for (Kursteilnahme kt : k.getKursteilnahmeList()) {
+				kt.getAccount().getKursteilnahmeList().remove(kt);
+				em.remove(kt);
+			}
+			for (Unterricht u : k.getUnterrichtList()) {
+				unterrichtFacade.deleteUnterricht(u);
+			}
+			k.getLeiter().getKursList().remove(k);
 			em.remove(k);
 			return true;
 		} catch (Exception e) {
