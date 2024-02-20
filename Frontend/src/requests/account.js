@@ -21,6 +21,9 @@ export const setIsLeiter = async () => {
 };
 
 export const login = async (email, password) => {
+	if (userData === undefined) {
+		userData = useUserStore();
+	}
 	try {
 		const response = await fetch("http://localhost:8080/Backend/login", {
 			method: "POST",

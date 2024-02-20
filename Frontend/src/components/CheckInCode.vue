@@ -10,7 +10,7 @@
 				<input
 					v-for="(item, index) in Array.from({ length: 5 })"
 					:key="index"
-					type="digit"
+					type="number"
 					maxlength="1"
 					v-model="code[index]"
 					@input="handleInput(index)"
@@ -214,5 +214,15 @@ button {
 	border: none;
 	color: var(--color-text);
 	cursor: pointer;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 </style>

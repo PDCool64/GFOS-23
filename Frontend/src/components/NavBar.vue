@@ -149,13 +149,13 @@ const logOut = () => {
 }
 .navbar-image {
 	max-height: 100%;
-	width: 35px;
-	height: 35px;
+	width: var(--image-size);
+	height: var(--image-size);
 	cursor: pointer;
 	margin-left: 15px;
 	margin-right: 5px;
 	padding: 5px;
-	opacity: 0.64;
+	opacity: var(--opacity);
 }
 
 .left {
@@ -190,4 +190,13 @@ const logOut = () => {
 		display: none;
 	}
 }
+@media (max-width: 900px) {
+	.navbar ul li {
+		margin: 0 10px;
+	}
+	
+	.navbar{
+		padding: 12px 10px;
+	}
+}	
 </style>
