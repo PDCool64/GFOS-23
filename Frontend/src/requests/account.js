@@ -1,93 +1,119 @@
-import { useUserStore } from "../stores/user";
+import { useUserStore } from "@/stores/user";
+import address from "@/address";
 
-const userData = useUserStore();
+let userData;
 
 export const setIsLeiter = async () => {
-	const response = await fetch(
-		"http://localhost:8080/Backend/account/isleiter",
-		{
-			method: "GET",
-			headers: {
-				Authorization: userData.token,
+	try {
+		const response = await fetch(
+			address + "/account/isleiter",
+			{
+				method: "GET",
+				headers: {
+					Authorization: userData.token,
+				},
 			},
-		},
-	);
-	const data = await response.json();
-	userData.setIsLeiter(data.isLeiter);
+		);
+		const data = await response.json();
+		userData.setIsLeiter(data.isLeiter);
+	} catch (e) {
+		return false;
+	}
 };
 
 export const login = async (email, password) => {
-	const response = await fetch("http://localhost:8080/Backend/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			email: email,
-			password: password,
-		}),
-	});
-	const data = await response.json();
-	const account = JSON.parse(data.account);
-	data.account = account;
-	userData.setData(data);
-	setIsLeiter();
-	return response.ok;
+	if (userData === undefined) {
+		userData = useUserStore();
+	}
+	try {
+		const response = await fetch(address + "/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password,
+			}),
+		});
+		const data = await response.json();
+		const account = JSON.parse(data.account);
+		data.account = account;
+		console.log(data);
+		userData.setData(data);
+		setIsLeiter();
+		return response.ok;
+	} catch (e) {
+		console.log(e);
+		return false;
+	}
 };
 
 export const changePassword = async (oldPassword, newPassword) => {
-	const response = await fetch(
-		"http://localhost:8080/Backend/account/password",
-		{
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: userData.token,
+	try {
+		const response = await fetch(
+			address + "/account/password",
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: userData.token,
+				},
+				body: JSON.stringify({
+					oldPassword: oldPassword,
+					newPassword: newPassword,
+				}),
 			},
-			body: JSON.stringify({
-				oldPassword: oldPassword,
-				newPassword: newPassword,
-			}),
-		},
-	);
-	return response.ok;
+		);
+		return response.ok;
+	} catch (e) {
+		return false;
+	}
 };
 
 export const createAccount = async (account, password) => {
-	account.geburtsdatum = account.geburtsdatum + "T10:00:00.000Z";
-	const response = await fetch("http://localhost:8080/Backend/account", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: userData.token,
-			password: password,
-		},
-		body: JSON.stringify(account),
-	});
-	return response.status;
+	try {
+		account.geburtsdatum = account.geburtsdatum + "T10:00:00.000Z";
+		const response = await fetch(address + "/account", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: userData.token,
+				password: password,
+			},
+			body: JSON.stringify(account),
+		});
+		return response.status;
+	} catch (e) {
+		return null;
+	}
 };
 
 export const getAccount = async (id) => {
-	const response = await fetch(
-		`http://localhost:8080/Backend/account/${id}`,
-		{
-			method: "GET",
-			headers: {
-				Authorization: userData.token,
+	try {
+		const response = await fetch(
+			`http://localhost:8080/Backend/account/${id}`,
+			{
+				method: "GET",
+				headers: {
+					Authorization: userData.token,
+				},
 			},
-		},
-	);
-	if (!response.ok) {
+		);
+		if (!response.ok) {
+			return null;
+		}
+		const data = await response.json();
+		return data;
+	} catch (e) {
 		return null;
 	}
-	const data = await response.json();
-	return data;
 };
+
 export const updateAccount = async (account) => {
-	console.log(userData.id);
-	let response;
 	try {
-		response = await fetch("http://localhost:8080/Backend/account/", {
+		console.log(userData.id);
+		const response = await fetch(address + "/account/", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -95,10 +121,11 @@ export const updateAccount = async (account) => {
 			},
 			body: JSON.stringify(account),
 		});
+		if (!response.ok) {
+			return null;
+		}
+		return await response.json();
 	} catch (e) {
-	}
-	if (!response.ok) {
 		return null;
 	}
-	return await response.json();
 };
