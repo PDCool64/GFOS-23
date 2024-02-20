@@ -1,11 +1,12 @@
 import { useUserStore } from "@/stores/user";
+import address from "@/address";
 
 let userData;
 
 export const setIsLeiter = async () => {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/Backend/account/isleiter",
+			address + "/account/isleiter",
 			{
 				method: "GET",
 				headers: {
@@ -25,7 +26,7 @@ export const login = async (email, password) => {
 		userData = useUserStore();
 	}
 	try {
-		const response = await fetch("http://localhost:8080/Backend/login", {
+		const response = await fetch(address + "/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -51,7 +52,7 @@ export const login = async (email, password) => {
 export const changePassword = async (oldPassword, newPassword) => {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/Backend/account/password",
+			address + "/account/password",
 			{
 				method: "PUT",
 				headers: {
@@ -73,7 +74,7 @@ export const changePassword = async (oldPassword, newPassword) => {
 export const createAccount = async (account, password) => {
 	try {
 		account.geburtsdatum = account.geburtsdatum + "T10:00:00.000Z";
-		const response = await fetch("http://localhost:8080/Backend/account", {
+		const response = await fetch(address + "/account", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -112,7 +113,7 @@ export const getAccount = async (id) => {
 export const updateAccount = async (account) => {
 	try {
 		console.log(userData.id);
-		const response = await fetch("http://localhost:8080/Backend/account/", {
+		const response = await fetch(address + "/account/", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",

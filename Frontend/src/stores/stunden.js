@@ -5,6 +5,7 @@ export const useStundenStore = defineStore('stunden', {
    stunden: [], 
    date: "",
    aktuelleStunde: {},
+   aktuelleTeilnahme: {},
  }),
  getters: {},
  actions: {
@@ -16,6 +17,9 @@ export const useStundenStore = defineStore('stunden', {
     },
     setAktuelleStunde(aktuelleStunde) {
         this.aktuelleStunde = aktuelleStunde;
+    },
+    setAktuelleTeilnahme(aktuelleTeilnahme) {
+        this.aktuelleTeilnahme = aktuelleTeilnahme;
     },
     reset() {
         this.setStunden([])

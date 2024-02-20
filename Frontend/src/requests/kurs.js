@@ -1,18 +1,16 @@
 import { useUserStore } from "@/stores/user";
+import address from "@/address";
 
 const userData = useUserStore();
 
 export async function getLeiterKurse() {
 	try {
-		const response = await fetch(
-			"http://localhost:8080/Backend/kurs/leiter/",
-			{
-				method: "GET",
-				headers: {
-					Authorization: userData.token,
-				},
+		const response = await fetch(address + "/kurs/leiter/", {
+			method: "GET",
+			headers: {
+				Authorization: userData.token,
 			},
-		);
+		});
 		let data;
 		if (response.ok) {
 			data = await response.json();
@@ -28,7 +26,7 @@ export async function getLeiterKurse() {
 
 export const createKurs = async (kurs) => {
 	try {
-		const response = await fetch("http://localhost:8080/Backend/kurs", {
+		const response = await fetch(address + "/kurs", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -45,16 +43,13 @@ export const createKurs = async (kurs) => {
 
 export const getTeilnahmen = async (kursId) => {
 	try {
-		const response = await fetch(
-			"http://localhost:8080/Backend/kurs/teilnahmen/" + kursId,
-			{
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: userData.token,
-				},
+		const response = await fetch(address + "/kurs/teilnahmen/" + kursId, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: userData.token,
 			},
-		);
+		});
 		if (!response.ok) {
 			console.log("Error");
 			return null;
@@ -70,10 +65,7 @@ export const getTeilnahmen = async (kursId) => {
 export async function createTeilnehmer(kursId, email) {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/Backend/kurs/teilnehmer/" +
-				kursId +
-				"/" +
-				email,
+			address + "/kurs/teilnehmer/" + kursId + "/" + email,
 			{
 				method: "POST",
 				headers: {
@@ -95,15 +87,12 @@ export async function createTeilnehmer(kursId, email) {
 
 export async function deleteKurs(kursId) {
 	try {
-		const response = await fetch(
-			"http://localhost:8080/Backend/kurs/" + kursId,
-			{
-				method: "DELETE",
-				headers: {
-					Authorization: userData.token,
-				},
+		const response = await fetch(address + "/kurs/" + kursId, {
+			method: "DELETE",
+			headers: {
+				Authorization: userData.token,
 			},
-		);
+		});
 		return response.ok;
 	} catch (e) {
 		console.log(e);
@@ -114,10 +103,7 @@ export async function deleteKurs(kursId) {
 export async function deleteTeilnehmer(kursId, accountId) {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/Backend/kurs/teilnehmer/" +
-				kursId +
-				"/" +
-				accountId,
+			address + "/kurs/teilnehmer/" + kursId + "/" + accountId,
 			{
 				method: "DELETE",
 				headers: {
@@ -131,4 +117,21 @@ export async function deleteTeilnehmer(kursId, accountId) {
 		console.log(e);
 		return false;
 	}
+}
+
+export async function getIsLeiter(kursId) {
+	console.log(kursId);
+	const response = await fetch(address + "/kurs/leiter/" + kursId, {
+		method: "GET",
+		headers: {
+			Authorization: userData.token,
+		},
+	});
+	if (!response.ok) {
+		return false;
+	}
+	console.log(response);
+	let data = await response.json();
+	console.log(data);
+	return data;
 }

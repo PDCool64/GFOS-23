@@ -16,6 +16,7 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonReader;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
@@ -112,11 +113,17 @@ public class StundeWebservice {
 		) return responseService.unauthorized();
 		Account a = permissionFacade.getAccountByToken(token);
 		Stunde s = stundeFacade.getStundeById(id);
-		if(s == null) {
-			return responseService.status(404, "{\"message\": \"Stunde nicht gefunden\"}");
+		if (s == null) {
+			return responseService.status(
+				404,
+				"{\"message\": \"Stunde nicht gefunden\"}"
+			);
 		}
 		if (s.getUnterricht().getKurs().getLeiter().getId() != a.getId()) {
-			return responseService.status(403, "{\"message\": \"Keine Berechtigung\"}");
+			return responseService.status(
+				403,
+				"{\"message\": \"Keine Berechtigung\"}"
+			);
 		}
 		return responseService.ok(
 			jsonb.toJson(stundeFacade.getTeilnahmenByStundeId(id))
@@ -159,9 +166,18 @@ public class StundeWebservice {
 		) return responseService.unauthorized();
 		Account a = permissionFacade.getAccountByToken(token);
 		System.out.println(a.getId());
-		return responseService.ok(
-			jsonb.toJson(stundeFacade.getAktuelleStunde(a))
+		Stunde aktuelleStunde = stundeFacade.getAktuelleStunde(a);
+		if (aktuelleStunde == null) {
+			return responseService.ok("{\"message\": \"Keine aktuelle Stunde\"}");
+		}
+		JsonObjectBuilder builder = Json.createObjectBuilder();
+		builder.add("stunde", jsonb.toJson(aktuelleStunde));
+		Stundeteilnahme st = stundeFacade.getStundenteilnahmeByAccountAndStunde(
+			a,
+			aktuelleStunde
 		);
+		builder.add("teilnahme", jsonb.toJson(st));
+		return responseService.ok(builder.build().toString());
 	}
 
 	@POST
@@ -203,6 +219,35 @@ public class StundeWebservice {
 			return responseService.status(
 				422,
 				"{\"message\": \"Checkin fehlgeschlagen\"}"
+			);
+		}
+	}
+
+	@POST
+	@Path("/checkout/{stundeId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response checkout(
+		@HeaderParam("Authorization") String token,
+		@PathParam("stundeId") int id
+	) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseService.unauthorized();
+		Account account = permissionFacade.getAccountByToken(token);
+		Stunde s = stundeFacade.getStundeById(id);
+		if (s == null) {
+			return responseService.status(
+				404,
+				"{\"message\": \"Stunde nicht gefunden\"}"
+			);
+		}
+		System.out.println(account.getId() + " " + s.getId());
+		if (stundeFacade.checkout(account, s)) {
+			return responseService.ok("{\"message\": \"Checkout erfolgreich\"}");
+		} else {
+			return responseService.status(
+				422,
+				"{\"message\": \"Checkout fehlgeschlagen\"}"
 			);
 		}
 	}

@@ -1,10 +1,11 @@
 import { useUserStore } from "@/stores/user";
+import address from "@/address";
 
 const userData = useUserStore();
 
 export async function createUnterricht(unterricht) {
 	try {
-		const response = await fetch("http://localhost:8080/Backend/unterricht", {
+		const response = await fetch(address + "/unterricht", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -23,7 +24,7 @@ export async function getAllUnterrichtByKurs(kurs) {
 	try {
 		console.log(kurs);
 		const response = await fetch(
-			"http://localhost:8080/Backend/unterricht/kurs/" + kurs,
+			address + "/unterricht/kurs/" + kurs,
 			{
 				method: "GET",
 				headers: {
@@ -44,7 +45,7 @@ export async function getAllUnterrichtByKurs(kurs) {
 export async function deleteUnterricht(unterrichtId) {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/Backend/unterricht/" + unterrichtId,
+			address + "/unterricht/" + unterrichtId,
 			{
 				method: "DELETE",
 				headers: {

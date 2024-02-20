@@ -23,7 +23,6 @@
 				<p class="unterricht__card-text">
 					Datum: {{ formatDate(stundenData.date, content.tag) }}
 				</p>
-				<button @click="goToAbout">Anwesenheit</button>
 			</div>
 		</div>
 	</div>
@@ -33,6 +32,8 @@ import { ref, onMounted, VueElement } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useStundenStore } from "@/stores/stunden";
 import { useRouter } from "vue-router";
+import { getIsLeiter } from "@/requests/kurs";
+import router from "@/router";
 
 const userData = useUserStore();
 const stundenData = useStundenStore();
@@ -50,15 +51,23 @@ const goToStundenplan = () => {
 	route.push("/stundenplan/" + stundenData.date);
 };
 
-const goToAbout = () => {
-	route.push("/stunde/anwesenheit/" + stundenData.stunden[day.value][time.value].id);
-};
-
 const formatDate = (date, tag = 0) => {
 	let temp = new Date(date);
 	temp = new Date(temp.setDate(temp.getDate() + tag));
 	return temp.toLocaleDateString();
 };
+
+const setup = async () => {
+	if (userData.user.id != undefined) {
+		let isLeiter = await getIsLeiter(
+			content.value.kurs.id,
+		);
+	}	
+};
+
+onMounted(() => {
+	setup();
+});
 </script>
 
 <style scoped>
@@ -124,6 +133,6 @@ button {
 	border-radius: 5px;
 	margin-top: 10px;
 	margin-left: auto;
-	cursor: pointer
+	cursor: pointer;
 }
 </style>

@@ -80,12 +80,14 @@ public class StundeFacade {
 			return currentStundenplanIndex;
 		}
 		Date current = new Date();
-		current.setTime(0);
-		current.setHours(7);
-		current.setMinutes(57);
-		current.setSeconds(0);
 		currentStundenplanIndex = -1;
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		try {
+			current = sdf.parse(sdf.format(current));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println(current);
 		for (int i = 0; i < stundenplan.length; i++) {
 			try {
 				Date stundenplanTime = sdf.parse(stundenplan[i]);
@@ -120,7 +122,10 @@ public class StundeFacade {
 	}
 
 	private void createStundenteilnahmen(Stunde stundeMitId) {
-		for (Kursteilnahme kt : stundeMitId.getUnterricht().getKurs().getKursteilnahmeList()) { // for(int i = 0;...) kt = ...[i]
+		for (Kursteilnahme kt : stundeMitId
+			.getUnterricht()
+			.getKurs()
+			.getKursteilnahmeList()) { // for(int i = 0;...) kt = ...[i]
 			Stundeteilnahme st = new Stundeteilnahme();
 			em.persist(st);
 			st.setStunde(stundeMitId);
@@ -271,7 +276,7 @@ public class StundeFacade {
 		// and check whether the date is today
 		try {
 			SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
-			Date currentDateWithoutTime = ymd.parse("2024-02-16");
+			Date currentDateWithoutTime = ymd.parse(ymd.format(new Date()));
 			Date sDateWithoutTime = ymd.parse(ymd.format(s.getDatum()));
 			if (sDateWithoutTime.compareTo(currentDateWithoutTime) != 0) {
 				return false;
@@ -348,17 +353,54 @@ public class StundeFacade {
 		return false;
 	}
 
-	public List<Stundeteilnahme> updateTeilnahmen(List<Stundeteilnahme> stundenteilnahmenList) {
+	public List<Stundeteilnahme> updateTeilnahmen(
+		List<Stundeteilnahme> stundenteilnahmenList
+	) {
 		for (Stundeteilnahme st : stundenteilnahmenList) {
 			em.merge(st);
 		}
 		return stundenteilnahmenList;
 	}
 
-    public void deleteStundenByUnterricht(Unterricht unterricht) {
+	public void deleteStundenByUnterricht(Unterricht unterricht) {
 		for (Stunde s : unterricht.getStundeList()) {
 			em.remove(s);
 		}
 		unterricht.getStundeList().clear();
-    }
+	}
+
+	public Stundeteilnahme getStundenteilnahmeByAccountAndStunde(
+		Account a,
+		Stunde aktuelleStunde
+	) {
+		return em
+			.createNamedQuery(
+				"Stundeteilnahme.findByAccountAndStunde",
+				Stundeteilnahme.class
+			)
+			.setParameter("account", a)
+			.setParameter("stunde", aktuelleStunde)
+			.getSingleResult();
+	}
+
+	public boolean checkout(Account account, Stunde s) {
+		if (s == null) {
+			System.out.println("Stunde ist null");
+			return false;
+		}
+		if (!isActive(s)) {
+			System.out.println("Stunde ist nicht aktiv");
+			return false;
+		}
+		Stundeteilnahme st = getStundenteilnahmeByAccountAndStunde(account, s);
+		if (st == null) {
+			System.out.println("Account ist nicht in der Stunde");
+			return false;
+		}
+		if (!st.getAnwesend())
+			return false;
+		st.setEndtimestamp(new Date());
+		em.merge(st);
+		return true;
+	}
 }

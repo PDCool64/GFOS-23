@@ -56,6 +56,10 @@ import java.util.Date;
 			name = "Stundeteilnahme.findByStunde",
 			query = "SELECT s FROM Stundeteilnahme s WHERE s.stunde = :stunde"
 		),
+		@NamedQuery(
+			name = "Stundeteilnahme.findByAccountAndStunde",
+			query = "SELECT s FROM Stundeteilnahme s WHERE s.account = :account AND s.stunde = :stunde"
+		)
 	}
 )
 public class Stundeteilnahme implements Serializable {

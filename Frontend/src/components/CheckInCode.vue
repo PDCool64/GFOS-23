@@ -1,14 +1,20 @@
 <template>
 	<div class="check-in-code">
-		<h1 v-if="!eingeloggt">Gib deinen CheckIn-Code ein</h1>
+		<h1 v-if="keinUnterricht">Du hast gerade frei!</h1>
+		<h1 v-if="!eingeloggt && !keinUnterricht">Gib deinen CheckIn-Code ein</h1>
 		<h2 v-if="stunde != undefined">
-			Du hast gerade {{ stunde.unterricht.kurs.fach }} ({{ stunde.unterricht.kurs.art }}{{ stunde.unterricht.kurs.nummer }}) 
+			Du hast gerade {{ stunde.unterricht.kurs.fach }} ({{
+				stunde.unterricht.kurs.art
+			}}{{ stunde.unterricht.kurs.nummer }})
 		</h2>
-		<p v-if="stunde != undefined">Bei {{ stunde.unterricht.kurs.leiter.vorname }} {{ stunde.unterricht.kurs.leiter.name }}</p>
-		<form @submit.prevent="submitCode">
+		<p v-if="stunde != undefined && !keinUnterricht">
+			Bei {{ stunde.unterricht.kurs.leiter.vorname }}
+			{{ stunde.unterricht.kurs.leiter.name }}
+		</p>
+		<form @submit.prevent="submitCode" v-if="!keinUnterricht">
 			<div v-if="!eingeloggt" class="input-container">
 				<input
-					v-for="(item, index) in Array.from({ length: 5 })"
+					v-for="(number, index) in Array.from({ length: 5 })"
 					:key="index"
 					type="number"
 					maxlength="1"
@@ -29,7 +35,7 @@
 		<button
 			class="checkout_button"
 			v-if="showCheckOutButton && !showSuccessMessage"
-			@click="checkOut"
+			@click="checkOut_"
 		>
 			Check Out
 		</button>
@@ -40,18 +46,18 @@
 import { ref, onMounted, nextTick } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useStundenStore } from "@/stores/stunden";
-import router from "@/router";
-import { checkin, checkout } from "@/requests/stunde";
+import { checkin, checkout, getAktuelleStunde } from "@/requests/stunde";
 
 const userData = useUserStore();
 const stundenData = useStundenStore();
 
-const code = ref(Array.from({ length: 8 }, () => ""));
+const code = ref(Array.from({ length: 5 }, () => ""));
 const inputs = ref([]);
 const stunde = ref(undefined);
 const eingeloggt = ref(false);
 const showSuccessMessage = ref(false);
 const showCheckOutButton = ref(false);
+const keinUnterricht = ref(false);
 
 onMounted(() => {
 	inputs.value = Array.from({ length: 5 }, (_, i) =>
@@ -61,6 +67,7 @@ onMounted(() => {
 });
 
 const handleInput = (index) => {
+	console.log(index);
 	if (index < 4 && inputs.value[index + 1]) {
 		nextTick(() => {
 			inputs.value[index + 1].focus();
@@ -79,22 +86,19 @@ const clearInputs = () => {
 };
 
 const getCurrentStunde = async () => {
-	const response = await fetch(
-		"http://localhost:8080/Backend/stunde/aktuell",
-		{
-			method: "GET",
-			headers: {
-				Authorization: userData.token,
-			},
-		},
-	);
-	if (!response.ok) {
+	let data = await getAktuelleStunde();
+	if (data === null) {
 		console.log("Error fetching data");
+	} else if(!(data.stunde && data.teilnahme)){
+		console.log("No data");
+		keinUnterricht.value = true;
 	} else {
-		const data = await response.json();
-		stundenData.setAktuelleStunde(data);
+		stundenData.setAktuelleStunde(data.stunde);
+		stundenData.setAktuelleTeilnahme(data.teilnahme);
 		console.log(data);
-		stunde.value = data;
+		stunde.value = data.stunde;
+		eingeloggt.value = data.teilnahme.anwesend && data.teilnahme.endtimestamp === undefined;
+		showCheckOutButton.value = data.teilnahme.anwesend && data.teilnahme.endtimestamp === undefined;
 	}
 };
 
@@ -114,11 +118,19 @@ const handleDelete = () => {
 };
 
 const submitCode = async () => {
-	let daten = await checkin(stundenData.aktuelleStunde.id, code.value.join(""));
+	let daten = await checkin(
+		stundenData.aktuelleStunde.id,
+		code.value.join(""),
+	);
 
 	if (daten === null) {
 		console.log("Error");
+		return;
 	}
+	eingeloggt_();
+};
+
+const eingeloggt_ = async () => {
 	eingeloggt.value = true;
 	showSuccessMessage.value = true;
 	setTimeout(() => {
@@ -126,6 +138,7 @@ const submitCode = async () => {
 	}, 2000);
 	showCheckOutButton.value = true;
 };
+
 
 const checkOut_ = async () => {
 	let data = await checkout(stundenData.aktuelleStunde.id);
@@ -218,11 +231,11 @@ button {
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 input[type="number"] {
-    -moz-appearance: textfield;
+	-moz-appearance: textfield;
 }
 </style>

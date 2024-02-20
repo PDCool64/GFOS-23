@@ -1,4 +1,5 @@
 import { useUserStore } from "../stores/user";
+import address from "../address";
 
 let userData;
 
@@ -8,7 +9,7 @@ export const updateTeilnahmen = async (toJson, stundenId) => {
 			userData = useUserStore();
 		}
 		const response = await fetch(
-			"http://localhost:8080/Backend/stunde/teilnahme/" + stundenId,
+			address + "/stunde/teilnahme/" + stundenId,
 			{
 				method: "PUT",
 				headers: {
@@ -31,7 +32,13 @@ export const getTeilnahmen = async (stundenId) => {
 			userData = useUserStore();
 		}
 		const response = await fetch(
-			"http://localhost:8080/Backend/stunde/teilnahme/" + stundenId,
+			address + "/stunde/teilnahme/" + stundenId,
+			{
+				method: "GET",
+				headers: {
+					Authorization: userData.token,
+				},
+			},
 		);
 		let sampleData = await response.json();
 		for (let i = 0; i < sampleData.length; i++) {
@@ -51,7 +58,7 @@ export const getStunden = async (startDate, endDate) => {
 			userData = useUserStore();
 		}
 		const response = await fetch(
-			"http://localhost:8080/Backend/stunde/" + startDate + "/" + endDate,
+			address + "/stunde/" + startDate + "/" + endDate,
 			{
 				method: "GET",
 				headers: {
@@ -76,7 +83,7 @@ export const checkin = async (stundenId, code) => {
 			userData = useUserStore();
 		}
 		const response = await fetch(
-			"http://localhost:8080/Backend/stunde/checkin/" + stundenId,
+			address + "/stunde/checkin/" + stundenId,
 			{
 				method: "POST",
 				headers: {
@@ -102,7 +109,7 @@ export const checkin = async (stundenId, code) => {
 export const checkout = async (stundenId) => {
 	try {
 		const response = await fetch(
-			"http://localhost:8080/Backend/stunde/checkout/" + stundenId,
+			address + "/stunde/checkout/" + stundenId,
 			{
 				method: "POST",
 				headers: {
@@ -119,4 +126,30 @@ export const checkout = async (stundenId) => {
 		console.log(e);
 		return null;
 	}
+};
+
+export const getAktuelleStunde = async () => {
+	if (userData === undefined) {
+		userData = useUserStore();
+	}
+	const response = await fetch(
+		address + "/stunde/aktuell",
+		{
+			method: "GET",
+			headers: {
+				Authorization: userData.token,
+			},
+		},
+	);
+	if (!response.ok) {
+		return null;
+	}
+	let data = await response.json();
+	if ("stunde" in data || "teilnahme" in data) {
+		data.stunde = JSON.parse(data.stunde);
+		data.teilnahme = JSON.parse(data.teilnahme);
+		console.log(data);
+		return data;
+	}
+	return {};
 };

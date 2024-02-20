@@ -25,13 +25,19 @@
 				<tr>
 					<th>Zeit</th>
 					<th v-for="(day, dayIndex) in days" :key="dayIndex">
-						<div class="days">{{ day[0] }} <div class="wider">{{ day[1] }}</div></div>
+						<div class="days">
+							{{ day[0] }}
+							<div class="wider">{{ day[1] }}</div>
+						</div>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="(time, timeIndex) in times" :key="timeIndex">
-					<td class="time-cell">{{ time[0] }} <div class="wider">- {{ time[1] }}</div></td>
+					<td class="time-cell">
+						{{ time[0] }}
+						<div class="wider">- {{ time[1] }}</div>
+					</td>
 					<td
 						v-bind:class="{
 							filled: stunden[dayIndex][timeIndex] != '',
@@ -57,6 +63,7 @@ import { useStundenStore } from "@/stores/stunden";
 import router from "@/router";
 import { useRoute } from "vue-router";
 import { getStunden } from "@/requests/stunde";
+import { getIsLeiter } from "@/requests/kurs";
 
 const route = useRoute();
 const date = ref(route.params.day);
@@ -77,7 +84,13 @@ const stundenData = useStundenStore();
 
 stundenData.setDate(date);
 
-const days = [["Mo", "ntag",],  ["Di", "enstag",],  ["Mi", "ttwoch",],  ["Do", "nnerstag",],  ["Fr", "eitag"]];
+const days = [
+	["Mo", "ntag"],
+	["Di", "enstag"],
+	["Mi", "ttwoch"],
+	["Do", "nnerstag"],
+	["Fr", "eitag"],
+];
 const times = [
 	["07:55", "08:40"],
 	["08:45", "09:30"],
@@ -88,6 +101,10 @@ const times = [
 	["13:30", "14:15"],
 	["14:15", "15:00"],
 	["15:05", "15:50"],
+	["15:55", "16:40"],
+	["16:45", "17:30"], 
+	["17:30", "18:15"],
+	["18:20", "18:55"]
 ];
 
 const stunden = ref(days.map(() => Array(times.length).fill("")));
@@ -126,8 +143,15 @@ async function reload() {
 	}
 }
 
-const openStunden = (timeIndex, dayIndex) => {
+const openStunden = async (timeIndex, dayIndex) => {
 	if (stunden.value[dayIndex][timeIndex] == "") return;
+	if (await getIsLeiter(stundenData.stunden[dayIndex][timeIndex].unterricht.kurs.id)) {
+		router.push(
+			"/stunde/anwesenheit/" +
+				stundenData.stunden[dayIndex][timeIndex].id,
+		);
+		return;
+	}
 	stundenData.setDate(date);
 	router.push({
 		name: "stunde",
