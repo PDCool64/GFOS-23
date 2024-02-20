@@ -1,9 +1,11 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { setIsLeiter } from '@/requests/account';
 
 import Stammdaten from '@/components/Stammdaten.vue';
 
 const router = useRouter();
+setIsLeiter();
 
 </script>
 

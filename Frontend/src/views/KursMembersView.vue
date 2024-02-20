@@ -27,6 +27,7 @@
 							<th>Vorname</th>
 							<th>Geburtsdatum</th>
 							<th>Email</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -44,6 +45,14 @@
 								}}
 							</td>
 							<td>{{ teilnehmer.account.email }}</td>
+							<td>
+								<img
+									class="image"
+									src="../assets/pictures/mull.png"
+									alt="Löschen"
+									@click="delete_(teilnehmer.account.id)"
+								/>
+								</td>
 						</tr>
 					</tbody>
 				</table>
@@ -56,7 +65,7 @@
 import { onMounted, ref } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useRoute } from "vue-router";
-import { getTeilnahmen, createTeilnehmer } from "@/requests/kurs";
+import { getTeilnahmen, createTeilnehmer, deleteTeilnehmer } from "@/requests/kurs";
 
 const route = useRoute();
 const userData = useUserStore();
@@ -76,6 +85,11 @@ async function submitForm() {
 	isAdding.value = false;
 	let created = await createTeilnehmer(kursId, email.value);
 	email.value = "";
+	teilnahmen.value = await getTeilnahmen(kursId);
+}
+
+async function delete_(id) {
+	await deleteTeilnehmer(kursId, id);
 	teilnahmen.value = await getTeilnahmen(kursId);
 }
 

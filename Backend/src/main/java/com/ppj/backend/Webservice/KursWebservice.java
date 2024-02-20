@@ -292,4 +292,34 @@ public class KursWebservice {
 		Kurs k = kursFacade.getKursById(kursId);
 		return responseFacade.ok(jsonb.toJson(k.getLeiter() == a));
 	}
+
+	@DELETE
+	@Path("/teilnehmer/{kursId}/{accountId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteTeilnehmer(
+		@HeaderParam("Authorization") String token,
+		@PathParam("kursId") int kursId,
+		@PathParam("accountId") int accountId
+	) {
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
+			"Token ist ungültig"
+		);
+		Account a = permissionFacade.getAccountByToken(token);
+		Kurs k = kursFacade.getKursById(kursId);
+		if (k == null) return responseFacade.status(
+			422,
+			"Kurs konnte nicht gefunden werden."
+		);
+		if (k.getLeiter() != a) return responseFacade.status(
+			401,
+			"{\"error\": \"Sie sind nicht berechtigt, Teilnehmer zu löschen.\"}"
+		);
+		Account teilnehmer = accountFacade.getAccountById(accountId);
+		if (teilnehmer == null) return responseFacade.status(
+			422,
+			"{\"error\": \"Teilnehmer konnte nicht gefunden werden.\"}"
+		);
+		kursFacade.deleteTeilnehmer(k, accountId);
+		return responseFacade.ok("{\"success\": \"Teilnehmer gelöscht.\"}");
+	}
 }

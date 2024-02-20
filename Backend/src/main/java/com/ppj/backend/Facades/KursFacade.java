@@ -3,6 +3,8 @@ package com.ppj.backend.Facades;
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
 import com.ppj.backend.Entity.Kursteilnahme;
+import com.ppj.backend.Entity.Stunde;
+import com.ppj.backend.Entity.Stundeteilnahme;
 import com.ppj.backend.Entity.Unterricht;
 import jakarta.ejb.EJB;
 import jakarta.ejb.LocalBean;
@@ -228,5 +230,29 @@ public class KursFacade {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public void deleteTeilnehmer(Kurs k, int teilnehmerId) {
+		Account teilnehmer = accountFacade.getAccountById(teilnehmerId);
+		for (Unterricht u : k.getUnterrichtList()) {
+			for (Stunde s : u.getStundeList()) {
+				for (Stundeteilnahme st : List.copyOf(s.getStundeteilnahmeList())) {
+					if (st.getAccount().getId() == teilnehmer.getId()) {
+						em.remove(st);
+						teilnehmer.getStundeteilnahmeList().remove(st);
+						s.getStundeteilnahmeList().remove(st);
+					}
+				}
+			}
+		}
+		for (Kursteilnahme kt : List.copyOf(k.getKursteilnahmeList())) {
+			if (kt.getAccount().getId() == teilnehmer.getId()) {
+				k.getKursteilnahmeList().remove(kt);
+				teilnehmer.getKursteilnahmeList().remove(kt);
+
+				em.remove(kt);
+			}
+		}
+		em.flush();
 	}
 }
