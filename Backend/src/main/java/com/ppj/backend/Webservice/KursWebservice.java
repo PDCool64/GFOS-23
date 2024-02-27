@@ -6,6 +6,7 @@ package com.ppj.backend.Webservice;
 
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Kurs;
+import com.ppj.backend.Entity.Stundeteilnahme;
 import com.ppj.backend.Facades.AccountFacade;
 import com.ppj.backend.Facades.KursFacade;
 import com.ppj.backend.Facades.PermissionFacade;
@@ -29,6 +30,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -272,13 +274,6 @@ public class KursWebservice {
 	}
 
 	@GET
-	@Path("/test/delete/{kursId}/")
-	public Response testDelete(@PathParam("kursId") int kursId) {
-		kursFacade.deleteKurs(kursFacade.getKursById(kursId));
-		return responseFacade.ok("Kurs wurde gelöscht.");
-	}
-	
-	@GET
 	@Path("/leiter/{kursId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response isLeiter(
@@ -321,5 +316,24 @@ public class KursWebservice {
 		);
 		kursFacade.deleteTeilnehmer(k, accountId);
 		return responseFacade.ok("{\"success\": \"Teilnehmer gelöscht.\"}");
+	}
+
+	@GET
+	@Path("/stats/{kursId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStats(
+		@HeaderParam("Authorization") String token,
+		@PathParam("kursId") int kursId
+	) {
+		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
+			"Token ist ungültig"
+		);
+		Kurs k = kursFacade.getKursById(kursId);
+		if (k == null) return responseFacade.status(
+			422,
+			"Kurs konnte nicht gefunden werden."
+		);
+		HashMap<String, List<Stundeteilnahme>> stats = kursFacade.getStats(k);
+		return responseFacade.ok(jsonb.toJson(stats));
 	}
 }

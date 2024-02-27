@@ -11,6 +11,8 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -255,4 +257,22 @@ public class KursFacade {
 		}
 		em.flush();
 	}
+
+    public HashMap<String, List<Stundeteilnahme>> getStats(Kurs k) {
+		HashMap<String, List<Stundeteilnahme>> stats = new HashMap<String, List<Stundeteilnahme>>();
+		for (Unterricht u : k.getUnterrichtList()) {
+			for (Stunde s : u.getStundeList()) {
+				for (Stundeteilnahme st : s.getStundeteilnahmeList()) {
+					if (stats.containsKey(st.getAccount().getEmail())) {
+						stats.get(st.getAccount().getEmail()).add(st);
+					} else {
+						List<Stundeteilnahme> stList = new LinkedList<Stundeteilnahme>();
+						stList.add(st);
+						stats.put(st.getAccount().getEmail(), stList);
+					}
+				}
+			}
+		}
+		return stats;
+    }
 }
