@@ -43,16 +43,6 @@ CREATE TABLE Stunde (
     FOREIGN KEY (unterricht) REFERENCES Unterricht(id)
 );
 
-CREATE TABLE StundeBewertung (
-    id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
-    account INT NOT NULL,
-    stunde INT NOT NULL,
-    note INT,
-    kommentar VARCHAR(255),
-    FOREIGN KEY (account) REFERENCES Account(id),
-    FOREIGN KEY (stunde) REFERENCES Stunde(id)
-);
-
 CREATE TABLE StundeTeilnahme (
     id INT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 0, INCREMENT BY 1),
     account INT NOT NULL,

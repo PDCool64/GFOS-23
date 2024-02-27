@@ -5,13 +5,15 @@
 				sampleData[0].stunde.unterricht.kurs.art
 			}}{{ sampleData[0].stunde.unterricht.kurs.nummer }})
 		</h1>
+		<RouterLink :to="`/stunde/checkin/${stundenId}`"
+			>CheckIn-code</RouterLink
+		>
 		<h2 v-if="sampleData[0] !== undefined">
 			{{ sampleData[0].stunde.datum.substring(0, 10) }}
 		</h2>
 		<h2 v-if="sampleData[0] !== undefined">
 			Von {{ times[sampleData[0].stunde.unterricht.beginstunde][0] }} bis
 			{{ times[sampleData[0].stunde.unterricht.endstunde][1] }}
-			{{ sampleData[0].stunde.unterricht.beginstunde }}
 		</h2>
 		<div class="button-wrapper">
 			<div class="wrapper">
@@ -89,7 +91,6 @@ const times = [
 ];
 
 const stundenId = route.params.id;
-console.log(stundenId);
 
 const sampleData = ref([]);
 const toJson = computed(() => {
@@ -103,9 +104,18 @@ const toJson = computed(() => {
 });
 
 const setup = async () => {
-	sampleData.value = getTeilnahmen(stundenId).then((res) => {
-		sampleData.value = res;
-	});
+	sampleData.value = await getTeilnahmen(stundenId);
+	for (let i = 0; i < sampleData.value.length; i++) {
+		if (!sampleData.value[i].anwesend) {
+			sampleData.value[i].note = "-";
+		}
+		if (
+			sampleData.value[i].account.id ===
+			sampleData.value[i].stunde.unterricht.kurs.leiter.id
+		) {
+			sampleData.value.splice(i, 1);
+		}
+	}
 };
 
 onMounted(() => {
@@ -145,5 +155,10 @@ button {
 	border-radius: 5px;
 	margin-top: 10px;
 	margin-left: auto;
+}
+a {
+	color: var(--color-text);
+	text-decoration: underline;
+	font-size: calc(var(--text-size) * 1.5);
 }
 </style>

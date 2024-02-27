@@ -6,7 +6,6 @@ package com.ppj.backend.Facades;
 
 import com.ppj.backend.Entity.Account;
 import com.ppj.backend.Entity.Stundeteilnahme;
-
 import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -64,7 +63,7 @@ public class AccountFacade {
 		}
 	}
 
-	 public Account updateAccount(Account a) {
+	public Account updateAccount(Account a) {
 		try {
 			Account accountInDatenbank = this.getAccountById(a.getId());
 			accountInDatenbank.setEmail(a.getEmail());
@@ -72,8 +71,10 @@ public class AccountFacade {
 			accountInDatenbank.setIsadmin(a.getIsadmin());
 			accountInDatenbank.setName(a.getName());
 			accountInDatenbank.setVorname(a.getVorname());
-			em.merge(accountInDatenbank);
-			em.flush();
+			if (a.getId() == accountInDatenbank.getId()) {
+				em.merge(accountInDatenbank);
+				em.flush();
+			}
 			return accountInDatenbank;
 		} catch (Exception e) {
 			return null;
@@ -110,7 +111,10 @@ public class AccountFacade {
 	public List<Stundeteilnahme> getAllTeilnahmen() {
 		try {
 			return em
-				.createNamedQuery("Stundeteilnahme.findAll", Stundeteilnahme.class)
+				.createNamedQuery(
+					"Stundeteilnahme.findAll",
+					Stundeteilnahme.class
+				)
 				.getResultList();
 		} catch (Exception e) {
 			return null;
@@ -126,13 +130,14 @@ public class AccountFacade {
 	public Stundeteilnahme updateTeilnahme(Stundeteilnahme s) {
 		try {
 			// Fetch the existing Stundeteilnahme record from the database using the ID from the input object.
-			Stundeteilnahme teilnahmeInDatenbank = this.getTeilnahmeById(s.getId());
+			Stundeteilnahme teilnahmeInDatenbank =
+				this.getTeilnahmeById(s.getId());
 
 			// Update the fields of the fetched Stundeteilnahme record with the data from the input object.
 			teilnahmeInDatenbank.setAccount(s.getAccount());
 			teilnahmeInDatenbank.setBegintimestamp(s.getBegintimestamp());
 			teilnahmeInDatenbank.setEndtimestamp(s.getEndtimestamp());
-			teilnahmeInDatenbank.setNote (s.getNote());
+			teilnahmeInDatenbank.setNote(s.getNote());
 			teilnahmeInDatenbank.setStunde(s.getStunde());
 
 			// Merge the updated Stundeteilnahme record with the existing one in the database.
@@ -145,6 +150,7 @@ public class AccountFacade {
 			return null;
 		}
 	}
+
 	/**
 	 * Deletes a Stundeteilnahme record from the database.
 	 *

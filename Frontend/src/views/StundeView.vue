@@ -33,7 +33,6 @@ import { useUserStore } from "@/stores/user";
 import { useStundenStore } from "@/stores/stunden";
 import { useRouter } from "vue-router";
 import { getIsLeiter } from "@/requests/kurs";
-import router from "@/router";
 
 const userData = useUserStore();
 const stundenData = useStundenStore();

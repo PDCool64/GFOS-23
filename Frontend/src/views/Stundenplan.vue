@@ -102,9 +102,9 @@ const times = [
 	["14:15", "15:00"],
 	["15:05", "15:50"],
 	["15:55", "16:40"],
-	["16:45", "17:30"], 
+	["16:45", "17:30"],
 	["17:30", "18:15"],
-	["18:20", "18:55"]
+	["18:20", "18:55"],
 ];
 
 const stunden = ref(days.map(() => Array(times.length).fill("")));
@@ -145,7 +145,11 @@ async function reload() {
 
 const openStunden = async (timeIndex, dayIndex) => {
 	if (stunden.value[dayIndex][timeIndex] == "") return;
-	if (await getIsLeiter(stundenData.stunden[dayIndex][timeIndex].unterricht.kurs.id)) {
+	if (
+		await getIsLeiter(
+			stundenData.stunden[dayIndex][timeIndex].unterricht.kurs.id,
+		)
+	) {
 		router.push(
 			"/stunde/anwesenheit/" +
 				stundenData.stunden[dayIndex][timeIndex].id,

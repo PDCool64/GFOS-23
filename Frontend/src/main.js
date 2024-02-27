@@ -12,7 +12,7 @@ const pinia = createPinia()
 
 pinia.use(piniaPluginPersistedState)
 
-await app.use(pinia)
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')

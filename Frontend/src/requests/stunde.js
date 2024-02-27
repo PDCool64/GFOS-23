@@ -82,19 +82,16 @@ export const checkin = async (stundenId, code) => {
 		if (userData === undefined) {
 			userData = useUserStore();
 		}
-		const response = await fetch(
-			address + "/stunde/checkin/" + stundenId,
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: userData.token,
-				},
-				body: JSON.stringify({
-					code: code,
-				}),
+		const response = await fetch(address + "/stunde/checkin/" + stundenId, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: userData.token,
 			},
-		);
+			body: JSON.stringify({
+				code: code,
+			}),
+		});
 		if (!response.ok) {
 			return null;
 		}
@@ -132,24 +129,38 @@ export const getAktuelleStunde = async () => {
 	if (userData === undefined) {
 		userData = useUserStore();
 	}
-	const response = await fetch(
-		address + "/stunde/aktuell",
-		{
-			method: "GET",
-			headers: {
-				Authorization: userData.token,
-			},
+	const response = await fetch(address + "/stunde/aktuell", {
+		method: "GET",
+		headers: {
+			Authorization: userData.token,
 		},
-	);
+	});
 	if (!response.ok) {
 		return null;
 	}
 	let data = await response.json();
-	if ("stunde" in data || "teilnahme" in data) {
-		data.stunde = JSON.parse(data.stunde);
+	console.log(data);
+	if ("teilnahme" in data) {
 		data.teilnahme = JSON.parse(data.teilnahme);
-		console.log(data);
+		data.stunde = data.teilnahme.stunde;
 		return data;
 	}
 	return {};
 };
+
+export async function getCheckInCode(stundenId) {
+	if (userData === undefined) {
+		userData = useUserStore();
+	}
+	const response = await fetch(address + "/stunde/checkin/" + stundenId, {
+		method: "GET",
+		headers: {
+			Authorization: userData.token,
+		},
+	});
+	if (!response.ok) {
+		return null;
+	}
+	let data = await response.json();
+	return data.code;
+}

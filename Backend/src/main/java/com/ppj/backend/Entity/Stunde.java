@@ -64,6 +64,7 @@ public class Stunde implements Serializable {
 
 	@Basic(optional = false)
 	@Column(name = "CHECKINCODE")
+	@JsonbTransient
 	private String checkincode;
 
 	@JoinColumn(name = "UNTERRICHT", referencedColumnName = "ID")

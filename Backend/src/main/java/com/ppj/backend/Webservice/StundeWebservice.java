@@ -165,13 +165,13 @@ public class StundeWebservice {
 			permissionFacade.isActive(token) == ""
 		) return responseService.unauthorized();
 		Account a = permissionFacade.getAccountByToken(token);
-		System.out.println(a.getId());
 		Stunde aktuelleStunde = stundeFacade.getAktuelleStunde(a);
 		if (aktuelleStunde == null) {
-			return responseService.ok("{\"message\": \"Keine aktuelle Stunde\"}");
+			return responseService.ok(
+				"{\"message\": \"Keine aktuelle Stunde\"}"
+			);
 		}
 		JsonObjectBuilder builder = Json.createObjectBuilder();
-		builder.add("stunde", jsonb.toJson(aktuelleStunde));
 		Stundeteilnahme st = stundeFacade.getStundenteilnahmeByAccountAndStunde(
 			a,
 			aktuelleStunde
@@ -204,9 +204,6 @@ public class StundeWebservice {
 			);
 		}
 		if (!s.getCheckincode().equals(jsonObject.getString("code"))) {
-			System.out.println(
-				s.getCheckincode() + " " + jsonObject.getString("code")
-			);
 			return responseService.status(
 				421,
 				"{\"message\": \"Checkin fehlgeschlagen\"}"
@@ -241,14 +238,44 @@ public class StundeWebservice {
 				"{\"message\": \"Stunde nicht gefunden\"}"
 			);
 		}
-		System.out.println(account.getId() + " " + s.getId());
 		if (stundeFacade.checkout(account, s)) {
-			return responseService.ok("{\"message\": \"Checkout erfolgreich\"}");
+			return responseService.ok(
+				"{\"message\": \"Checkout erfolgreich\"}"
+			);
 		} else {
 			return responseService.status(
 				422,
 				"{\"message\": \"Checkout fehlgeschlagen\"}"
 			);
 		}
+	}
+
+	@GET
+	@Path("/checkin/{stundeId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCheckInCode(
+		@HeaderParam("Authorization") String token,
+		@PathParam("stundeId") int id
+	) {
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseService.unauthorized();
+		Account a = permissionFacade.getAccountByToken(token);
+		Stunde s = stundeFacade.getStundeById(id);
+		if (s == null) {
+			return responseService.status(
+				404,
+				"{\"message\": \"Stunde nicht gefunden\"}"
+			);
+		}
+		if (s.getUnterricht().getKurs().getLeiter().getId() != a.getId()) {
+			return responseService.status(
+				403,
+				"{\"message\": \"Keine Berechtigung\"}"
+			);
+		}
+		return responseService.ok(
+			"{\"code\": \"" + s.getCheckincode() + "\"}"
+		);
 	}
 }

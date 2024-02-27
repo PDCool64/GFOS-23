@@ -87,15 +87,11 @@ public class StundeFacade {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		System.out.println(current);
 		for (int i = 0; i < stundenplan.length; i++) {
 			try {
 				Date stundenplanTime = sdf.parse(stundenplan[i]);
 				long differenceInMinutes =
 					(current.getTime() - stundenplanTime.getTime()) / 1000 / 60;
-				System.out.println(
-					"Difference in minutes: " + differenceInMinutes
-				);
 				if (differenceInMinutes > 0 && differenceInMinutes <= 45) {
 					currentStundenplanIndex = i;
 					break;
@@ -104,7 +100,6 @@ public class StundeFacade {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(currentStundenplanIndex);
 		return currentStundenplanIndex;
 	}
 
@@ -213,9 +208,7 @@ public class StundeFacade {
 			Date end = new SimpleDateFormat("yyyy-MM-dd").parse(enddate);
 			for (Kursteilnahme kt : account.getKursteilnahmeList()) {
 				for (Unterricht u : kt.getKurs().getUnterrichtList()) {
-					System.out.println(u.getId());
 					for (Stunde s : u.getStundeList()) {
-						System.out.println(s);
 						if (
 							start.compareTo(s.getDatum()) <= 0 &&
 							end.compareTo(s.getDatum()) >= 0
@@ -334,22 +327,18 @@ public class StundeFacade {
 
 	public boolean checkin(Account account, Stunde s) {
 		if (!isActive(s)) {
-			System.out.println("Stunde ist nicht aktiv");
 			return false;
 		}
-		System.out.println(s);
 		for (Stundeteilnahme st : s.getStundeteilnahmeList()) {
-			System.out.println(st);
-			System.out.println(st.getAccount().getId() + " " + account.getId());
 			if (st.getAccount().getId() == account.getId()) {
 				st.setAnwesend(true);
-				st.setBegintimestamp(new Date());
+				Date current = new Date(new Date().getTime() + 1000 * 60 * 60);
+				st.setBegintimestamp(current);
 				em.merge(st);
 				em.flush();
 				return true;
 			}
 		}
-		System.out.println("Account ist nicht in der Stunde");
 		return false;
 	}
 
@@ -385,21 +374,19 @@ public class StundeFacade {
 
 	public boolean checkout(Account account, Stunde s) {
 		if (s == null) {
-			System.out.println("Stunde ist null");
 			return false;
 		}
 		if (!isActive(s)) {
-			System.out.println("Stunde ist nicht aktiv");
 			return false;
 		}
 		Stundeteilnahme st = getStundenteilnahmeByAccountAndStunde(account, s);
 		if (st == null) {
-			System.out.println("Account ist nicht in der Stunde");
 			return false;
 		}
 		if (!st.getAnwesend())
 			return false;
-		st.setEndtimestamp(new Date());
+		Date current = new Date(new Date().getTime() + 1000 * 60 * 60);
+		st.setEndtimestamp(current);
 		em.merge(st);
 		return true;
 	}

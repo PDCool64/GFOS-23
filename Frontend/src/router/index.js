@@ -73,6 +73,11 @@ const router = createRouter({
 			path: "/stunde/anwesenheit/:id",
 			name: "anwesenheit",
 			component: () => import("../views/AnwesenheitsListView.vue"),
+		}, 
+		{
+			path: "/stunde/checkin/:id",
+			name: "checkin",
+			component: () => import("../views/CheckinView.vue"),
 		}
 	],
 });
