@@ -135,3 +135,17 @@ export async function getIsLeiter(kursId) {
 	console.log(data);
 	return data;
 }
+
+export async function getStats(kursId) {
+	const response = await fetch(address + "/kurs/stats/" + kursId, {
+		method: "GET",
+		headers: {
+			Authorization: userData.token,
+		},
+	});
+	if (!response.ok) {
+		return null;
+	}
+	let data = await response.json();
+	return data;
+}

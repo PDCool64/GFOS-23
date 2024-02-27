@@ -55,6 +55,11 @@ const router = createRouter({
 			component: () => import("../views/KursMembersView.vue"),
 		},
 		{
+			path: "/kurs/stats/:kurs",
+			name: "kurs-stats",
+			component: () => import("../views/StatsView.vue"),
+		},
+		{
 			path: "/unterricht/create/:kurs",
 			name: "create-unterricht",
 			component: () => import("../views/CreateUnterrichtView.vue"),

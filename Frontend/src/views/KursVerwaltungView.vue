@@ -20,7 +20,7 @@
 					<h2>Mitglieder</h2>
 				</div>
 			</div>
-			<div class="kurs-item">
+			<div class="kurs-item" @click="seeStats">
 				<div class="one-line">
 					<img src="../assets/pictures/stats.png" alt="" />
 					<h2>Statistiken</h2>
@@ -49,6 +49,10 @@ const kursId = route.params.kurs;
 const userData = useUserStore();
 
 const kurse = ref([]);
+
+function seeStats() {
+	router.push("/kurs/stats/" + kursId);
+}
 
 function deleteUnterricht() {
 	router.push("/unterricht/delete/" + kursId);

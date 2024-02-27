@@ -1,1 +1,1 @@
-export default "http://87.171.53.18:8080/Backend/api"
+export default "http://localhost:8080/Backend/api"
