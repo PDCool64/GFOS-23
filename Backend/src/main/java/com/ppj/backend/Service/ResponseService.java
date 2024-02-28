@@ -43,6 +43,13 @@ public class ResponseService {
 			.build();
 	}
 
+	public Response unprocessable (String error) {
+		return Response
+			.status(422)
+			.entity("{\"error\": \"" + error + "\"}")
+			.build();
+	}
+
 	public Response unauthorized() {
 		return Response
 			.status(401)
@@ -54,6 +61,13 @@ public class ResponseService {
 		return Response
 			.status(401)
 			.entity("{\"error\": \"" + error + "\"}")
+			.build();
+	}
+
+	public Response badRequest(String string) {
+		return Response
+			.status(400)
+			.entity("{\"error\": \"" + string + "\"}")
 			.build();
 	}
 }

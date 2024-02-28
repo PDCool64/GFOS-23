@@ -82,26 +82,19 @@ public class AccountWebservice {
 		if (!permissionFacade.isAdmin(token)) {
 			Account a = permissionFacade.getAccountByToken(token);
 			if (a == null) {
-				return responseFacade.status(
-					401,
-					"{\"error\": \"Token ist ungültig\"}"
-				);
+				return responseFacade.unauthorized("Token ist ungültig.");
 			}
-			return responseFacade.status(
-				201,
-				"{\"error\": \"Account" +
-				a.getEmail() +
-				" ist kein Admin " +
-				a.getIsadmin() +
-				"\"}"
+			return responseFacade.unprocessable(
+				"Account " + a.getEmail() + " ist kein Admin."
 			);
 		}
 		try {
 			Account a = jsonb.fromJson(json, Account.class);
 			if (accountFacade.getAccountByEmail(a.getEmail()) != null) {
-				return responseFacade.status(
-					400,
-					"{\"error\": \"Account existiert bereits.\"}"
+				return responseFacade.unprocessable(
+					"Account mit der Email " +
+					a.getEmail() +
+					" existiert bereits."
 				);
 			}
 
@@ -109,13 +102,8 @@ public class AccountWebservice {
 			Account accountAusDatenbank = accountFacade.createAccount(a);
 			return responseFacade.ok(jsonb.toJson(accountAusDatenbank));
 		} catch (Exception e) {
-			return responseFacade.status(
-				422,
-				"{\"error\": \"JSON-String konnte nicht geparsed werden.\", \"your request\": " +
-				json +
-				", \"errorMessage\": \"" +
-				e.getMessage() +
-				"\"}"
+			return responseFacade.unprocessable(
+				"JSON-String konnte nicht geparsed werden. " + e.getMessage()
 			);
 		}
 	}
@@ -129,15 +117,11 @@ public class AccountWebservice {
 	) {
 		if (
 			permissionFacade.isActive(token) == ""
-		) return responseFacade.status(
-			401,
-			"{\"error\": \"Token ist ungültig\"}"
-		);
+		) return responseFacade.unauthorized();
 		Account a = accountFacade.getAccountById(id);
 		if (a == null) {
-			return responseFacade.status(
-				400,
-				"{\"error\": \"Kein Account mit der id " + id + " gefunden.\"}"
+			return responseFacade.unprocessable(
+				"kein Account mit der ID " + id + " gefunden."
 			);
 		} else {
 			return responseFacade.ok(jsonb.toJson(a));
@@ -153,22 +137,14 @@ public class AccountWebservice {
 	) {
 		if (
 			permissionFacade.isActive(token) == ""
-		) return responseFacade.status(
-			401,
-			"{\"error\": \"Token ist ungültig\"}"
-		);
+		) return responseFacade.unauthorized();
 		try {
 			Account a = jsonb.fromJson(json, Account.class);
 			Account accountAusDatenbank = accountFacade.updateAccount(a);
 			return responseFacade.ok(jsonb.toJson(accountAusDatenbank));
 		} catch (Exception e) {
-			return responseFacade.status(
-				422,
-				"{\"error\": \"JSON-String konnte nicht geparsed werden.\", \"your request\": " +
-				json +
-				", \"errorMessage\": \"" +
-				e.getMessage() +
-				"\"}"
+			return responseFacade.unprocessable(
+				"JSON-String konnte nicht geparsed werden. " + e.getMessage()
 			);
 		}
 	}
@@ -182,10 +158,7 @@ public class AccountWebservice {
 	) {
 		if (
 			permissionFacade.isActive(token) == ""
-		) return responseFacade.status(
-			401,
-			"{\"error\": \"Token ist ungültig\"}"
-		);
+		) return responseFacade.unauthorized();
 		try (
 			JsonReader jsonReader = Json.createReader(new StringReader(json))
 		) {
@@ -205,22 +178,16 @@ public class AccountWebservice {
 				);
 				accountFacade.updateAccount(a);
 			} else {
-				return responseFacade.status(
-					401,
-					"{\"error\": \"Altes Passwort ist falsch.\"}"
+				return responseFacade.unauthorized(
+					"Altes Passwort ist falsch."
 				);
 			}
 			return responseFacade.ok(
 				"{\"success\": \"Passwort wurde erfolgreich geändert.\"}"
 			);
 		} catch (Exception e) {
-			return responseFacade.status(
-				422,
-				"{\"error\": \"JSON-String konnte nicht geparsed werden.\", \"your request\": " +
-				json +
-				", \"errorMessage\": \"" +
-				e.getMessage() +
-				"\"}"
+			return responseFacade.unprocessable(
+				"JSON-String konnte nicht geparsed werden. " + e.getMessage()
 			);
 		}
 	}
@@ -231,10 +198,7 @@ public class AccountWebservice {
 	public Response getIsLeiter(@HeaderParam("Authorization") String token) {
 		if (
 			permissionFacade.isActive(token) == ""
-		) return responseFacade.status(
-			401,
-			"{\"error\": \"Token ist ungültig\"}"
-		);
+		) return responseFacade.unauthorized();
 		Account a = permissionFacade.getAccountByToken(token);
 		boolean isLeiter = a.getKursList().size() > 0;
 		JsonObject json = Json
@@ -243,5 +207,4 @@ public class AccountWebservice {
 			.build();
 		return responseFacade.ok(json.toString());
 	}
-
 }

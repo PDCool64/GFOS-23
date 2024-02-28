@@ -73,7 +73,7 @@ public class KursWebservice {
 			String email = jsonObject.getString("leiter");
 			Account leiter = accountFacade.getAccountByEmail(email);
 			if (leiter == null) {
-				return responseFacade.ok(
+				return responseFacade.unprocessable(
 					"Leiter konnte nicht gefunden werden."
 				);
 			}
@@ -87,8 +87,7 @@ public class KursWebservice {
 
 			Kurs kursAusDatenbank = kursFacade.createKurs(k);
 			if (kursAusDatenbank == null) {
-				return responseFacade.status(
-					422,
+				return responseFacade.unprocessable(
 					"Kurs konnte nicht erstellt werden."
 				);
 			} else {
@@ -103,14 +102,16 @@ public class KursWebservice {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllKurse(@HeaderParam("Authorization") String token) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		try {
 			return responseFacade.ok(jsonb.toJson(kursFacade.getAllKurse()));
 		} catch (JsonbException e) {
 			e.printStackTrace();
-			return responseFacade.ok("Kurse konnten nicht geladen werden.");
+			return responseFacade.unprocessable(
+				"Kurse konnten nicht geladen werden."
+			);
 		}
 	}
 
@@ -120,17 +121,19 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		try {
 			Kurs kurs = kursFacade.getKursById(id);
-			if (kurs == null) return responseFacade.ok(
+			if (kurs == null) return responseFacade.unprocessable(
 				"Kurs konnte nicht gefunden werden"
 			);
 			return responseFacade.ok(jsonb.toJson(jsonb.toJson(kurs)));
 		} catch (JsonbException e) {
-			return responseFacade.ok("Kurs konnte nicht geladen werden.");
+			return responseFacade.unprocessable(
+				"Kurs konnte nicht geladen werden."
+			);
 		}
 	}
 
@@ -140,17 +143,19 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("checkincode") String checkincode
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		try {
 			Kurs kurs = kursFacade.getKursByCheckinCode(checkincode);
-			if (kurs == null) return responseFacade.ok(
+			if (kurs == null) return responseFacade.unprocessable(
 				"Kurs konnte nicht gefunden werden"
 			);
 			return responseFacade.ok(jsonb.toJson(jsonb.toJson(kurs)));
 		} catch (JsonbException e) {
-			return responseFacade.ok("Kurs konnte nicht geladen werden.");
+			return responseFacade.badRequest(
+				"Kurs konnte nicht geladen werden."
+			);
 		}
 	}
 
@@ -160,18 +165,22 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		String json
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		try {
 			Kurs k = jsonb.fromJson(json, Kurs.class);
 			boolean kursInDatenbank = kursFacade.updateKurs(k);
 			if (kursInDatenbank != false) {
 				return responseFacade.ok("Kurs wurde geupdated.");
 			}
-			return responseFacade.ok("Kurs konnte nicht geupdated werden.");
+			return responseFacade.unprocessable(
+				"Kurs konnte nicht geupdated werden."
+			);
 		} catch (JsonbException e) {
-			return responseFacade.ok("Json konnte nicht geparst werden.");
+			return responseFacade.badRequest(
+				"Json konnte nicht geparst werden."
+			);
 		}
 	}
 
@@ -181,18 +190,22 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("id") int id
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		try {
 			Kurs k = kursFacade.getKursById(id);
 			boolean kursInDatenbank = kursFacade.deleteKurs(k);
 			if (kursInDatenbank != false) {
 				return responseFacade.ok("Kurs wurde gelöscht.");
 			}
-			return responseFacade.ok("Kurs konnte nicht gelöscht werden.");
+			return responseFacade.unprocessable(
+				"Kurs konnte nicht gelöscht werden."
+			);
 		} catch (JsonbException e) {
-			return responseFacade.ok("Kurs konnte nicht gelöscht werden.");
+			return responseFacade.badRequest(
+				"Kurs konnte nicht gelöscht werden."
+			);
 		}
 	}
 
@@ -210,18 +223,15 @@ public class KursWebservice {
 		) return responseFacade.unauthorized();
 		Account a = permissionFacade.getAccountByToken(token);
 		Kurs k = kursFacade.getKursById(kursId);
-		if (k == null) return responseFacade.status(
-			422,
+		if (k == null) return responseFacade.unprocessable(
 			"Kurs konnte nicht gefunden werden."
 		);
-		if (k.getLeiter() != a) return responseFacade.status(
-			401,
-			"{\"error\": \"Sie sind nicht berechtigt, Teilnehmer hinzuzufügen.\"}"
+		if (k.getLeiter() != a) return responseFacade.unauthorized(
+			"Sie sind nicht berechtigt, Teilnehmer hinzuzufügen."
 		);
 		Account teilnehmer = accountFacade.getAccountByEmail(accountId);
-		if (teilnehmer == null) return responseFacade.status(
-			422,
-			"{\"error\": \"Teilnehmer konnte nicht gefunden werden.\"}"
+		if (teilnehmer == null) return responseFacade.unprocessable(
+			"Teilnehmer konnte nicht gefunden werden."
 		);
 		kursFacade.addTeilnehmer(kursId, teilnehmer);
 		return responseFacade.ok("{\"success\": \"Teilnehmer hinzugefügt.\"}");
@@ -234,9 +244,9 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("accountId") int accountId
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		return responseFacade.ok(
 			jsonb.toJson(kursFacade.getKurseByAccountId(accountId))
 		);
@@ -249,9 +259,9 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("accountId") int accountId
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		List<Kurs> kurse = new LinkedList<Kurs>();
 		Account a = permissionFacade.getAccountByToken(token);
 		kurse = kursFacade.getKurseByLeiter(a);
@@ -265,9 +275,9 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("kursId") int kursId
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		return responseFacade.ok(
 			jsonb.toJson(kursFacade.getTeilnahmenByKurs(kursId))
 		);
@@ -280,9 +290,9 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("kursId") int kursId
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		Account a = permissionFacade.getAccountByToken(token);
 		Kurs k = kursFacade.getKursById(kursId);
 		return responseFacade.ok(jsonb.toJson(k.getLeiter() == a));
@@ -296,23 +306,20 @@ public class KursWebservice {
 		@PathParam("kursId") int kursId,
 		@PathParam("accountId") int accountId
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		Account a = permissionFacade.getAccountByToken(token);
 		Kurs k = kursFacade.getKursById(kursId);
-		if (k == null) return responseFacade.status(
-			422,
+		if (k == null) return responseFacade.unprocessable(
 			"Kurs konnte nicht gefunden werden."
 		);
-		if (k.getLeiter() != a) return responseFacade.status(
-			401,
-			"{\"error\": \"Sie sind nicht berechtigt, Teilnehmer zu löschen.\"}"
+		if (k.getLeiter() != a) return responseFacade.unauthorized(
+			"Sie sind nicht berechtigt, Teilnehmer zu löschen."
 		);
 		Account teilnehmer = accountFacade.getAccountById(accountId);
-		if (teilnehmer == null) return responseFacade.status(
-			422,
-			"{\"error\": \"Teilnehmer konnte nicht gefunden werden.\"}"
+		if (teilnehmer == null) return responseFacade.unprocessable(
+			"Teilnehmer konnte nicht gefunden werden."
 		);
 		kursFacade.deleteTeilnehmer(k, accountId);
 		return responseFacade.ok("{\"success\": \"Teilnehmer gelöscht.\"}");
@@ -325,12 +332,11 @@ public class KursWebservice {
 		@HeaderParam("Authorization") String token,
 		@PathParam("kursId") int kursId
 	) {
-		if (permissionFacade.isActive(token) == "") return responseFacade.ok(
-			"Token ist ungültig"
-		);
+		if (
+			permissionFacade.isActive(token) == ""
+		) return responseFacade.unauthorized();
 		Kurs k = kursFacade.getKursById(kursId);
-		if (k == null) return responseFacade.status(
-			422,
+		if (k == null) return responseFacade.unprocessable(
 			"Kurs konnte nicht gefunden werden."
 		);
 		HashMap<String, List<Stundeteilnahme>> stats = kursFacade.getStats(k);

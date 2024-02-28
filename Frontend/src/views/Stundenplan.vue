@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref, useSSRContext, computed } from "vue";
+import { ref, useSSRContext, computed, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useStundenStore } from "@/stores/stunden";
 import router from "@/router";
@@ -166,7 +166,10 @@ const openStunden = async (timeIndex, dayIndex) => {
 	});
 };
 
-reload();
+onMounted(() => {
+	reload();
+});
+
 console.log("Done");
 
 const nextWeek = async () => {
