@@ -75,21 +75,6 @@ public class UnterrichtWebservice {
 		);
 	}
 
-	@GET
-	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUnterrichtById(@PathParam("id") int id) {
-		try {
-			Account account = accountFacade.getAccountById(id);
-			List<Unterricht> unterrichtList = unterrichtFacade.getUnterrichtByAccount(
-				account
-			);
-			return responseService.ok(jsonb.toJson(unterrichtList));
-		} catch (Exception e) {
-			return responseService.status(404, "Unterricht nicht gefunden");
-		}
-	}
-
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -131,6 +116,22 @@ public class UnterrichtWebservice {
 			);
 		}
 	}
+
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getUnterrichtById(@PathParam("id") int id) {
+		try {
+			Account account = accountFacade.getAccountById(id);
+			List<Unterricht> unterrichtList = unterrichtFacade.getUnterrichtByAccount(
+				account
+			);
+			return responseService.ok(jsonb.toJson(unterrichtList));
+		} catch (Exception e) {
+			return responseService.status(404, "Unterricht nicht gefunden");
+		}
+	}
+
 
 	@GET
 	@Path("/kurs/{kursId}")
