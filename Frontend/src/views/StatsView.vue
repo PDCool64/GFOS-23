@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody v-if="soMiNoten !== null">
-                <tr v-for="(note, email) in soMiNoten" :key="em ail" @click="showDetails(email)">
+                <tr v-for="(note, email) in soMiNoten" :key="email" @click="showDetails(email)">
                 <td>{{ stats[email][0].account.name }}</td>
                 <td>{{ stats[email][0].account.vorname }}</td>
                 <td>{{ note }}</td>

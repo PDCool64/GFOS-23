@@ -23,6 +23,9 @@
 				<p class="unterricht__card-text">
 					Datum: {{ formatDate(stundenData.date, content.tag) }}
 				</p>
+				<p class="unterricht__card-text">
+					Note: {{ note }}
+				</p>
 			</div>
 		</div>
 	</div>
@@ -44,7 +47,8 @@ day.value = route.currentRoute.value.params.day;
 time.value = route.currentRoute.value.params.time;
 
 const content = ref("");
-content.value = stundenData.stunden[day.value][time.value].unterricht;
+content.value = stundenData.stunden[day.value][time.value].stunde.unterricht;
+const note = stundenData.stunden[day.value][time.value].note;
 
 const goToStundenplan = () => {
 	route.push("/stundenplan/" + stundenData.date);

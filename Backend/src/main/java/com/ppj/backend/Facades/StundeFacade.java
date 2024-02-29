@@ -120,7 +120,7 @@ public class StundeFacade {
 		for (Kursteilnahme kt : stundeMitId
 			.getUnterricht()
 			.getKurs()
-			.getKursteilnahmeList()) { // for(int i = 0;...) kt = ...[i]
+			.getKursteilnahmeList()) { 
 			Stundeteilnahme st = new Stundeteilnahme();
 			em.persist(st);
 			st.setStunde(stundeMitId);
@@ -197,13 +197,13 @@ public class StundeFacade {
 		}
 	}
 
-	public List<Stunde> getStundenByAccountAndDate(
+	public List<Stundeteilnahme> getStundenByAccountAndDate(
 		Account account,
 		String startdate,
 		String enddate
 	) {
 		try {
-			List<Stunde> stunden = new ArrayList<Stunde>();
+			List<Stundeteilnahme> stunden = new ArrayList<>();
 			Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startdate);
 			Date end = new SimpleDateFormat("yyyy-MM-dd").parse(enddate);
 			for (Kursteilnahme kt : account.getKursteilnahmeList()) {
@@ -213,7 +213,9 @@ public class StundeFacade {
 							start.compareTo(s.getDatum()) <= 0 &&
 							end.compareTo(s.getDatum()) >= 0
 						) {
-							stunden.add(s);
+							for (Stundeteilnahme st : s.getStundeteilnahmeList()) if (
+								st.getAccount().getId() == account.getId()
+							) stunden.add(st);
 						}
 					}
 				}
@@ -346,8 +348,14 @@ public class StundeFacade {
 		List<Stundeteilnahme> stundenteilnahmenList
 	) {
 		for (Stundeteilnahme st : stundenteilnahmenList) {
-			em.merge(st);
+			Stundeteilnahme stInDatenbank = em.find(
+				Stundeteilnahme.class,
+				st.getId()
+			);
+			stInDatenbank.setAnwesend(st.getAnwesend());
+			stInDatenbank.setNote(st.getNote());
 		}
+		em.flush();
 		return stundenteilnahmenList;
 	}
 
@@ -383,8 +391,7 @@ public class StundeFacade {
 		if (st == null) {
 			return false;
 		}
-		if (!st.getAnwesend())
-			return false;
+		if (!st.getAnwesend()) return false;
 		Date current = new Date(new Date().getTime() + 1000 * 60 * 60);
 		st.setEndtimestamp(current);
 		em.merge(st);

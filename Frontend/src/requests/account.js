@@ -72,6 +72,9 @@ export const changePassword = async (oldPassword, newPassword) => {
 };
 
 export const createAccount = async (account, password) => {
+	if (userData === undefined) {
+		userData = useUserStore();
+	}
 	try {
 		account.geburtsdatum = account.geburtsdatum + "T10:00:00.000Z";
 		const response = await fetch(address + "/account", {
@@ -85,6 +88,7 @@ export const createAccount = async (account, password) => {
 		});
 		return response.status;
 	} catch (e) {
+		console.log(e);
 		return null;
 	}
 };
@@ -92,7 +96,7 @@ export const createAccount = async (account, password) => {
 export const getAccount = async (id) => {
 	try {
 		const response = await fetch(
-			`http://localhost:8080/Backend/account/${id}`,
+			address + `/account/${id}`,
 			{
 				method: "GET",
 				headers: {

@@ -1,0 +1,115 @@
+[
+	{
+		"account": {
+			"email": "johannes@goehlert.de",
+			"geburtsdatum": "2006-12-28T23:00:00Z[UTC]",
+			"id": 5,
+			"isadmin": false,
+			"name": "Göhlert",
+			"vorname": "Johannes"
+		},
+		"anwesend": false,
+		"id": 693,
+		"stunde": {
+			"datum": "2024-02-29T00:00:00.000Z",
+			"id": 382,
+			"unterricht": {
+				"beginstunde": 5,
+				"endstunde": 5,
+				"id": 17,
+				"kurs": {
+					"art": "GK",
+					"fach": "Bio",
+					"id": 4,
+					"leiter": {
+						"email": "philipp@trutz.de",
+						"geburtsdatum": "2008-07-14T22:00:00Z[UTC]",
+						"id": 4,
+						"isadmin": false,
+						"name": "Trutz",
+						"vorname": "Philipp"
+					},
+					"nummer": 1,
+					"stufe": 11
+				},
+				"tag": 4
+			}
+		}
+	},
+	{
+		"account": {
+			"email": "philippdoering64@web.de",
+			"geburtsdatum": "2006-11-18T23:00:00Z[UTC]",
+			"id": 20,
+			"isadmin": true,
+			"name": "Doering",
+			"vorname": "Philipp"
+		},
+		"anwesend": true,
+		"id": 694,
+		"note": 12,
+		"stunde": {
+			"datum": "2024-02-29T00:00:00.000Z",
+			"id": 382,
+			"unterricht": {
+				"beginstunde": 5,
+				"endstunde": 5,
+				"id": 17,
+				"kurs": {
+					"art": "GK",
+					"fach": "Bio",
+					"id": 4,
+					"leiter": {
+						"email": "philipp@trutz.de",
+						"geburtsdatum": "2008-07-14T22:00:00Z[UTC]",
+						"id": 4,
+						"isadmin": false,
+						"name": "Trutz",
+						"vorname": "Philipp"
+					},
+					"nummer": 1,
+					"stufe": 11
+				},
+				"tag": 4
+			}
+		}
+	},
+	{
+		"account": {
+			"email": "a@a.a",
+			"geburtsdatum": "0001-01-01T10:00:00Z[UTC]",
+			"id": 13,
+			"isadmin": true,
+			"name": "a",
+			"vorname": "a"
+		},
+		"anwesend": true,
+		"id": 1124,
+		"note": 12,
+		"stunde": {
+			"datum": "2024-02-29T00:00:00.000Z",
+			"id": 382,
+			"unterricht": {
+				"beginstunde": 5,
+				"endstunde": 5,
+				"id": 17,
+				"kurs": {
+					"art": "GK",
+					"fach": "Bio",
+					"id": 4,
+					"leiter": {
+						"email": "philipp@trutz.de",
+						"geburtsdatum": "2008-07-14T22:00:00Z[UTC]",
+						"id": 4,
+						"isadmin": false,
+						"name": "Trutz",
+						"vorname": "Philipp"
+					},
+					"nummer": 1,
+					"stufe": 11
+				},
+				"tag": 4
+			}
+		}
+	}
+]

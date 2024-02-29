@@ -120,26 +120,27 @@ async function reload() {
 		console.log("Error");
 		return;
 	}
+	console.log(data);
 
 	const temp = ref(days.map(() => Array(times.length).fill("")));
-	for (var stunde of data) {
+	for (var teilnahme of data) {
 		for (
-			var s = stunde.unterricht.beginstunde;
-			s <= stunde.unterricht.endstunde;
+			var s = teilnahme.stunde.unterricht.beginstunde;
+			s <= teilnahme.stunde.unterricht.endstunde;
 			s++
 		)
-			temp.value[stunde.unterricht.tag][s] = stunde;
+			temp.value[teilnahme.stunde.unterricht.tag][s] = teilnahme;
 	}
 	stundenData.setStunden(temp);
 
-	for (var stunde of data) {
+	for (var teilnahme of data) {
 		for (
-			var s = stunde.unterricht.beginstunde;
-			s <= stunde.unterricht.endstunde;
+			var s = teilnahme.stunde.unterricht.beginstunde;
+			s <= teilnahme.stunde.unterricht.endstunde;
 			s++
 		)
-			stunden.value[stunde.unterricht.tag][s] =
-				stunde.unterricht.kurs.fach;
+			stunden.value[teilnahme.stunde.unterricht.tag][s] =
+				teilnahme.stunde.unterricht.kurs.fach;
 	}
 }
 
@@ -147,12 +148,12 @@ const openStunden = async (timeIndex, dayIndex) => {
 	if (stunden.value[dayIndex][timeIndex] == "") return;
 	if (
 		await getIsLeiter(
-			stundenData.stunden[dayIndex][timeIndex].unterricht.kurs.id,
+			stundenData.stunden[dayIndex][timeIndex].stunde.unterricht.kurs.id,
 		)
 	) {
 		router.push(
 			"/stunde/anwesenheit/" +
-				stundenData.stunden[dayIndex][timeIndex].id,
+				stundenData.stunden[dayIndex][timeIndex].stunde.id,
 		);
 		return;
 	}
