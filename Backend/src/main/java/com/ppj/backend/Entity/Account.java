@@ -66,9 +66,6 @@ public class Account implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
 	@JsonbTransient
 	private List<Stundeteilnahme> stundeteilnahmeList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-	@JsonbTransient
-	private List<Stundebewertung> stundebewertungList;
 	@OneToMany(mappedBy = "leiter")
 	@JsonbTransient
 	private List<Kurs> kursList;
@@ -153,14 +150,6 @@ public class Account implements Serializable {
 
 	public void setStundeteilnahmeList(List<Stundeteilnahme> stundeteilnahmeList) {
 		this.stundeteilnahmeList = stundeteilnahmeList;
-	}
-
-	public List<Stundebewertung> getStundebewertungList() {
-		return stundebewertungList;
-	}
-
-	public void setStundebewertungList(List<Stundebewertung> stundebewertungList) {
-		this.stundebewertungList = stundebewertungList;
 	}
 
 	public List<Kurs> getKursList() {

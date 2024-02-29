@@ -75,9 +75,6 @@ public class Stunde implements Serializable {
 	@JsonbTransient
 	private List<Stundeteilnahme> stundeteilnahmeList;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "stunde")
-	@JsonbTransient
-	private List<Stundebewertung> stundebewertungList;
 
 	public Stunde() {}
 
@@ -131,16 +128,6 @@ public class Stunde implements Serializable {
 		List<Stundeteilnahme> stundeteilnahmeList
 	) {
 		this.stundeteilnahmeList = stundeteilnahmeList;
-	}
-
-	public List<Stundebewertung> getStundebewertungList() {
-		return stundebewertungList;
-	}
-
-	public void setStundebewertungList(
-		List<Stundebewertung> stundebewertungList
-	) {
-		this.stundebewertungList = stundebewertungList;
 	}
 
 	@Override
