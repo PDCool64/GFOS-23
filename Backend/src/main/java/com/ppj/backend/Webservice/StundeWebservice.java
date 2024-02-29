@@ -44,7 +44,7 @@ import java.util.List;
 public class StundeWebservice {
 
 	private final Jsonb jsonb = JsonbBuilder.create();
-
+	
 	@EJB
 	private StundeFacade stundeFacade;
 
